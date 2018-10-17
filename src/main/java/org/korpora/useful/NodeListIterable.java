@@ -2,6 +2,8 @@ package org.korpora.useful;
 
 import java.util.Iterator;
 
+import javax.validation.constraints.NotNull;
+
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -30,7 +32,7 @@ public class NodeListIterable implements Iterable<Node> {
     }
 
 
-    public NodeListIterable(NodeList nodes) {
+    public NodeListIterable(@NotNull NodeList nodes) {
         list = nodes;
     }
 
@@ -46,5 +48,5 @@ public class NodeListIterable implements Iterable<Node> {
     public Iterator<Node> iterator() {
         return new NodeListIterator();
     }
-    
+
 }
