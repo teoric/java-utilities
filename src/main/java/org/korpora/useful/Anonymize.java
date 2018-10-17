@@ -14,18 +14,17 @@ public class Anonymize {
             "^(?:[0-9a-f]*:){4}",
             Pattern.CASE_INSENSITIVE);
 
-    
-    public static String getRemoteAddr(HttpServletRequest request) {
-        String ip = request.getHeader("X-Forwarded-For");
-        if (ip == null) {
-            ip = request.getRemoteAddr();
-        }
-        
-        /* 
-         * Following, "Orientierungshilfe Datenschutz bei IPv6 -
-         * Hinweise für Hersteller und Provider im Privatkundengeschäft",
-         * keeping first two octets of IPv4 and first four hextets for IPv6.
-         */
+    /**
+     * anonymize IPv4 and IPv6 addresses
+     *
+     * <p>Following, "Orientierungshilfe Datenschutz bei IPv6 -
+     * Hinweise für Hersteller und Provider im Privatkundengeschäft",
+     * keeping first two octets of IPv4 and first four hextets for IPv6.</p>
+     *
+     * @param request – an IP address
+     * @return the anonymized IP address
+     */
+    public static String getRemoteAddr(String ip) {
         Matcher ip_mat;
         ip_mat = IP4_PAT.matcher(ip);
         if (ip_mat.find()) {
@@ -38,6 +37,19 @@ public class Anonymize {
                 return null;
             }
         }
+    }
+
+    /**
+     * anonymize IPv4 and IPv6 addresses, delegate to {@link #getRemoteAddr(String)}
+     * @param request – a Servlet Request
+     * @return the anonymized IP address
+     */
+    public static String anonymizeAddr(HttpServletRequest request) {
+        String ip = request.getHeader("X-Forwarded-For");
+        if (ip == null) {
+            ip = request.getRemoteAddr();
+        }
+        return getRemoteAddr(ip);
     }
 
 }

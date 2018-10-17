@@ -22,11 +22,13 @@ import org.w3c.dom.NamedNodeMap;
 /**
  * Some collected utilities
  * 
- * @author bfi
+ * @author Bernhard Fisseni <bernhard.fisseni@uni-due.de>
  */
 public final class Utilities {
 	/**
-	 * Strip space from String
+	 * Strip space from String – Unicode-aware.
+	 * 
+	 * @deprecated since Java 11, use #{@link String#strip}.  If sure Unicode does not matter, use #{@link String#trim()}.
 	 * @param s
 	 *   an innocent String
 	 * @return the stripped s
@@ -39,7 +41,8 @@ public final class Utilities {
 
 	private static Pattern nonEmptyPattern = Pattern.compile("\\P{Space}");
 	/**
-	 * Determine if String is non-empty
+	 * Determine if String is non-empty – use String.isEmpty()
+	 * @deprecated since Java 1.6
 	 * @param s
 	 *   an innocent string
 	 * @return whether s is empty (contains only space)
@@ -50,13 +53,16 @@ public final class Utilities {
 	}
 	
 	/**
-	 * Make Array from NodeList
+	 * Make Array from {@link NodeList}
+	 * @deprecated – often a {@link NodeListIterable.NodeListIterator} does as well
+	 * @see #toIterator(NodeList)
 	 * @param list
 	 *   a DOM NodeList
 	 * @return
 	 *   a corresponding Array
 	 */
-	public static Node[] toArray(NodeList list) {
+	@Deprecated
+    public static Node[] toArray(NodeList list) {
 		// from http://www.java2s.com/Code/Java/XML/ConvertNodeListToNodeArray.htm
 		if (list == null){
 			return null;
@@ -69,13 +75,16 @@ public final class Utilities {
 	}
 	
 	/**
-	 * Make List from NodeList
+	 * Make {@link List} of {@link Node}s from {@link NodeList}
+     * @deprecated – often a {@link NodeListIterable.NodeListIterator} does as well
+     * @see #toIterator(NodeList)
 	 * @param list
 	 *   a DOM NodeList
 	 * @return
 	 *   a corresponding List
 	 */
-	public static List<Node> toList(NodeList list) {
+	@Deprecated
+    public static List<Node> toList(NodeList list) {
 		Node[] arr = toArray(list); 
 		if (list == null){
 			return null;
@@ -83,7 +92,12 @@ public final class Utilities {
 		return Arrays.asList(arr);
 	}
 
-    public static Stream<Node> toStream(NodeList list){
+	/**
+	 * make Java 8+ {@link Stream} of a {@link NodeList}
+	 * @param list – the {@link NodeList}
+	 * @return the {@link Stream}{@code <Node>}
+	 */
+	public static Stream<Node> toStream(NodeList list){
         return StreamSupport.stream(
                 Spliterators.spliteratorUnknownSize(
                     new NodeListIterable(list).iterator(),
@@ -92,15 +106,20 @@ public final class Utilities {
                     Spliterator.NONNULL), false);
     }
 
+	/**
+	 * make an {@link Iterator} of a {@link NodeList}
+	 * @param list – the {@link NodeList}
+	 * @return the {@link Iterator}
+	 */
     public static Iterator<Node> toIterator(NodeList list){
 	    return new NodeListIterable(list).iterator();
 	}
 	
 	/**
-	 * Make a HashMap with attributes from Element
+	 * Make a {@link HashMap} with attributes from a DOM {@link Element} node
 	 * @param el
-	 *   a DOM Element
-	 * @return a HashMap containing {@code el}'s attribute-value pairs
+	 *   a DOM {@link Element}
+	 * @return a {@link HashMap} containing {@code el}'s attribute-value pairs
 	 */
 	public static HashMap<String, String> attributeMap(Element el){
 		NamedNodeMap amap = el.getAttributes();
@@ -112,6 +131,11 @@ public final class Utilities {
 		return attr;
 	}
 
+	/**
+	 * make list of attribute Names
+	 * @param el – an DOM {@link Element} node
+	 * @return list of attribute names
+	 */
 	public static List<String> attributeList(Element el){
 		NamedNodeMap amap = el.getAttributes();
 		List<String> attr = new ArrayList<>();
@@ -122,14 +146,31 @@ public final class Utilities {
 		return attr;
 	}
 	
+	/**
+	 * for use in third place of {@link java.util.stream.Collectors#toMap(java.util.function.Function, java.util.function.Function, BinaryOperator, java.util.function.Supplier)}.
+	 * end merging if duplicate key found.
+	 */
 	public static final BinaryOperator<String> strCollider =
 			(u, v) -> {
 				throw new IllegalStateException(String.format("Duplicate key «%s»", u));
 	};
 
+    /**
+     * for use in third place of {@link java.util.stream.Collectors#toMap(java.util.function.Function, java.util.function.Function, BinaryOperator, java.util.function.Supplier)}.
+     * end merging if duplicate key found.
+     */
 	public static final BinaryOperator<Integer> intCollider =
 			(u, v) -> {
 				throw new IllegalStateException(String.format("Duplicate key «%s»", u.toString()));
 	};
+
+    /**
+     * for use in third place of {@link java.util.stream.Collectors#toMap(java.util.function.Function, java.util.function.Function, BinaryOperator, java.util.function.Supplier)}.
+     * end merging if duplicate key found.
+     */
+    public static final BinaryOperator<?> anyCollider =
+            (u, v) -> {
+                throw new IllegalStateException(String.format("Duplicate key «%s»", u.toString()));
+    };
 
 }
