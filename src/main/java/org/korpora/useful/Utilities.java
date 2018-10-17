@@ -12,8 +12,6 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-import javax.validation.constraints.NotNull;
-
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -34,7 +32,10 @@ public class Utilities {
 	 * @return the stripped s
 	 */
 	@Deprecated
-	public static String stripSpace(@NotNull String s){
+	public static String stripSpace(String s){
+	    if (s == null) {
+	        throw new IllegalArgumentException();
+	    }
 		return s.replaceFirst("^\\p{Z}+",  "")
 				   .replaceFirst("\\p{Z}+$",  "");
 	}
@@ -48,7 +49,10 @@ public class Utilities {
 	 * @return whether s is empty (contains only space)
 	 */
 	@Deprecated
-	public static boolean isEmpty(@NotNull String s){
+	public static boolean isEmpty(String s){
+        if (s == null) {
+            throw new IllegalArgumentException();
+        }
 		return ! nonEmptyPattern.matcher(s).find();
 	}
 
@@ -62,11 +66,11 @@ public class Utilities {
 	 *   a corresponding Array
 	 */
 	@Deprecated
-    public static Node[] toArray(@NotNull NodeList list) {
+    public static Node[] toArray(NodeList list) {
+        if (list == null) {
+            throw new IllegalArgumentException();
+        }
 		// from http://www.java2s.com/Code/Java/XML/ConvertNodeListToNodeArray.htm
-		if (list == null){
-			return null;
-		}
 	    int length = list.getLength();
 	    Node[] copy = new Node[length];
 	    for (int n = 0; n < length; ++n)
@@ -84,11 +88,11 @@ public class Utilities {
 	 *   a corresponding List
 	 */
 	@Deprecated
-    public static List<Node> toList(@NotNull NodeList list) {
+    public static List<Node> toList(NodeList list) {
+        if (list == null) {
+            throw new IllegalArgumentException();
+        }
 		Node[] arr = toArray(list);
-		if (list == null){
-			return null;
-		}
 		return Arrays.asList(arr);
 	}
 
@@ -98,6 +102,9 @@ public class Utilities {
 	 * @return the {@link Stream}{@code <Node>}
 	 */
 	public static Stream<Node> toStream(NodeList list){
+        if (list == null) {
+            throw new IllegalArgumentException();
+        }
         return StreamSupport.stream(
                 Spliterators.spliteratorUnknownSize(
                     new NodeListIterable(list).iterator(),
@@ -111,7 +118,10 @@ public class Utilities {
 	 * @param list – the {@link NodeList}
 	 * @return the {@link Iterator}
 	 */
-    public static Iterator<Node> toIterator(@NotNull NodeList list){
+    public static Iterator<Node> toIterator(NodeList list){
+        if (list == null) {
+            throw new IllegalArgumentException();
+        }
 	    return new NodeListIterable(list).iterator();
 	}
 
@@ -121,7 +131,10 @@ public class Utilities {
 	 *   a DOM {@link Element}
 	 * @return a {@link HashMap} containing {@code el}'s attribute-value pairs
 	 */
-	public static HashMap<String, String> attributeMap(@NotNull Element el){
+	public static HashMap<String, String> attributeMap(Element el){
+        if (el == null) {
+            throw new IllegalArgumentException();
+        }
 		NamedNodeMap amap = el.getAttributes();
 		HashMap<String, String> attr = new HashMap<>();
 		for (int i=0; i < amap.getLength(); i++){
@@ -136,7 +149,10 @@ public class Utilities {
 	 * @param el – an DOM {@link Element} node
 	 * @return list of attribute names
 	 */
-	public static List<String> attributeList(@NotNull Element el){
+	public static List<String> attributeList(Element el){
+        if (el == null) {
+            throw new IllegalArgumentException();
+        }
 		NamedNodeMap amap = el.getAttributes();
 		List<String> attr = new ArrayList<>();
 		for (int i=0; i < amap.getLength(); i++){

@@ -4,7 +4,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.constraints.NotNull;
 
 public class Anonymize {
 
@@ -25,7 +24,11 @@ public class Anonymize {
      * @param request – an IP address
      * @return the anonymized IP address
      */
-    public static String getRemoteAddr(@NotNull String ip) {
+    public static String getRemoteAddr(String ip) {
+        if (ip == null) {
+            return null;
+        }
+
         Matcher ip_mat;
         ip_mat = IP4_PAT.matcher(ip);
         if (ip_mat.find()) {
@@ -45,7 +48,10 @@ public class Anonymize {
      * @param request – a Servlet Request
      * @return the anonymized IP address
      */
-    public static String anonymizeAddr(@NotNull HttpServletRequest request) {
+    public static String anonymizeAddr(HttpServletRequest request) {
+        if (request == null) {
+            return null;
+        }
         String ip = request.getHeader("X-Forwarded-For");
         if (ip == null) {
             ip = request.getRemoteAddr();

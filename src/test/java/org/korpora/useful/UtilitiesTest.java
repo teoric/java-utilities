@@ -13,14 +13,14 @@ class UtilitiesTest {
     void testStripSpace() {
         assertEquals("kaffee", Utilities.stripSpace("  kaffee  "));
         assertEquals("kaffee", Utilities.stripSpace("  kaffee "));
-        assertThrows(NullPointerException.class, () -> Utilities.stripSpace(null));
+        assertThrows(IllegalArgumentException.class, () -> Utilities.stripSpace(null));
     }
 
     @SuppressWarnings("deprecation")
     @Test
     void testIsEmpty() {
         assertTrue(Utilities.isEmpty(""));
-        assertThrows(NullPointerException.class, () -> Utilities.isEmpty(null));
+        assertThrows(IllegalArgumentException.class, () -> Utilities.isEmpty(null));
     }
 
 //    @Test
