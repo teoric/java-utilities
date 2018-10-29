@@ -75,13 +75,24 @@
       <version>4.0.1</version>
       <scope>provided</scope>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.annolab.tt4j/org.annolab.tt4j -->
+    <dependency>
+      <groupId>org.annolab.tt4j</groupId>
+      <artifactId>org.annolab.tt4j</artifactId>
+      <version>1.2.1</version>
+    </dependency>
     <!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
     <dependency>
-    <groupId>org.junit.jupiter</groupId>
-    <artifactId>junit-jupiter-api</artifactId>
-    <version>5.3.1</version>
-    <scope>test</scope>
-</dependency>
-    
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>5.3.1</version>
+      <scope>compile</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/net.sf.saxon/Saxon-HE -->
+    <dependency>
+      <groupId>net.sf.saxon</groupId>
+      <artifactId>Saxon-HE</artifactId>
+      <version>9.9.0-1</version>
+    </dependency>
   </dependencies>
 </project>

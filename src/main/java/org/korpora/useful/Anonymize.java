@@ -21,7 +21,7 @@ public class Anonymize {
      * Hinweise für Hersteller und Provider im Privatkundengeschäft",
      * keeping first two octets of IPv4 and first four hextets for IPv6.</p>
      *
-     * @param request – an IP address
+     * @param ip – an IP address
      * @return the anonymized IP address
      */
     public static String getRemoteAddr(String ip) {
