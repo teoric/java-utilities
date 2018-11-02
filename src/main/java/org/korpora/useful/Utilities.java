@@ -1,10 +1,13 @@
 package org.korpora.useful;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Spliterator;
 import java.util.Spliterators;
 import java.util.function.BinaryOperator;
@@ -13,6 +16,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -20,11 +26,15 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.jdom2.JDOMException;
+import org.jdom2.input.DOMBuilder;
+import org.jdom2.output.DOMOutputter;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import net.sf.saxon.BasicTransformerFactory;
 
@@ -262,4 +272,84 @@ public class Utilities {
         }
     }
 
+    /*
+     * two convenience methods from
+     * https://gist.github.com/sachin-handiekar/1346229
+     */
+    public static org.jdom2.Document convertDOMtoJDOM(
+            org.w3c.dom.Document input) {
+        DOMBuilder builder = new DOMBuilder();
+        org.jdom2.Document output = builder.build(input);
+        return output;
+    }
+
+    public static org.w3c.dom.Document convertJDOMToDOM(
+            org.jdom2.Document jdomDoc) throws JDOMException {
+
+        DOMOutputter outputter = new DOMOutputter();
+        return outputter.output(jdomDoc);
+    }
+
+    public static Document parseXML(InputStream input)
+            throws ParserConfigurationException, SAXException, IOException {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder;
+        builder = factory.newDocumentBuilder();
+        return builder.parse(input);
+    }
+
+    public static org.jdom2.Document parseXMLviaJDOM(InputStream input)
+            throws JDOMException, IOException {
+        org.jdom2.input.SAXBuilder saxBuilder = new org.jdom2.input.SAXBuilder();
+        return saxBuilder.build(input);
+    }
+
+    public static org.jdom2.Document readJDOMFromString(String docString)
+            throws JDOMException, IOException {
+        org.jdom2.input.SAXBuilder saxBuilder = new org.jdom2.input.SAXBuilder();
+        java.io.StringReader sr = new java.io.StringReader(docString);
+        return saxBuilder.build(sr);
+    }
+
+    public static String elementToString(org.jdom2.Element element) {
+        return elementToString(element, false);
+    }
+
+    public static String elementToString(org.jdom2.Element element,
+            boolean prettyPrint) {
+        org.jdom2.output.XMLOutputter xmlOutputter = new org.jdom2.output.XMLOutputter();
+        if (prettyPrint) {
+            xmlOutputter.setFormat(org.jdom2.output.Format.getPrettyFormat());
+        }
+        return xmlOutputter.outputString(element);
+    }
+
+    public static <T> void incCounter(Map<T, Integer> map, T key) {
+        if (map.containsKey(key)) {
+            map.put(key, map.get(key) + 1);
+        } else {
+            map.put(key, 1);
+        }
+    }
+
+    public static List<org.jdom2.Content> makeContentList(String tx) {
+        List<org.jdom2.Content> ret = new ArrayList<>();
+        try {
+            ret = readJDOMFromString("<X>" + tx + "</X>").getRootElement()
+                    .removeContent();
+        } catch (JDOMException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return ret;
+    }
+
+    public static void replaceContentWithParse(org.jdom2.Element el,
+            String tx) {
+        el.removeContent();
+        el.setContent(makeContentList(tx));
+    }
 }
