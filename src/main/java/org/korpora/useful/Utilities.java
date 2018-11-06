@@ -78,14 +78,12 @@ public class Utilities {
     private static Pattern nonEmptyPattern = Pattern.compile("\\P{Space}");
 
     /**
-     * Determine if String is non-empty – use String.isEmpty()
+     * Determine if String is non-empty, i.e., contains non-white-space content
      *
-     * @deprecated since Java 1.6
      * @param s
      *            an innocent string
      * @return whether s is empty (contains only space)
      */
-    @Deprecated
     public static boolean isEmpty(String s) {
         if (s == null) {
             throw new IllegalArgumentException();
@@ -96,8 +94,8 @@ public class Utilities {
     /**
      * Make Array from {@link NodeList}
      *
-     * @deprecated – often a {@link NodeListIterable.NodeListIterator} does as
-     *             well
+     * @deprecated – often a {@link NodeListIterable.NodeListIterator} works
+     *             just as well
      * @see #toIterator(NodeList)
      * @param list
      *            a DOM NodeList
@@ -144,14 +142,29 @@ public class Utilities {
         if (list == null) {
             throw new IllegalArgumentException();
         }
-        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(
-                new NodeListIterable(list).iterator(), Spliterator.DISTINCT
-                        | Spliterator.IMMUTABLE | Spliterator.NONNULL),
+        return StreamSupport.stream(Spliterators
+                .spliteratorUnknownSize(new NodeListIterable(list).iterator(),
+                        Spliterator.DISTINCT
+                                // | Spliterator.IMMUTABLE
+                                // | Spliterator.ORDERED
+                                | Spliterator.NONNULL),
                 false);
     }
 
     /**
-     * Make {@link List} of {@link Node}s from {@link NodeList}
+     * Make {@link Stream} of {@link Element}s from {@link NodeList}
+     *
+     * @see #toIterator(NodeList)
+     * @param list
+     *            a DOM NodeList
+     * @return a corresponding List of Elements
+     */
+    public static Stream<Element> toElementStream(NodeList list) {
+        return Utilities.toStream(list).map(w -> (Element) w);
+    }
+
+    /**
+     * Make {@link List} of {@link Element}s from {@link NodeList}
      *
      * @see #toIterator(NodeList)
      * @param list
@@ -215,6 +228,35 @@ public class Utilities {
             attr.add(n.getNodeName());
         }
         return attr;
+    }
+
+    /**
+     * insert a node as first child of an element
+     *
+     * @param el
+     *            the element
+     * @param n
+     *            the node
+     */
+    public static void insertInFront(Element el, Node n) {
+        Node first = el.getFirstChild();
+        if (first != null) {
+            el.insertBefore(n, first);
+        } else {
+            el.appendChild(n);
+        }
+    }
+
+    /**
+     * insert a node immediately before an Element
+     *
+     * @param n
+     *            the node
+     * @param el
+     *            the Element
+     */
+    public static void insertBeforeMe(Node n, Element el) {
+        el.getParentNode().insertBefore(n, el);
     }
 
     /**
@@ -311,10 +353,26 @@ public class Utilities {
         return saxBuilder.build(sr);
     }
 
+    /**
+     * make a string representation for an element (JDOM version)
+     *
+     * @param element
+     *            the element
+     * @return the string representation
+     */
     public static String elementToString(org.jdom2.Element element) {
         return elementToString(element, false);
     }
 
+    /**
+     * make a string representation for an element (JDOM version)
+     *
+     * @param element
+     *            the element
+     * @param prettyPrint
+     *            whether to pretty-print
+     * @return the string representation
+     */
     public static String elementToString(org.jdom2.Element element,
             boolean prettyPrint) {
         org.jdom2.output.XMLOutputter xmlOutputter = new org.jdom2.output.XMLOutputter();
@@ -324,7 +382,15 @@ public class Utilities {
         return xmlOutputter.outputString(element);
     }
 
-    public static <T> void incCounter(Map<T, Integer> map, T key) {
+    /**
+     * increase a counter in a Map
+     *
+     * @param map
+     *            the map
+     * @param key
+     *            the counted thing
+     */
+    public static <T> void incCounter(Map<? super T, Integer> map, T key) {
         if (map.containsKey(key)) {
             map.put(key, map.get(key) + 1);
         } else {
@@ -332,6 +398,13 @@ public class Utilities {
         }
     }
 
+    /**
+     * make a Content list from XML text
+     *
+     * @param tx
+     *            the text
+     * @return the list of XML Content
+     */
     public static List<org.jdom2.Content> makeContentList(String tx) {
         List<org.jdom2.Content> ret = new ArrayList<>();
         try {
@@ -347,6 +420,15 @@ public class Utilities {
         return ret;
     }
 
+    /**
+     * replace the content of an element with the XML Content list resulting
+     * from a parse of some text
+     *
+     * @param el
+     *            the element
+     * @param tx
+     *            the XML text
+     */
     public static void replaceContentWithParse(org.jdom2.Element el,
             String tx) {
         el.removeContent();
