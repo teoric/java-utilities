@@ -238,7 +238,7 @@ public class Utilities {
      * @param n
      *            the node
      */
-    public static void insertInFront(Element el, Node n) {
+    public static void insertAtBeginningOf(Node n, Element el) {
         Node first = el.getFirstChild();
         if (first != null) {
             el.insertBefore(n, first);
