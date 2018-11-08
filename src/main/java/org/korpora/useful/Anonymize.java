@@ -24,7 +24,7 @@ public class Anonymize {
      * @param ip – an IP address
      * @return the anonymized IP address
      */
-    public static String getRemoteAddr(String ip) {
+    public static String getRemoteAddress(String ip) {
         if (ip == null) {
             return null;
         }
@@ -44,11 +44,11 @@ public class Anonymize {
     }
 
     /**
-     * anonymize IPv4 and IPv6 addresses, delegate to {@link #getRemoteAddr(String)}
+     * anonymize IPv4 and IPv6 addresses, delegate to {@link #getRemoteAddress(String)}
      * @param request – a Servlet Request
      * @return the anonymized IP address
      */
-    public static String anonymizeAddr(HttpServletRequest request) {
+    public static String anonymizeAddress(HttpServletRequest request) {
         if (request == null) {
             return null;
         }
@@ -56,7 +56,7 @@ public class Anonymize {
         if (ip == null) {
             ip = request.getRemoteAddr();
         }
-        return getRemoteAddr(ip);
+        return getRemoteAddress(ip);
     }
 
 }
