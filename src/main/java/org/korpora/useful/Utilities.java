@@ -47,19 +47,30 @@ public class Utilities {
     /**
      * Strip space from String – Unicode-aware.
      *
-     * @deprecated since Java 11, use #{@link String}::strip. If sure Unicode
-     *             does not matter, use #{@link String#trim()}.
+     * deprecated since Java 11, use #{@link String}::strip. If sure Unicode
+     * does not matter, use #{@link String#trim()}.
+     *
      * @param s
      *            an innocent String
      * @return the stripped s
      */
-    @Deprecated
     public static String stripSpace(String s) {
         if (s == null) {
             throw new IllegalArgumentException();
         }
-        return s.replaceFirst("^\\p{Z}+", "").replaceFirst("\\p{Z}+$", "");
+        String ret = SPACE_START.matcher(s).replaceAll("");
+        ret = SPACE_END.matcher(ret).replaceAll("");
+        System.err.println("[" + s + " -> " + ret + "]");
+        return ret;
     }
+
+    // Java is crazy: \p{Z} does not work?
+    private static final Pattern SPACE = Pattern
+            .compile("[\\p{javaWhitespace}]+", Pattern.MULTILINE);
+    private static final Pattern SPACE_START = Pattern
+            .compile("^" + SPACE + "+", Pattern.MULTILINE);
+    private static final Pattern SPACE_END = Pattern.compile("" + SPACE + "$",
+            Pattern.MULTILINE);
 
     /**
      * Remove space from String – Unicode-aware.
@@ -72,7 +83,7 @@ public class Utilities {
         if (s == null) {
             throw new IllegalArgumentException();
         }
-        return s.replace("^\\p{Z}+", "");
+        return SPACE.matcher(s).replaceAll("");
     }
 
     private static Pattern nonEmptyPattern = Pattern.compile("\\P{Space}");
