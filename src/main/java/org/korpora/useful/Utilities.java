@@ -26,6 +26,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jdom2.JDOMException;
 import org.jdom2.input.DOMBuilder;
 import org.jdom2.output.DOMOutputter;
@@ -44,16 +45,27 @@ import net.sf.saxon.BasicTransformerFactory;
  * @author Bernhard Fisseni (bernhard.fisseni@uni-due.de)
  */
 public class Utilities {
+
+    // Java is crazy: \p{Z} does not work as intended
+    private static final Pattern SPACE = Pattern
+            .compile("[\\p{javaWhitespace}]+", Pattern.MULTILINE);
+    private static final Pattern SPACE_START = Pattern
+            .compile("\\A" + SPACE + "+", Pattern.MULTILINE);
+    private static final Pattern SPACE_END = Pattern.compile("" + SPACE + "\\Z",
+            Pattern.MULTILINE);
+
     /**
      * Strip space from String – Unicode-aware.
      *
-     * deprecated since Java 11, use #{@link String}::strip. If sure Unicode
+     * since Java 11, use #{@link String}::strip. If sure Unicode
      * does not matter, use #{@link String#trim()}.
      *
+     * @deprecated use #{@link StringUtils#strip(String)}
      * @param s
      *            an innocent String
      * @return the stripped s
      */
+    @Deprecated
     public static String stripSpace(String s) {
         if (s == null) {
             throw new IllegalArgumentException();
@@ -63,14 +75,6 @@ public class Utilities {
         System.err.println("[" + s + " -> " + ret + "]");
         return ret;
     }
-
-    // Java is crazy: \p{Z} does not work?
-    private static final Pattern SPACE = Pattern
-            .compile("[\\p{javaWhitespace}]+", Pattern.MULTILINE);
-    private static final Pattern SPACE_START = Pattern
-            .compile("^" + SPACE + "+", Pattern.MULTILINE);
-    private static final Pattern SPACE_END = Pattern.compile("" + SPACE + "$",
-            Pattern.MULTILINE);
 
     /**
      * Remove space from String – Unicode-aware.
@@ -86,7 +90,7 @@ public class Utilities {
         return SPACE.matcher(s).replaceAll("");
     }
 
-    private static Pattern nonEmptyPattern = Pattern.compile("\\P{Space}");
+    private static final Pattern NON_EMPTY = Pattern.compile("\\P{Space}");
 
     /**
      * Determine if String is non-empty, i.e., contains non-white-space content
@@ -99,7 +103,7 @@ public class Utilities {
         if (s == null) {
             throw new IllegalArgumentException();
         }
-        return !nonEmptyPattern.matcher(s).find();
+        return !NON_EMPTY.matcher(s).find();
     }
 
     /**
@@ -396,6 +400,8 @@ public class Utilities {
     /**
      * increase a counter in a Map
      *
+     * @param <T>
+     *            the type of the counted thing
      * @param map
      *            the map
      * @param key
@@ -421,12 +427,8 @@ public class Utilities {
         try {
             ret = readJDOMFromString("<X>" + tx + "</X>").getRootElement()
                     .removeContent();
-        } catch (JDOMException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        } catch (JDOMException | IOException e) {
+            throw new RuntimeException(e);
         }
         return ret;
     }
