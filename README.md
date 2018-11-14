@@ -10,5 +10,8 @@ Tools](https://github.com/Exmaralda-Org/teispeechtools)
 - [Processing language names and mapping to ‘canonical’ ISO 639
   teminological letter
   triples](src/main/java/org/korpora/useful/LangUtilities.java)
+  and [corresponding resources](src/main/resources), i.e. lists and
+  mappings of language names.
+
 - [an Iterable for
   NodeLists](src/main/java/org/korpora/useful/NodeListIterable.java)
