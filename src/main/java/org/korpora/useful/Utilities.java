@@ -28,8 +28,11 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jdom2.JDOMException;
+import org.jdom2.Namespace;
+import org.jdom2.filter.ElementFilter;
 import org.jdom2.input.DOMBuilder;
 import org.jdom2.output.DOMOutputter;
+import org.jdom2.util.IteratorIterable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -57,8 +60,8 @@ public class Utilities {
     /**
      * Strip space from String – Unicode-aware.
      *
-     * since Java 11, use #{@link String}::strip. If sure Unicode
-     * does not matter, use #{@link String#trim()}.
+     * since Java 11, use #{@link String}::strip. If sure Unicode does not
+     * matter, use #{@link String#trim()}.
      *
      * @deprecated use #{@link StringUtils#strip(String)}
      * @param s
@@ -447,4 +450,81 @@ public class Utilities {
         el.removeContent();
         el.setContent(makeContentList(tx));
     }
+
+    /**
+     * deeply search for Element in given JDOM2 Element
+     *
+     * @param el
+     *            the parent
+     * @param name
+     *            the sought tag name
+     * @param nameSpace
+     *            the namespace
+     * @return the first matching element or null
+     */
+    public static Element getElementByTagNameNS(Element el, String nameSpace,
+            String name) {
+        Element element = null;
+        NodeList elements = el.getElementsByTagNameNS(nameSpace, name);
+        if (elements.getLength() > 0) {
+            System.err.println("FOUND: " + name);
+            element = (Element) elements.item(0);
+        }
+        return element;
+    }
+
+    /**
+     * deeply search for Element in given JDOM2 Element
+     *
+     * @param el
+     *            the parent
+     * @param name
+     *            the sought tag name
+     * @return the first matching element or null
+     */
+    public static Element getElementByTagName(Element el, String name) {
+        Element element = null;
+        NodeList elements = el.getElementsByTagName(name);
+        if (elements.getLength() > 0) {
+            element = (Element) elements.item(0);
+        }
+        return element;
+    }
+
+    /**
+     * deeply search for Element in given JDOM2 Element
+     *
+     * @param el
+     *            the parent
+     * @param name
+     *            the sought tag name
+     * @param ns
+     *            the namespace (or null)
+     * @return the first matching element or null
+     */
+    public static org.jdom2.Element getElementByTagName(org.jdom2.Element el,
+            String name, Namespace ns) {
+        org.jdom2.Element element = null;
+        IteratorIterable<org.jdom2.Element> elements = el
+                .getDescendants(new ElementFilter(name, ns));
+        if (elements.hasNext()) {
+            element = elements.next();
+        }
+        return element;
+    }
+
+    /**
+     * deeply search for Element in given JDOM2 Element
+     *
+     * @param el
+     *            the parent
+     * @param name
+     *            the sought tag name
+     * @return the first matching Element or null
+     */
+    public static org.jdom2.Element getElementByTagName(org.jdom2.Element el,
+            String name) {
+        return getElementByTagName(el, name, null);
+    }
+
 }
