@@ -3,6 +3,7 @@ package org.korpora.useful;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -318,15 +319,65 @@ public class Utilities {
      */
     public static void outputXML(OutputStream outStream, Document doc,
             boolean indent) {
+        outputXML(outStream, doc.getDocumentElement(), indent);
+    }
+
+    /**
+     * output an XML document
+     *
+     * @param outStream
+     *            an OutputStream
+     * @param el
+     *            a XML DOM element
+     * @param indent
+     *            whether to indent the file
+     */
+    public static void outputXML(OutputStream outStream, Element el,
+            boolean indent) {
         TransformerFactory stf = new BasicTransformerFactory();
         Transformer transformer;
         try {
             transformer = stf.newTransformer();
             transformer.setOutputProperty(OutputKeys.INDENT,
                     indent ? "yes" : "no");
-            DOMSource source = new DOMSource(doc);
+            DOMSource source = new DOMSource(el);
             StreamResult out = new StreamResult(outStream);
             transformer.transform(source, out);
+        } catch (TransformerException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * convert XML DOM document to String representation
+     *
+     * @param doc
+     * @param indent
+     * @return string representation
+     */
+    public static String documentToString(Document doc, boolean indent) {
+        return elementToString(doc.getDocumentElement(), indent);
+    }
+
+    /**
+     * convert XML DOM element to String representation
+     *
+     * @param el
+     * @param indent
+     * @return string representation
+     */
+    public static String elementToString(Element el, boolean indent) {
+        TransformerFactory stf = new BasicTransformerFactory();
+        Transformer transformer;
+        try {
+            transformer = stf.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT,
+                    indent ? "yes" : "no");
+            DOMSource source = new DOMSource(el);
+            StringWriter outStream = new StringWriter();
+            StreamResult out = new StreamResult(outStream);
+            transformer.transform(source, out);
+            return outStream.toString();
         } catch (TransformerException e) {
             throw new RuntimeException(e);
         }
@@ -336,6 +387,13 @@ public class Utilities {
      * two convenience methods from
      * https://gist.github.com/sachin-handiekar/1346229
      */
+    /**
+     * convert DOM document to JDOM document
+     *
+     * @param input
+     *            DOM document
+     * @return JDOM document
+     */
     public static org.jdom2.Document convertDOMtoJDOM(
             org.w3c.dom.Document input) {
         DOMBuilder builder = new DOMBuilder();
@@ -343,6 +401,13 @@ public class Utilities {
         return output;
     }
 
+    /**
+     * convert JDOM document to DOM document
+     *
+     * @param jdomDoc
+     *            JDOM document
+     * @return DOM document
+     */
     public static org.w3c.dom.Document convertJDOMToDOM(
             org.jdom2.Document jdomDoc) throws JDOMException {
 
@@ -350,6 +415,16 @@ public class Utilities {
         return outputter.output(jdomDoc);
     }
 
+    /**
+     * parse XML document from {@link InputStream} to a DOM Document
+     *
+     * @param input
+     *            contains a document
+     * @return a DOM document
+     * @throws ParserConfigurationException
+     * @throws SAXException
+     * @throws IOException
+     */
     public static Document parseXML(InputStream input)
             throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -358,12 +433,30 @@ public class Utilities {
         return builder.parse(input);
     }
 
+    /**
+     * parse XML document from {@link InputStream} to JDOM document
+     *
+     * @param input
+     *            contains a document
+     * @return a JDOM document
+     * @throws JDOMException
+     * @throws IOException
+     */
     public static org.jdom2.Document parseXMLviaJDOM(InputStream input)
             throws JDOMException, IOException {
         org.jdom2.input.SAXBuilder saxBuilder = new org.jdom2.input.SAXBuilder();
         return saxBuilder.build(input);
     }
 
+    /**
+     * parse XML document from {@link String} to JDOM document
+     *
+     * @param docString
+     *            the document content
+     * @return JDOM document
+     * @throws JDOMException
+     * @throws IOException
+     */
     public static org.jdom2.Document readJDOMFromString(String docString)
             throws JDOMException, IOException {
         org.jdom2.input.SAXBuilder saxBuilder = new org.jdom2.input.SAXBuilder();
