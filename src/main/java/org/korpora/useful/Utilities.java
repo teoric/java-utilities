@@ -349,14 +349,27 @@ public class Utilities {
     }
 
     /**
-     * convert XML DOM document to String representation
+´    * convert XML DOM document to String representation including an XML
+     * declaration.
      *
      * @param doc
      * @param indent
      * @return string representation
      */
     public static String documentToString(Document doc, boolean indent) {
-        return elementToString(doc.getDocumentElement(), indent);
+        return elementToString(doc.getDocumentElement(), indent, true);
+    }
+
+    /**
+     * convert XML DOM document to String representation
+     *
+     * @param doc
+     * @param indent
+     * @param declaration whether to output an XML declaration
+     * @return string representation
+     */
+    public static String documentToString(Document doc, boolean indent, boolean declaration) {
+        return elementToString(doc.getDocumentElement(), indent, declaration);
     }
 
     /**
@@ -364,15 +377,19 @@ public class Utilities {
      *
      * @param el
      * @param indent
+     * @param declaration whether to output an XML declaration
      * @return string representation
      */
-    public static String elementToString(Element el, boolean indent) {
+    public static String elementToString(Element el, boolean indent,
+                                         boolean declaration) {
         TransformerFactory stf = new BasicTransformerFactory();
         Transformer transformer;
         try {
             transformer = stf.newTransformer();
             transformer.setOutputProperty(OutputKeys.INDENT,
                     indent ? "yes" : "no");
+            transformer.setOutputProperty(
+                    OutputKeys.OMIT_XML_DECLARATION, declaration ? "yes" : "no");
             DOMSource source = new DOMSource(el);
             StringWriter outStream = new StringWriter();
             StreamResult out = new StreamResult(outStream);
@@ -381,6 +398,17 @@ public class Utilities {
         } catch (TransformerException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * convert XML DOM element to String representation without XML declaration
+     *
+     * @param el
+     * @param indent
+     * @return string representation
+     */
+    public static String elementToString(Element el, boolean indent) {
+        return elementToString(el, indent, true);
     }
 
     /*
