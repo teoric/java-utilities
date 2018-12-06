@@ -573,7 +573,23 @@ public class Utilities {
     }
 
     /**
-     * deeply search for Element in given JDOM2 Element
+     * deeply search for Element in given DOM Document
+     *
+     * @param doc
+     *            the parent
+     * @param name
+     *            the sought tag name
+     * @param nameSpace
+     *            the namespace
+     * @return the first matching element or null
+     */
+    public static Element getElementByTagNameNS(Document doc, String nameSpace,
+                                                String name) {
+        return getElementByTagNameNS(doc.getDocumentElement(), nameSpace, name);
+    }
+
+    /**
+     * deeply search for Element in given DOM Element
      *
      * @param el
      *            the parent
@@ -595,7 +611,20 @@ public class Utilities {
     }
 
     /**
-     * deeply search for Element in given JDOM2 Element
+     * deeply search for Element in given DOM Document
+     *
+     * @param doc
+     *            the parent
+     * @param name
+     *            the sought tag name
+     * @return the first matching element or null
+     */
+    public static Element getElementByTagName(Document doc, String name) {
+        return getElementByTagName(doc.getDocumentElement(), name);
+    }
+
+    /**
+     * deeply search for Element in given DOM Element
      *
      * @param el
      *            the parent
@@ -610,6 +639,13 @@ public class Utilities {
             element = (Element) elements.item(0);
         }
         return element;
+    }
+
+    public static Element cleanElement(Element el){
+        while (el.getFirstChild() != null) {
+            el.removeChild(el.getFirstChild());
+        }
+        return el;
     }
 
     /**
