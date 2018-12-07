@@ -604,7 +604,7 @@ public class Utilities {
         Element element = null;
         NodeList elements = el.getElementsByTagNameNS(nameSpace, name);
         if (elements.getLength() > 0) {
-            System.err.println("FOUND: " + name);
+            // System.err.println("FOUND: " + name);
             element = (Element) elements.item(0);
         }
         return element;
