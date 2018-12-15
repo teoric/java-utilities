@@ -351,7 +351,9 @@ public class Utilities {
      * declaration.
      *
      * @param doc
+     *            the XML document
      * @param indent
+     *            whether to indent
      * @return string representation
      */
     public static String documentToString(Document doc, boolean indent) {
@@ -362,7 +364,9 @@ public class Utilities {
      * convert XML DOM document to String representation
      *
      * @param doc
+     *            the XML document
      * @param indent
+     *            whether to indent
      * @param declaration
      *            whether to output an XML declaration
      * @return string representation
@@ -376,7 +380,9 @@ public class Utilities {
      * convert XML DOM element to String representation
      *
      * @param el
+     *            the XML element
      * @param indent
+     *            whether to indent
      * @param declaration
      *            whether to output an XML declaration
      * @return string representation
@@ -405,7 +411,9 @@ public class Utilities {
      * convert XML DOM element to String representation without XML declaration
      *
      * @param el
+     *            the XML element
      * @param indent
+     *            whether to indent
      * @return string representation
      */
     public static String elementToString(Element el, boolean indent) {
@@ -436,6 +444,8 @@ public class Utilities {
      * @param jdomDoc
      *            JDOM document
      * @return DOM document
+     * @throws JDOMException
+     *             on occasion
      */
     public static org.w3c.dom.Document convertJDOMToDOM(
             org.jdom2.Document jdomDoc) throws JDOMException {
@@ -451,8 +461,11 @@ public class Utilities {
      *            contains a document
      * @return a DOM document
      * @throws ParserConfigurationException
+     *             on occasion
      * @throws SAXException
+     *             on occasion
      * @throws IOException
+     *             on occasion
      */
     public static Document parseXML(InputStream input)
             throws ParserConfigurationException, SAXException, IOException {
@@ -467,9 +480,11 @@ public class Utilities {
      *
      * @param input
      *            contains a document
-     * @return a JDOM document
+     * @return a JDOM document on occasion
      * @throws JDOMException
+     *             on occasion
      * @throws IOException
+     *             on occasion
      */
     public static org.jdom2.Document parseXMLviaJDOM(InputStream input)
             throws JDOMException, IOException {
@@ -482,9 +497,11 @@ public class Utilities {
      *
      * @param docString
      *            the document content
-     * @return JDOM document
+     * @return JDOM document on occasion
      * @throws JDOMException
+     *             on occasion
      * @throws IOException
+     *             on occasion
      */
     public static org.jdom2.Document readJDOMFromString(String docString)
             throws JDOMException, IOException {
