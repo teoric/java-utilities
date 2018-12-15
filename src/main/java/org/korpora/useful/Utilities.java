@@ -41,8 +41,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import net.sf.saxon.BasicTransformerFactory;
-
 /**
  * Some collected utilities
  *
@@ -334,7 +332,7 @@ public class Utilities {
      */
     public static void outputXML(OutputStream outStream, Element el,
             boolean indent) {
-        TransformerFactory stf = new BasicTransformerFactory();
+        TransformerFactory stf = TransformerFactory.newInstance();
         Transformer transformer;
         try {
             transformer = stf.newTransformer();
@@ -349,7 +347,7 @@ public class Utilities {
     }
 
     /**
-´    * convert XML DOM document to String representation including an XML
+     * ´ * convert XML DOM document to String representation including an XML
      * declaration.
      *
      * @param doc
@@ -365,10 +363,12 @@ public class Utilities {
      *
      * @param doc
      * @param indent
-     * @param declaration whether to output an XML declaration
+     * @param declaration
+     *            whether to output an XML declaration
      * @return string representation
      */
-    public static String documentToString(Document doc, boolean indent, boolean declaration) {
+    public static String documentToString(Document doc, boolean indent,
+            boolean declaration) {
         return elementToString(doc.getDocumentElement(), indent, declaration);
     }
 
@@ -377,19 +377,20 @@ public class Utilities {
      *
      * @param el
      * @param indent
-     * @param declaration whether to output an XML declaration
+     * @param declaration
+     *            whether to output an XML declaration
      * @return string representation
      */
     public static String elementToString(Element el, boolean indent,
-                                         boolean declaration) {
-        TransformerFactory stf = new BasicTransformerFactory();
+            boolean declaration) {
+        TransformerFactory stf = TransformerFactory.newInstance();
         Transformer transformer;
         try {
             transformer = stf.newTransformer();
             transformer.setOutputProperty(OutputKeys.INDENT,
                     indent ? "yes" : "no");
-            transformer.setOutputProperty(
-                    OutputKeys.OMIT_XML_DECLARATION, declaration ? "yes" : "no");
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION,
+                    declaration ? "yes" : "no");
             DOMSource source = new DOMSource(el);
             StringWriter outStream = new StringWriter();
             StreamResult out = new StreamResult(outStream);
@@ -584,7 +585,7 @@ public class Utilities {
      * @return the first matching element or null
      */
     public static Element getElementByTagNameNS(Document doc, String nameSpace,
-                                                String name) {
+            String name) {
         return getElementByTagNameNS(doc.getDocumentElement(), nameSpace, name);
     }
 
@@ -641,7 +642,7 @@ public class Utilities {
         return element;
     }
 
-    public static Element cleanElement(Element el){
+    public static Element cleanElement(Element el) {
         while (el.getFirstChild() != null) {
             el.removeChild(el.getFirstChild());
         }
