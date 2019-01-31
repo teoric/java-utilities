@@ -347,7 +347,7 @@ public class Utilities {
     }
 
     /**
-     * ´ * convert XML DOM document to String representation including an XML
+     * convert XML DOM document to String representation including an XML
      * declaration.
      *
      * @param doc
