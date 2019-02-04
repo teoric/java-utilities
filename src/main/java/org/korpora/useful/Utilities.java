@@ -470,6 +470,7 @@ public class Utilities {
     public static Document parseXML(InputStream input)
             throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setNamespaceAware(true);
         DocumentBuilder builder;
         builder = factory.newDocumentBuilder();
         return builder.parse(input);
