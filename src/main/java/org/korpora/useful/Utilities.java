@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Spliterator;
 import java.util.Spliterators;
 import java.util.function.BinaryOperator;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -55,6 +56,21 @@ public class Utilities {
             .compile("\\A" + SPACE + "+", Pattern.MULTILINE);
     private static final Pattern SPACE_END = Pattern.compile("" + SPACE + "\\Z",
             Pattern.MULTILINE);
+
+    /**
+     * count Unicode “graphemes”
+     */
+    // Regex from https://www.regular-expressions.info/unicode.html
+     private static final Pattern GRAPHEME = Pattern.compile("\\P{M}\\p{M}*+");
+
+     public static final int countGraphemes(String s){
+         int i = 0;
+         Matcher graphMatcher = GRAPHEME.matcher(s);
+         while (graphMatcher.find()){
+             i ++;
+         }
+         return i;
+     }
 
     /**
      * Strip space from String – Unicode-aware.

@@ -4,10 +4,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -24,6 +26,12 @@ public class LangUtilities {
     private static final String LANGNAMES_PATH = "languages-639-most-tolerant.json";
     private static final String LANGCODES_3_PATH = "language-codes-three-letters.txt";
     private static final String LANGCODES_2_PATH = "language-codes-two-letters.txt";
+
+    /**
+     * what separates language and country codes etc., "de-DE" (German in
+     * Germany), "nld_BE" (Dutch in Belgium)
+     */
+    private static final Pattern LOCALE_SEPARATOR = Pattern.compile("[_-]+");
 
     /**
      * map from language names / letter triples/tuples to terminological
@@ -86,24 +94,38 @@ public class LangUtilities {
     }
 
     /**
-     * Can we map {@code lang} to a standardized ISO 639-1 triple?
+     * split a potential language locale, keeping only the first part
      *
      * @param lang
+     *            the language string, e.g. "de-DE"
+     * @return the normalized language, e.g. "deu"
+     */
+    private static String splitLang(String lang) {
+        // allow for "locale" like deu-DE
+        return LOCALE_SEPARATOR.split(lang)[0];
+    }
+
+    /**
+     * Can we map {@code lang} to a standardised ISO 639-1 triple?
+     *
+     * @param langu
      *            the language name / two or three letter code
      * @return whether
      */
-    public static boolean isLanguage(String lang) {
+    public static boolean isLanguage(String langu) {
+        String lang = splitLang(langu);
         return languageMap.containsKey(lang.toLowerCase());
     }
 
     /**
      * Get the (terminological) three letter ISO-639-1 code for language
      *
-     * @param lang
+     * @param langu
      *            the language name / two or three letter code
      * @return the three letter code as an Optional
      */
-    public static Optional<String> getLanguage(String lang) {
+    public static Optional<String> getLanguage(String langu) {
+        String lang = splitLang(langu);
         return Optional.ofNullable(languageMap.get(lang.toLowerCase()));
     }
 
@@ -119,6 +141,45 @@ public class LangUtilities {
      */
     public static String getLanguage(String lang, String defaultL) {
         return languageMap.getOrDefault(lang.toLowerCase(), defaultL);
+    }
+
+    /**
+     * Get the (terminological) three letter ISO-639-1 code for language,
+     * potentially with locale rest
+     *
+     * @param langu
+     *            the language name / two or three letter code
+     * @return the three letter code as an Optional
+     */
+    public static Optional<String> getLanguageLocale(String langu) {
+        String[] lang = LOCALE_SEPARATOR.split(langu);
+        Optional<String> language = Optional
+                .ofNullable(languageMap.get(lang[0].toLowerCase()));
+        if (lang.length > 1) {
+            language = language.map(s -> s + "-" + String.join("-",
+                    Arrays.copyOfRange(lang, 1, lang.length)));
+        }
+        return language;
+    }
+
+    /**
+     * Get the (terminological) three letter ISO-639-1 code for language,
+     * potentially with locale
+     *
+     * @param lang
+     *            the language name / two or three letter code
+     * @param defaultL
+     *            the default code to return if {@code lang} is no discernible
+     *            language
+     * @return the three letter code, or the default
+     */
+    public static String getLanguageLocale(String lang, String defaultL) {
+        Optional<String> optLang = getLanguageLocale(lang);
+        if (optLang.isPresent()) {
+            return optLang.get();
+        } else {
+            return defaultL;
+        }
     }
 
     /**
