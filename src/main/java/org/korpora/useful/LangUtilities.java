@@ -149,17 +149,54 @@ public class LangUtilities {
      *
      * @param langu
      *            the language name / two or three letter code
+     * @param maxComponents
+     *            the maximal number of language + locale components
      * @return the three letter code as an Optional
      */
-    public static Optional<String> getLanguageLocale(String langu) {
+    public static Optional<String> getLanguageLocale(String langu, int maxComponents) {
         String[] lang = LOCALE_SEPARATOR.split(langu);
+        int components = Math.min(maxComponents, lang.length);
         Optional<String> language = Optional
                 .ofNullable(languageMap.get(lang[0].toLowerCase()));
         if (lang.length > 1) {
             language = language.map(s -> s + "-" + String.join("-",
-                    Arrays.copyOfRange(lang, 1, lang.length)));
+                    Arrays.copyOfRange(lang, 1, components)));
         }
         return language;
+    }
+
+    /**
+     * Get the (terminological) three letter ISO-639-1 code for language,
+     * potentially with locale rest
+     *
+     * @param lang
+     *            the language name / two or three letter code
+     * @return the three letter code as an Optional
+     */
+    public static Optional<String> getLanguageLocale(String lang) {
+        return getLanguageLocale(lang, Integer.MAX_VALUE);
+    }
+
+    /**
+     * Get the (terminological) three letter ISO-639-1 code for language,
+     * potentially with locale
+     *
+     * @param lang
+     *            the language name / two or three letter code
+     * @param defaultL
+     *            the default code to return if {@code lang} is no discernible
+     *            language
+     * @param maxComponents
+     *            the maximal number of language + locale components
+     * @return the three letter code, or the default
+     */
+    public static String getLanguageLocale(String lang, String defaultL, int maxComponents) {
+        Optional<String> optLang = getLanguageLocale(lang, maxComponents);
+        if (optLang.isPresent()) {
+            return optLang.get();
+        } else {
+            return defaultL;
+        }
     }
 
     /**
@@ -174,12 +211,7 @@ public class LangUtilities {
      * @return the three letter code, or the default
      */
     public static String getLanguageLocale(String lang, String defaultL) {
-        Optional<String> optLang = getLanguageLocale(lang);
-        if (optLang.isPresent()) {
-            return optLang.get();
-        } else {
-            return defaultL;
-        }
+        return getLanguageLocale(lang, defaultL, Integer.MAX_VALUE);
     }
 
     /**
