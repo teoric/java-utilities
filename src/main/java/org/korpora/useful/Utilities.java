@@ -1,9 +1,6 @@
 package org.korpora.useful;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.StringWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -40,6 +37,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
@@ -483,7 +481,7 @@ public class Utilities {
      * @throws IOException
      *             on occasion
      */
-    public static Document parseXML(InputStream input)
+    public static Document parseXML(InputSource input)
             throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setNamespaceAware(true);
@@ -492,8 +490,18 @@ public class Utilities {
         return builder.parse(input);
     }
 
+    public static Document parseXML(InputStream input)
+            throws ParserConfigurationException, SAXException, IOException {
+        return parseXML(new InputSource(input));
+    }
+
+    public static Document parseXML(String input)
+            throws ParserConfigurationException, SAXException, IOException {
+        return parseXML(new InputSource(new StringReader(input)));
+    }
+
     /**
-     * parse XML document from {@link InputStream} to JDOM document
+     * parse XML document from {@link InputSource} to JDOM document
      *
      * @param input
      *            contains a document
@@ -503,10 +511,15 @@ public class Utilities {
      * @throws IOException
      *             on occasion
      */
-    public static org.jdom2.Document parseXMLviaJDOM(InputStream input)
+    public static org.jdom2.Document parseXMLviaJDOM(InputSource input)
             throws JDOMException, IOException {
         org.jdom2.input.SAXBuilder saxBuilder = new org.jdom2.input.SAXBuilder();
         return saxBuilder.build(input);
+    }
+
+    public static org.jdom2.Document parseXMLviaJDOM(InputStream input)
+            throws JDOMException, IOException {
+        return parseXMLviaJDOM(new InputSource(input));
     }
 
     /**
