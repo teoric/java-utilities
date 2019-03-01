@@ -28,6 +28,10 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jdom2.JDOMException;
@@ -305,6 +309,8 @@ public class Utilities {
     public static void insertAfterMe(Node n, Element el) {
         Element par = (Element) el.getParentNode();
         Node nextSibling = el.getNextSibling();
+        assert n != null;
+        assert el != null;
         if (nextSibling == null)
             par.appendChild(n);
         else
@@ -677,6 +683,34 @@ public class Utilities {
             element = (Element) elements.item(0);
         }
         return element;
+    }
+
+    public static Element getElementByID(Document doc, String id) {
+        XPath xPath = XPathFactory.newInstance().newXPath();
+        String idXPath = "//*[@*[local-name() = 'id' and namespace-uri() = '"
+                + "http://www.w3.org/XML/1998/namespace" + "' and string() = '"
+                + id + "']]";
+        String idXXPath = "//*[@*[local-name() = 'id'" + " and string() = '"
+                + id + "']]";
+        try {
+            NodeList res = (NodeList) xPath.compile(idXPath).evaluate(doc,
+                    XPathConstants.NODESET);
+            if (res.getLength() > 1)
+                throw new RuntimeException("ambiguous ID " + id);
+            else if (res.getLength() == 1)
+                return (Element) res.item(0);
+            else {
+                res = (NodeList) xPath.compile(idXXPath).evaluate(doc,
+                        XPathConstants.NODESET);
+                if (res.getLength() > 1)
+                    throw new RuntimeException("ambiguous ID " + id);
+                else
+                    return (Element) res.item(0);
+            }
+        } catch (XPathExpressionException e) {
+            throw new RuntimeException("XPATH ERROR");
+        }
+
     }
 
     /**
