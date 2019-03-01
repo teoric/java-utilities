@@ -1,6 +1,10 @@
 package org.korpora.useful;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -59,16 +63,16 @@ public class Utilities {
      * count Unicode “graphemes”
      */
     // Regex from https://www.regular-expressions.info/unicode.html
-     private static final Pattern GRAPHEME = Pattern.compile("\\P{M}\\p{M}*+");
+    private static final Pattern GRAPHEME = Pattern.compile("\\P{M}\\p{M}*+");
 
-     public static final int countGraphemes(String s){
-         int i = 0;
-         Matcher graphMatcher = GRAPHEME.matcher(s);
-         while (graphMatcher.find()){
-             i ++;
-         }
-         return i;
-     }
+    public static final int countGraphemes(String s) {
+        int i = 0;
+        Matcher graphMatcher = GRAPHEME.matcher(s);
+        while (graphMatcher.find()) {
+            i++;
+        }
+        return i;
+    }
 
     /**
      * Strip space from String – Unicode-aware.
@@ -288,6 +292,23 @@ public class Utilities {
      */
     public static void insertBeforeMe(Node n, Element el) {
         el.getParentNode().insertBefore(n, el);
+    }
+
+    /**
+     * insert a node immediately after an Element
+     *
+     * @param n
+     *            the node
+     * @param el
+     *            the Element
+     */
+    public static void insertAfterMe(Node n, Element el) {
+        Element par = (Element) el.getParentNode();
+        Node nextSibling = el.getNextSibling();
+        if (nextSibling == null)
+            par.appendChild(n);
+        else
+            par.insertBefore(n, nextSibling);
     }
 
     /**
