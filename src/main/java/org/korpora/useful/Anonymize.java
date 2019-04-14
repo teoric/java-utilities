@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
+@SuppressWarnings("WeakerAccess")
 public class Anonymize {
 
     private static final Pattern IP4_PAT = Pattern.compile(

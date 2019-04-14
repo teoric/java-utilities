@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.Test;
 
+@SuppressWarnings("OptionalGetWithoutIsPresent")
 class LangUtilitiesTest {
 
     @Test

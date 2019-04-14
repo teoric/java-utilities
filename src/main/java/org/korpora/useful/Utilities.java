@@ -69,7 +69,7 @@ public class Utilities {
     // Regex from https://www.regular-expressions.info/unicode.html
     private static final Pattern GRAPHEME = Pattern.compile("\\P{M}\\p{M}*+");
 
-    public static final int countGraphemes(String s) {
+    public static int countGraphemes(String s) {
         int i = 0;
         Matcher graphMatcher = GRAPHEME.matcher(s);
         while (graphMatcher.find()) {
@@ -310,7 +310,6 @@ public class Utilities {
         Element par = (Element) el.getParentNode();
         Node nextSibling = el.getNextSibling();
         assert n != null;
-        assert el != null;
         if (nextSibling == null)
             par.appendChild(n);
         else
@@ -475,8 +474,7 @@ public class Utilities {
     public static org.jdom2.Document convertDOMtoJDOM(
             org.w3c.dom.Document input) {
         DOMBuilder builder = new DOMBuilder();
-        org.jdom2.Document output = builder.build(input);
-        return output;
+        return builder.build(input);
     }
 
     /**
@@ -622,7 +620,7 @@ public class Utilities {
      * @return the list of XML Content
      */
     public static List<org.jdom2.Content> makeContentList(String tx) {
-        List<org.jdom2.Content> ret = new ArrayList<>();
+        List<org.jdom2.Content> ret;
         try {
             ret = readJDOMFromString("<X>" + tx + "</X>").getRootElement()
                     .removeContent();

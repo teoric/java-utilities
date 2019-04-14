@@ -37,7 +37,7 @@ public class LangUtilities {
      * map from language names / letter triples/tuples to terminological
      * ISO-639-2 code.
      */
-    private static Map<String, String> languageMap;
+    private static final Map<String, String> languageMap;
 
     /**
      * valid terminological ISO-639-2 three letter codes
@@ -45,7 +45,7 @@ public class LangUtilities {
      * see {@link #languageCodesThree} for a list including bibliographic
      * variants
      */
-    private static Set<String> languageTriples;
+    private static final Set<String> languageTriples;
 
     /*
      * prepare variables
@@ -57,7 +57,7 @@ public class LangUtilities {
             languageMap = mapper.readValue(str,
                     new TypeReference<Map<String, String>>() {
                     });
-            languageTriples = languageMap.keySet().stream().distinct()
+            languageTriples = languageMap.keySet().stream()
                     .collect(Collectors.toSet());
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
@@ -67,10 +67,11 @@ public class LangUtilities {
      * valid terminological ISO-639-2 three letter codes, including
      * bibliographic variants
      */
-    private static Set<String> languageCodesThree = new HashSet<>();
+    private static final Set<String> languageCodesThree = new HashSet<>();
     static {
         try (InputStream str = LangUtilities.class.getClassLoader()
                 .getResourceAsStream(LANGCODES_3_PATH)) {
+            assert str != null;
             InputStreamReader strR = new InputStreamReader(str);
             BufferedReader strRR = new BufferedReader(strR);
             strRR.lines().forEach(l -> languageCodesThree.add(l));
@@ -81,10 +82,11 @@ public class LangUtilities {
     /**
      * valid terminological ISO-639-1 two letter codes
      */
-    private static Set<String> languageCodesTwo = new HashSet<>();
+    private static final Set<String> languageCodesTwo = new HashSet<>();
     static {
         try (InputStream str = LangUtilities.class.getClassLoader()
                 .getResourceAsStream(LANGCODES_2_PATH)) {
+            assert str != null;
             InputStreamReader strR = new InputStreamReader(str);
             BufferedReader strRR = new BufferedReader(strR);
             strRR.lines().forEach(l -> languageCodesTwo.add(l));
@@ -192,11 +194,7 @@ public class LangUtilities {
      */
     public static String getLanguageLocale(String lang, String defaultL, int maxComponents) {
         Optional<String> optLang = getLanguageLocale(lang, maxComponents);
-        if (optLang.isPresent()) {
-            return optLang.get();
-        } else {
-            return defaultL;
-        }
+        return optLang.orElse(defaultL);
     }
 
     /**
