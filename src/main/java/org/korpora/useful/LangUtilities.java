@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
  */
 
 @SuppressWarnings("WeakerAccess")
-public class        LangUtilities {
+public class LangUtilities {
     private static final String LANGNAMES_PATH = "languages-639-most-tolerant.json";
     private static final String LANGCODES_3_PATH = "language-codes-three-letters.txt";
     private static final String LANGCODES_2_PATH = "language-codes-two-letters.txt";
