@@ -1,19 +1,14 @@
 package org.korpora.useful;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * utility functions related to ISO-639-related language handling
@@ -22,7 +17,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  */
 
-public class LangUtilities {
+@SuppressWarnings("WeakerAccess")
+public class        LangUtilities {
     private static final String LANGNAMES_PATH = "languages-639-most-tolerant.json";
     private static final String LANGCODES_3_PATH = "language-codes-three-letters.txt";
     private static final String LANGCODES_2_PATH = "language-codes-two-letters.txt";
@@ -57,8 +53,7 @@ public class LangUtilities {
             languageMap = mapper.readValue(str,
                     new TypeReference<Map<String, String>>() {
                     });
-            languageTriples = languageMap.keySet().stream()
-                    .collect(Collectors.toSet());
+            languageTriples = new HashSet<>(languageMap.keySet());
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }
@@ -74,7 +69,7 @@ public class LangUtilities {
             assert str != null;
             InputStreamReader strR = new InputStreamReader(str);
             BufferedReader strRR = new BufferedReader(strR);
-            strRR.lines().forEach(l -> languageCodesThree.add(l));
+            strRR.lines().forEach(languageCodesThree::add);
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }
@@ -89,7 +84,7 @@ public class LangUtilities {
             assert str != null;
             InputStreamReader strR = new InputStreamReader(str);
             BufferedReader strRR = new BufferedReader(strR);
-            strRR.lines().forEach(l -> languageCodesTwo.add(l));
+            strRR.lines().forEach(languageCodesTwo::add);
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }

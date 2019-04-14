@@ -1,23 +1,15 @@
 package org.korpora.useful;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Spliterator;
-import java.util.Spliterators;
-import java.util.function.BinaryOperator;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
+import org.apache.commons.lang3.StringUtils;
+import org.jdom2.JDOMException;
+import org.jdom2.Namespace;
+import org.jdom2.filter.ElementFilter;
+import org.jdom2.input.DOMBuilder;
+import org.jdom2.output.DOMOutputter;
+import org.jdom2.util.IteratorIterable;
+import org.w3c.dom.*;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -32,27 +24,21 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
-
-import org.apache.commons.lang3.StringUtils;
-import org.jdom2.JDOMException;
-import org.jdom2.Namespace;
-import org.jdom2.filter.ElementFilter;
-import org.jdom2.input.DOMBuilder;
-import org.jdom2.output.DOMOutputter;
-import org.jdom2.util.IteratorIterable;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
+import java.io.*;
+import java.util.*;
+import java.util.function.BinaryOperator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 /**
  * Some collected utilities
  *
  * @author Bernhard Fisseni (bernhard.fisseni@uni-due.de)
  */
+@SuppressWarnings("WeakerAccess")
 public class Utilities {
 
     // Java is crazy: \p{Z} does not work as intended

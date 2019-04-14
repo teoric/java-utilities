@@ -1,19 +1,20 @@
 package org.korpora.useful;
 
-import java.util.Iterator;
-
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import java.util.Iterator;
 
 /**
  * Make Iterable for NodeList
  */
 
+@SuppressWarnings("WeakerAccess")
 public class NodeListIterable implements Iterable<Node> {
 
     private NodeList list;
 
-    public class NodeListIterator implements Iterator<Node> {
+    class NodeListIterator implements Iterator<Node> {
 
         int pos = -1;
 
