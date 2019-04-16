@@ -22,6 +22,7 @@ public class LangUtilities {
     private static final String LANGNAMES_PATH = "languages-639-most-tolerant.json";
     private static final String LANGCODES_3_PATH = "language-codes-three-letters.txt";
     private static final String LANGCODES_2_PATH = "language-codes-two-letters.txt";
+    private static final String LANGCODES_2_3_PATH = "language-list-639-1-to-639-2.json";
 
     /**
      * what separates language and country codes etc., "de-DE" (German in
@@ -30,18 +31,13 @@ public class LangUtilities {
     private static final Pattern LOCALE_SEPARATOR = Pattern.compile("[_-]+");
 
     /**
-     * map from language names / letter triples/tuples to terminological
+     * map from language names / letter triples/tuples to
+     * ISO-639-1 code terminological
      * ISO-639-2 code.
      */
     private static final Map<String, String> languageMap;
 
-    /**
-     * valid terminological ISO-639-2 three letter codes
-     *
-     * see {@link #languageCodesThree} for a list including bibliographic
-     * variants
-     */
-    private static final Set<String> languageTriples;
+    private static final Map<String, String> threeToTwo;
 
     /*
      * prepare variables
@@ -53,7 +49,14 @@ public class LangUtilities {
             languageMap = mapper.readValue(str,
                     new TypeReference<Map<String, String>>() {
                     });
-            languageTriples = new HashSet<>(languageMap.keySet());
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+        try (InputStream str = LangUtilities.class.getClassLoader()
+                .getResourceAsStream(LANGCODES_2_3_PATH)) {
+            threeToTwo = mapper.readValue(str,
+                    new TypeReference<Map<String, String>>() {
+                    });
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }
@@ -141,6 +144,16 @@ public class LangUtilities {
     }
 
     /**
+     * return three letter code if two letter code, else keep as is
+     * @param lang
+     *           a potential letter code
+     * @return three letter code, or original string
+     */
+    public static String toThree(String lang) {
+        return threeToTwo.getOrDefault(lang, lang);
+    }
+
+    /**
      * Get the (terminological) three letter ISO-639-1 code for language,
      * potentially with locale rest
      *
@@ -150,11 +163,14 @@ public class LangUtilities {
      *            the maximal number of language + locale components
      * @return the three letter code as an Optional
      */
-    public static Optional<String> getLanguageLocale(String langu, int maxComponents) {
+    public static Optional<String> getLanguageLocale(String langu, int maxComponents, boolean forceThree) {
         String[] lang = LOCALE_SEPARATOR.split(langu);
         int components = Math.min(maxComponents, lang.length);
         Optional<String> language = Optional
                 .ofNullable(languageMap.get(lang[0].toLowerCase()));
+        if (forceThree && language.isPresent() && language.get().length() == 2){
+               language.map(threeToTwo::get);
+        }
         if (lang.length > 1) {
             language = language.map(s -> s + "-" + String.join("-",
                     Arrays.copyOfRange(lang, 1, components)));
@@ -170,8 +186,9 @@ public class LangUtilities {
      *            the language name / two or three letter code
      * @return the three letter code as an Optional
      */
-    public static Optional<String> getLanguageLocale(String lang) {
-        return getLanguageLocale(lang, Integer.MAX_VALUE);
+    public static Optional<String> getLanguageLocale(String lang,
+                                                     boolean forceThree) {
+        return getLanguageLocale(lang, Integer.MAX_VALUE, forceThree);
     }
 
     /**
@@ -187,8 +204,9 @@ public class LangUtilities {
      *            the maximal number of language + locale components
      * @return the three letter code, or the default
      */
-    public static String getLanguageLocale(String lang, String defaultL, int maxComponents) {
-        Optional<String> optLang = getLanguageLocale(lang, maxComponents);
+    public static String getLanguageLocale(
+            String lang, String defaultL, int maxComponents, boolean forceThree) {
+        Optional<String> optLang = getLanguageLocale(lang, maxComponents, forceThree);
         return optLang.orElse(defaultL);
     }
 
@@ -203,8 +221,9 @@ public class LangUtilities {
      *            language
      * @return the three letter code, or the default
      */
-    public static String getLanguageLocale(String lang, String defaultL) {
-        return getLanguageLocale(lang, defaultL, Integer.MAX_VALUE);
+    public static String getLanguageLocale(String lang, String defaultL,
+                                           boolean forceThree) {
+        return getLanguageLocale(lang, defaultL, Integer.MAX_VALUE, forceThree);
     }
 
     /**
@@ -228,7 +247,7 @@ public class LangUtilities {
      * @return whether
      */
     public static boolean isTerminologicalLanguageTriple(String lang) {
-        return languageTriples.contains(lang.toLowerCase());
+        return languageCodesThree.contains(lang.toLowerCase());
     }
 
     /**

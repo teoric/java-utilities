@@ -1,5 +1,5 @@
 {
-  "aar": {
+  "aa": {
     "three": [
       "aar"
     ],
@@ -16,7 +16,7 @@
       "Danakil-Sprache"
     ]
   },
-  "abk": {
+  "ab": {
     "three": [
       "abk"
     ],
@@ -124,7 +124,7 @@
       "Afrihili"
     ]
   },
-  "afr": {
+  "af": {
     "three": [
       "afr"
     ],
@@ -156,7 +156,7 @@
       "Ainu-Sprache"
     ]
   },
-  "aka": {
+  "ak": {
     "three": [
       "aka"
     ],
@@ -188,7 +188,7 @@
       "Akkadisch"
     ]
   },
-  "sqi": {
+  "sq": {
     "three": [
       "alb",
       "sqi"
@@ -251,7 +251,7 @@
       "Altaisch"
     ]
   },
-  "amh": {
+  "am": {
     "three": [
       "amh"
     ],
@@ -314,7 +314,7 @@
       "Apachen-Sprachen"
     ]
   },
-  "ara": {
+  "ar": {
     "three": [
       "ara"
     ],
@@ -349,7 +349,7 @@
       "Aramäisch"
     ]
   },
-  "arg": {
+  "an": {
     "three": [
       "arg"
     ],
@@ -366,7 +366,7 @@
       "Aragonesisch"
     ]
   },
-  "hye": {
+  "hy": {
     "three": [
       "arm",
       "hye"
@@ -447,7 +447,7 @@
       "Arawak-Sprachen"
     ]
   },
-  "asm": {
+  "as": {
     "three": [
       "asm"
     ],
@@ -515,7 +515,7 @@
       "Australische Sprachen"
     ]
   },
-  "ava": {
+  "av": {
     "three": [
       "ava"
     ],
@@ -532,7 +532,7 @@
       "Awarisch"
     ]
   },
-  "ave": {
+  "ae": {
     "three": [
       "ave"
     ],
@@ -564,7 +564,7 @@
       "Awadhi"
     ]
   },
-  "aym": {
+  "ay": {
     "three": [
       "aym"
     ],
@@ -581,7 +581,7 @@
       "Aymará-Sprache"
     ]
   },
-  "aze": {
+  "az": {
     "three": [
       "aze"
     ],
@@ -628,7 +628,7 @@
       "Bamileke-Sprachen"
     ]
   },
-  "bak": {
+  "ba": {
     "three": [
       "bak"
     ],
@@ -660,7 +660,7 @@
       "Belutschisch"
     ]
   },
-  "bam": {
+  "bm": {
     "three": [
       "bam"
     ],
@@ -692,7 +692,7 @@
       "Balinesisch"
     ]
   },
-  "eus": {
+  "eu": {
     "three": [
       "baq",
       "eus"
@@ -756,7 +756,7 @@
       "Bedauye"
     ]
   },
-  "bel": {
+  "be": {
     "three": [
       "bel"
     ],
@@ -788,7 +788,7 @@
       "Bemba-Sprache"
     ]
   },
-  "ben": {
+  "bn": {
     "three": [
       "ben"
     ],
@@ -835,7 +835,7 @@
       "Bhojpuri"
     ]
   },
-  "bih": {
+  "bh": {
     "three": [
       "bih"
     ],
@@ -884,7 +884,7 @@
       "Edo-Sprache"
     ]
   },
-  "bis": {
+  "bi": {
     "three": [
       "bis"
     ],
@@ -931,7 +931,7 @@
       "Bantusprachen (Andere)"
     ]
   },
-  "bod": {
+  "bo": {
     "three": [
       "tib",
       "bod"
@@ -949,7 +949,7 @@
       "Tibetisch"
     ]
   },
-  "bos": {
+  "bs": {
     "three": [
       "bos"
     ],
@@ -981,7 +981,7 @@
       "Braj-Bhakha"
     ]
   },
-  "bre": {
+  "br": {
     "three": [
       "bre"
     ],
@@ -1043,7 +1043,7 @@
       "Bugi-Sprache"
     ]
   },
-  "bul": {
+  "bg": {
     "three": [
       "bul"
     ],
@@ -1060,7 +1060,7 @@
       "Bulgarisch"
     ]
   },
-  "mya": {
+  "my": {
     "three": [
       "bur",
       "mya"
@@ -1142,7 +1142,7 @@
       "Karibische Sprachen"
     ]
   },
-  "cat": {
+  "ca": {
     "three": [
       "cat"
     ],
@@ -1207,7 +1207,7 @@
       "Keltische Sprachen (Andere)"
     ]
   },
-  "ces": {
+  "cs": {
     "three": [
       "cze",
       "ces"
@@ -1225,7 +1225,7 @@
       "Tschechisch"
     ]
   },
-  "cha": {
+  "ch": {
     "three": [
       "cha"
     ],
@@ -1257,7 +1257,7 @@
       "Chibcha-Sprachen"
     ]
   },
-  "che": {
+  "ce": {
     "three": [
       "che"
     ],
@@ -1289,7 +1289,7 @@
       "Tschagataisch"
     ]
   },
-  "zho": {
+  "zh": {
     "three": [
       "chi",
       "zho"
@@ -1398,7 +1398,7 @@
       "Cherokee-Sprache"
     ]
   },
-  "chu": {
+  "cu": {
     "three": [
       "chu"
     ],
@@ -1422,7 +1422,7 @@
       "Kirchenslawisch"
     ]
   },
-  "chv": {
+  "cv": {
     "three": [
       "chv"
     ],
@@ -1499,7 +1499,7 @@
       "Koptisch"
     ]
   },
-  "cor": {
+  "kw": {
     "three": [
       "cor"
     ],
@@ -1516,7 +1516,7 @@
       "Kornisch"
     ]
   },
-  "cos": {
+  "co": {
     "three": [
       "cos"
     ],
@@ -1578,7 +1578,7 @@
       "Kreolisch-Portugiesisch (Andere)"
     ]
   },
-  "cre": {
+  "cr": {
     "three": [
       "cre"
     ],
@@ -1657,7 +1657,7 @@
       "Kuschitische Sprachen (Andere)"
     ]
   },
-  "cym": {
+  "cy": {
     "three": [
       "wel",
       "cym"
@@ -1690,7 +1690,7 @@
       "Dakota-Sprache"
     ]
   },
-  "dan": {
+  "da": {
     "three": [
       "dan"
     ],
@@ -1768,7 +1768,7 @@
       "Slave-Sprache"
     ]
   },
-  "deu": {
+  "de": {
     "three": [
       "ger",
       "deu"
@@ -1816,7 +1816,7 @@
       "Dinka-Sprache"
     ]
   },
-  "div": {
+  "dv": {
     "three": [
       "div"
     ],
@@ -1911,7 +1911,7 @@
       "Mittelniederländisch"
     ]
   },
-  "nld": {
+  "nl": {
     "three": [
       "dut",
       "nld"
@@ -1946,7 +1946,7 @@
       "Dyula-Sprache"
     ]
   },
-  "dzo": {
+  "dz": {
     "three": [
       "dzo"
     ],
@@ -2009,7 +2009,7 @@
       "Ekajuk"
     ]
   },
-  "ell": {
+  "el": {
     "three": [
       "gre",
       "ell"
@@ -2044,7 +2044,7 @@
       "Elamisch"
     ]
   },
-  "eng": {
+  "en": {
     "three": [
       "eng"
     ],
@@ -2077,7 +2077,7 @@
       "Mittelenglisch"
     ]
   },
-  "epo": {
+  "eo": {
     "three": [
       "epo"
     ],
@@ -2094,7 +2094,7 @@
       "Esperanto"
     ]
   },
-  "est": {
+  "et": {
     "three": [
       "est"
     ],
@@ -2111,7 +2111,7 @@
       "Estnisch"
     ]
   },
-  "ewe": {
+  "ee": {
     "three": [
       "ewe"
     ],
@@ -2158,7 +2158,7 @@
       "Pangwe-Sprache"
     ]
   },
-  "fao": {
+  "fo": {
     "three": [
       "fao"
     ],
@@ -2175,7 +2175,7 @@
       "Färöisch"
     ]
   },
-  "fas": {
+  "fa": {
     "three": [
       "per",
       "fas"
@@ -2208,7 +2208,7 @@
       "Fante-Sprache"
     ]
   },
-  "fij": {
+  "fj": {
     "three": [
       "fij"
     ],
@@ -2242,7 +2242,7 @@
       "Pilipino"
     ]
   },
-  "fin": {
+  "fi": {
     "three": [
       "fin"
     ],
@@ -2289,7 +2289,7 @@
       "Fon-Sprache"
     ]
   },
-  "fra": {
+  "fr": {
     "three": [
       "fre",
       "fra"
@@ -2369,7 +2369,7 @@
       "Ostfriesisch"
     ]
   },
-  "fry": {
+  "fy": {
     "three": [
       "fry"
     ],
@@ -2386,7 +2386,7 @@
       "Friesisch"
     ]
   },
-  "ful": {
+  "ff": {
     "three": [
       "ful"
     ],
@@ -2478,7 +2478,7 @@
       "Germanische Sprachen (Andere)"
     ]
   },
-  "kat": {
+  "ka": {
     "three": [
       "geo",
       "kat"
@@ -2526,7 +2526,7 @@
       "Gilbertesisch"
     ]
   },
-  "gla": {
+  "gd": {
     "three": [
       "gla"
     ],
@@ -2545,7 +2545,7 @@
       "Gälisch-Schottisch"
     ]
   },
-  "gle": {
+  "ga": {
     "three": [
       "gle"
     ],
@@ -2562,7 +2562,7 @@
       "Irisch"
     ]
   },
-  "glg": {
+  "gl": {
     "three": [
       "glg"
     ],
@@ -2579,7 +2579,7 @@
       "Galicisch"
     ]
   },
-  "glv": {
+  "gv": {
     "three": [
       "glv"
     ],
@@ -2705,7 +2705,7 @@
       "Griechisch"
     ]
   },
-  "grn": {
+  "gn": {
     "three": [
       "grn"
     ],
@@ -2741,7 +2741,7 @@
       "Schweizerdeutsch"
     ]
   },
-  "guj": {
+  "gu": {
     "three": [
       "guj"
     ],
@@ -2788,7 +2788,7 @@
       "Haida-Sprache"
     ]
   },
-  "hat": {
+  "ht": {
     "three": [
       "hat"
     ],
@@ -2807,7 +2807,7 @@
       "Haïtien (Haiti-Kreolisch)"
     ]
   },
-  "hau": {
+  "ha": {
     "three": [
       "hau"
     ],
@@ -2839,7 +2839,7 @@
       "Hawaiisch"
     ]
   },
-  "heb": {
+  "he": {
     "three": [
       "heb"
     ],
@@ -2856,7 +2856,7 @@
       "Hebräisch"
     ]
   },
-  "her": {
+  "hz": {
     "three": [
       "her"
     ],
@@ -2905,7 +2905,7 @@
       "Himachali"
     ]
   },
-  "hin": {
+  "hi": {
     "three": [
       "hin"
     ],
@@ -2953,7 +2953,7 @@
       "Miao-Sprachen"
     ]
   },
-  "hmo": {
+  "ho": {
     "three": [
       "hmo"
     ],
@@ -2970,7 +2970,7 @@
       "Hiri-Motu"
     ]
   },
-  "hrv": {
+  "hr": {
     "three": [
       "hrv"
     ],
@@ -3002,7 +3002,7 @@
       "Obersorbisch"
     ]
   },
-  "hun": {
+  "hu": {
     "three": [
       "hun"
     ],
@@ -3049,7 +3049,7 @@
       "Iban-Sprache"
     ]
   },
-  "ibo": {
+  "ig": {
     "three": [
       "ibo"
     ],
@@ -3066,7 +3066,7 @@
       "Ibo-Sprache"
     ]
   },
-  "isl": {
+  "is": {
     "three": [
       "ice",
       "isl"
@@ -3084,7 +3084,7 @@
       "Isländisch"
     ]
   },
-  "ido": {
+  "io": {
     "three": [
       "ido"
     ],
@@ -3101,7 +3101,7 @@
       "Ido"
     ]
   },
-  "iii": {
+  "ii": {
     "three": [
       "iii"
     ],
@@ -3134,7 +3134,7 @@
       "Ijo-Sprache"
     ]
   },
-  "iku": {
+  "iu": {
     "three": [
       "iku"
     ],
@@ -3151,7 +3151,7 @@
       "Inuktitut"
     ]
   },
-  "ile": {
+  "ie": {
     "three": [
       "ile"
     ],
@@ -3184,7 +3184,7 @@
       "Ilokano-Sprache"
     ]
   },
-  "ina": {
+  "ia": {
     "three": [
       "ina"
     ],
@@ -3217,7 +3217,7 @@
       "Indoarische Sprachen (Andere)"
     ]
   },
-  "ind": {
+  "id": {
     "three": [
       "ind"
     ],
@@ -3264,7 +3264,7 @@
       "Inguschisch"
     ]
   },
-  "ipk": {
+  "ik": {
     "three": [
       "ipk"
     ],
@@ -3311,7 +3311,7 @@
       "Irokesische Sprachen"
     ]
   },
-  "ita": {
+  "it": {
     "three": [
       "ita"
     ],
@@ -3328,7 +3328,7 @@
       "Italienisch"
     ]
   },
-  "jav": {
+  "jv": {
     "three": [
       "jav"
     ],
@@ -3360,7 +3360,7 @@
       "Lojban"
     ]
   },
-  "jpn": {
+  "ja": {
     "three": [
       "jpn"
     ],
@@ -3454,7 +3454,7 @@
       "Kachin-Sprache"
     ]
   },
-  "kal": {
+  "kl": {
     "three": [
       "kal"
     ],
@@ -3487,7 +3487,7 @@
       "Kamba-Sprache"
     ]
   },
-  "kan": {
+  "kn": {
     "three": [
       "kan"
     ],
@@ -3519,7 +3519,7 @@
       "Karenisch"
     ]
   },
-  "kas": {
+  "ks": {
     "three": [
       "kas"
     ],
@@ -3536,7 +3536,7 @@
       "Kaschmiri"
     ]
   },
-  "kau": {
+  "kr": {
     "three": [
       "kau"
     ],
@@ -3568,7 +3568,7 @@
       "Kawi"
     ]
   },
-  "kaz": {
+  "kk": {
     "three": [
       "kaz"
     ],
@@ -3630,7 +3630,7 @@
       "Khoisan-Sprachen (Andere)"
     ]
   },
-  "khm": {
+  "km": {
     "three": [
       "khm"
     ],
@@ -3664,7 +3664,7 @@
       "Sakisch"
     ]
   },
-  "kik": {
+  "ki": {
     "three": [
       "kik"
     ],
@@ -3682,7 +3682,7 @@
       "Kikuyu-Sprache"
     ]
   },
-  "kin": {
+  "rw": {
     "three": [
       "kin"
     ],
@@ -3699,7 +3699,7 @@
       "Rwanda-Sprache"
     ]
   },
-  "kir": {
+  "ky": {
     "three": [
       "kir"
     ],
@@ -3747,7 +3747,7 @@
       "Konkani"
     ]
   },
-  "kom": {
+  "kv": {
     "three": [
       "kom"
     ],
@@ -3764,7 +3764,7 @@
       "Komi-Sprache"
     ]
   },
-  "kon": {
+  "kg": {
     "three": [
       "kon"
     ],
@@ -3781,7 +3781,7 @@
       "Kongo-Sprache"
     ]
   },
-  "kor": {
+  "ko": {
     "three": [
       "kor"
     ],
@@ -3888,7 +3888,7 @@
       "Oraon-Sprache"
     ]
   },
-  "kua": {
+  "kj": {
     "three": [
       "kua"
     ],
@@ -3922,7 +3922,7 @@
       "Kumükisch"
     ]
   },
-  "kur": {
+  "ku": {
     "three": [
       "kur"
     ],
@@ -3999,7 +3999,7 @@
       "Lamba-Sprache (Bantusprache)"
     ]
   },
-  "lao": {
+  "lo": {
     "three": [
       "lao"
     ],
@@ -4016,7 +4016,7 @@
       "Laotisch"
     ]
   },
-  "lat": {
+  "la": {
     "three": [
       "lat"
     ],
@@ -4033,7 +4033,7 @@
       "Latein"
     ]
   },
-  "lav": {
+  "lv": {
     "three": [
       "lav"
     ],
@@ -4065,7 +4065,7 @@
       "Lesgisch"
     ]
   },
-  "lim": {
+  "li": {
     "three": [
       "lim"
     ],
@@ -4084,7 +4084,7 @@
       "Limburgisch"
     ]
   },
-  "lin": {
+  "ln": {
     "three": [
       "lin"
     ],
@@ -4101,7 +4101,7 @@
       "Lingala"
     ]
   },
-  "lit": {
+  "lt": {
     "three": [
       "lit"
     ],
@@ -4148,7 +4148,7 @@
       "Rotse-Sprache"
     ]
   },
-  "ltz": {
+  "lb": {
     "three": [
       "ltz"
     ],
@@ -4181,7 +4181,7 @@
       "Lulua-Sprache"
     ]
   },
-  "lub": {
+  "lu": {
     "three": [
       "lub"
     ],
@@ -4198,7 +4198,7 @@
       "Luba-Katanga-Sprache"
     ]
   },
-  "lug": {
+  "lg": {
     "three": [
       "lug"
     ],
@@ -4276,7 +4276,7 @@
       "Lushai-Sprache"
     ]
   },
-  "mkd": {
+  "mk": {
     "three": [
       "mac",
       "mkd"
@@ -4324,7 +4324,7 @@
       "Khotta"
     ]
   },
-  "mah": {
+  "mh": {
     "three": [
       "mah"
     ],
@@ -4371,7 +4371,7 @@
       "Makassarisch"
     ]
   },
-  "mal": {
+  "ml": {
     "three": [
       "mal"
     ],
@@ -4403,7 +4403,7 @@
       "Malinke-Sprache"
     ]
   },
-  "mri": {
+  "mi": {
     "three": [
       "mao",
       "mri"
@@ -4436,7 +4436,7 @@
       "Austronesische Sprachen (Andere)"
     ]
   },
-  "mar": {
+  "mr": {
     "three": [
       "mar"
     ],
@@ -4468,7 +4468,7 @@
       "Massai-Sprache"
     ]
   },
-  "msa": {
+  "ms": {
     "three": [
       "may",
       "msa"
@@ -4609,7 +4609,7 @@
       "Mon-Khmer-Sprachen (Andere)"
     ]
   },
-  "mlg": {
+  "mg": {
     "three": [
       "mlg"
     ],
@@ -4626,7 +4626,7 @@
       "Malagassi-Sprache"
     ]
   },
-  "mlt": {
+  "mt": {
     "three": [
       "mlt"
     ],
@@ -4703,7 +4703,7 @@
       "Mohawk-Sprache"
     ]
   },
-  "mon": {
+  "mn": {
     "three": [
       "mon"
     ],
@@ -4885,7 +4885,7 @@
       "Neapel / Mundart"
     ]
   },
-  "nau": {
+  "na": {
     "three": [
       "nau"
     ],
@@ -4902,7 +4902,7 @@
       "Nauruanisch"
     ]
   },
-  "nav": {
+  "nv": {
     "three": [
       "nav"
     ],
@@ -4920,7 +4920,7 @@
       "Navajo-Sprache"
     ]
   },
-  "nbl": {
+  "nr": {
     "three": [
       "nbl"
     ],
@@ -4938,7 +4938,7 @@
       "Ndebele-Sprache (Transvaal)"
     ]
   },
-  "nde": {
+  "nd": {
     "three": [
       "nde"
     ],
@@ -4956,7 +4956,7 @@
       "Ndebele-Sprache (Simbabwe)"
     ]
   },
-  "ndo": {
+  "ng": {
     "three": [
       "ndo"
     ],
@@ -4994,7 +4994,7 @@
       "Niederdeutsch"
     ]
   },
-  "nep": {
+  "ne": {
     "three": [
       "nep"
     ],
@@ -5073,7 +5073,7 @@
       "Niue-Sprache"
     ]
   },
-  "nno": {
+  "nn": {
     "three": [
       "nno"
     ],
@@ -5092,7 +5092,7 @@
       "Nynorsk"
     ]
   },
-  "nob": {
+  "nb": {
     "three": [
       "nob"
     ],
@@ -5141,7 +5141,7 @@
       "Altnorwegisch"
     ]
   },
-  "nor": {
+  "no": {
     "three": [
       "nor"
     ],
@@ -5224,7 +5224,7 @@
       "Alt-Newari"
     ]
   },
-  "nya": {
+  "ny": {
     "three": [
       "nya"
     ],
@@ -5305,7 +5305,7 @@
       "Nzima-Sprache"
     ]
   },
-  "oci": {
+  "oc": {
     "three": [
       "oci"
     ],
@@ -5323,7 +5323,7 @@
       "Okzitanisch"
     ]
   },
-  "oji": {
+  "oj": {
     "three": [
       "oji"
     ],
@@ -5340,7 +5340,7 @@
       "Ojibwa-Sprache"
     ]
   },
-  "ori": {
+  "or": {
     "three": [
       "ori"
     ],
@@ -5357,7 +5357,7 @@
       "Oriya-Sprache"
     ]
   },
-  "orm": {
+  "om": {
     "three": [
       "orm"
     ],
@@ -5389,7 +5389,7 @@
       "Osage-Sprache"
     ]
   },
-  "oss": {
+  "os": {
     "three": [
       "oss"
     ],
@@ -5499,7 +5499,7 @@
       "Pampanggan-Sprache"
     ]
   },
-  "pan": {
+  "pa": {
     "three": [
       "pan"
     ],
@@ -5593,7 +5593,7 @@
       "Phönikisch"
     ]
   },
-  "pli": {
+  "pi": {
     "three": [
       "pli"
     ],
@@ -5610,7 +5610,7 @@
       "Pali"
     ]
   },
-  "pol": {
+  "pl": {
     "three": [
       "pol"
     ],
@@ -5642,7 +5642,7 @@
       "Ponapeanisch"
     ]
   },
-  "por": {
+  "pt": {
     "three": [
       "por"
     ],
@@ -5693,7 +5693,7 @@
       "Altokzitanisch"
     ]
   },
-  "pus": {
+  "ps": {
     "three": [
       "pus"
     ],
@@ -5711,7 +5711,7 @@
       "Paschtu"
     ]
   },
-  "que": {
+  "qu": {
     "three": [
       "que"
     ],
@@ -5790,7 +5790,7 @@
       "Romanische Sprachen (Andere)"
     ]
   },
-  "roh": {
+  "rm": {
     "three": [
       "roh"
     ],
@@ -5822,7 +5822,7 @@
       "Romani (Sprache)"
     ]
   },
-  "ron": {
+  "ro": {
     "three": [
       "rum",
       "ron"
@@ -5843,7 +5843,7 @@
       "Rumänisch"
     ]
   },
-  "run": {
+  "rn": {
     "three": [
       "run"
     ],
@@ -5878,7 +5878,7 @@
       "Aromunisch"
     ]
   },
-  "rus": {
+  "ru": {
     "three": [
       "rus"
     ],
@@ -5910,7 +5910,7 @@
       "Sandawe-Sprache"
     ]
   },
-  "sag": {
+  "sg": {
     "three": [
       "sag"
     ],
@@ -5987,7 +5987,7 @@
       "Samaritanisch"
     ]
   },
-  "san": {
+  "sa": {
     "three": [
       "san"
     ],
@@ -6155,7 +6155,7 @@
       "Sidamo-Sprache"
     ]
   },
-  "sin": {
+  "si": {
     "three": [
       "sin"
     ],
@@ -6218,7 +6218,7 @@
       "Slawische Sprachen (Andere)"
     ]
   },
-  "slk": {
+  "sk": {
     "three": [
       "slo",
       "slk"
@@ -6236,7 +6236,7 @@
       "Slowakisch"
     ]
   },
-  "slv": {
+  "sl": {
     "three": [
       "slv"
     ],
@@ -6268,7 +6268,7 @@
       "Südsaamisch"
     ]
   },
-  "sme": {
+  "se": {
     "three": [
       "sme"
     ],
@@ -6330,7 +6330,7 @@
       "Inarisaamisch"
     ]
   },
-  "smo": {
+  "sm": {
     "three": [
       "smo"
     ],
@@ -6362,7 +6362,7 @@
       "Skoltsaamisch"
     ]
   },
-  "sna": {
+  "sn": {
     "three": [
       "sna"
     ],
@@ -6379,7 +6379,7 @@
       "Schona-Sprache"
     ]
   },
-  "snd": {
+  "sd": {
     "three": [
       "snd"
     ],
@@ -6426,7 +6426,7 @@
       "Sogdisch"
     ]
   },
-  "som": {
+  "so": {
     "three": [
       "som"
     ],
@@ -6458,7 +6458,7 @@
       "Songhai-Sprache"
     ]
   },
-  "sot": {
+  "st": {
     "three": [
       "sot"
     ],
@@ -6475,7 +6475,7 @@
       "Süd-Sotho-Sprache"
     ]
   },
-  "spa": {
+  "es": {
     "three": [
       "spa"
     ],
@@ -6494,7 +6494,7 @@
       "Spanisch"
     ]
   },
-  "srd": {
+  "sc": {
     "three": [
       "srd"
     ],
@@ -6526,7 +6526,7 @@
       "Sranantongo"
     ]
   },
-  "srp": {
+  "sr": {
     "three": [
       "srp"
     ],
@@ -6573,7 +6573,7 @@
       "Nilosaharanische Sprachen (Andere)"
     ]
   },
-  "ssw": {
+  "ss": {
     "three": [
       "ssw"
     ],
@@ -6605,7 +6605,7 @@
       "Sukuma-Sprache"
     ]
   },
-  "sun": {
+  "su": {
     "three": [
       "sun"
     ],
@@ -6652,7 +6652,7 @@
       "Sumerisch"
     ]
   },
-  "swa": {
+  "sw": {
     "three": [
       "swa"
     ],
@@ -6669,7 +6669,7 @@
       "Swahili"
     ]
   },
-  "swe": {
+  "sv": {
     "three": [
       "swe"
     ],
@@ -6716,7 +6716,7 @@
       "Neuostaramäisch"
     ]
   },
-  "tah": {
+  "ty": {
     "three": [
       "tah"
     ],
@@ -6748,7 +6748,7 @@
       "Thaisprachen (Andere)"
     ]
   },
-  "tam": {
+  "ta": {
     "three": [
       "tam"
     ],
@@ -6765,7 +6765,7 @@
       "Tamil"
     ]
   },
-  "tat": {
+  "tt": {
     "three": [
       "tat"
     ],
@@ -6782,7 +6782,7 @@
       "Tatarisch"
     ]
   },
-  "tel": {
+  "te": {
     "three": [
       "tel"
     ],
@@ -6844,7 +6844,7 @@
       "Tetum-Sprache"
     ]
   },
-  "tgk": {
+  "tg": {
     "three": [
       "tgk"
     ],
@@ -6861,7 +6861,7 @@
       "Tadschikisch"
     ]
   },
-  "tgl": {
+  "tl": {
     "three": [
       "tgl"
     ],
@@ -6878,7 +6878,7 @@
       "Tagalog"
     ]
   },
-  "tha": {
+  "th": {
     "three": [
       "tha"
     ],
@@ -6910,7 +6910,7 @@
       "Tigre-Sprache"
     ]
   },
-  "tir": {
+  "ti": {
     "three": [
       "tir"
     ],
@@ -7019,7 +7019,7 @@
       "Tonga (Bantusprache, Sambia)"
     ]
   },
-  "ton": {
+  "to": {
     "three": [
       "ton"
     ],
@@ -7067,7 +7067,7 @@
       "Tsimshian-Sprache"
     ]
   },
-  "tsn": {
+  "tn": {
     "three": [
       "tsn"
     ],
@@ -7084,7 +7084,7 @@
       "Tswana-Sprache"
     ]
   },
-  "tso": {
+  "ts": {
     "three": [
       "tso"
     ],
@@ -7101,7 +7101,7 @@
       "Tsonga-Sprache"
     ]
   },
-  "tuk": {
+  "tk": {
     "three": [
       "tuk"
     ],
@@ -7148,7 +7148,7 @@
       "Tupi-Sprache"
     ]
   },
-  "tur": {
+  "tr": {
     "three": [
       "tur"
     ],
@@ -7195,7 +7195,7 @@
       "Elliceanisch"
     ]
   },
-  "twi": {
+  "tw": {
     "three": [
       "twi"
     ],
@@ -7257,7 +7257,7 @@
       "Ugaritisch"
     ]
   },
-  "uig": {
+  "ug": {
     "three": [
       "uig"
     ],
@@ -7275,7 +7275,7 @@
       "Uigurisch"
     ]
   },
-  "ukr": {
+  "uk": {
     "three": [
       "ukr"
     ],
@@ -7322,7 +7322,7 @@
       "Nicht zu entscheiden"
     ]
   },
-  "urd": {
+  "ur": {
     "three": [
       "urd"
     ],
@@ -7339,7 +7339,7 @@
       "Urdu"
     ]
   },
-  "uzb": {
+  "uz": {
     "three": [
       "uzb"
     ],
@@ -7371,7 +7371,7 @@
       "Vai-Sprache"
     ]
   },
-  "ven": {
+  "ve": {
     "three": [
       "ven"
     ],
@@ -7388,7 +7388,7 @@
       "Venda-Sprache"
     ]
   },
-  "vie": {
+  "vi": {
     "three": [
       "vie"
     ],
@@ -7405,7 +7405,7 @@
       "Vietnamesisch"
     ]
   },
-  "vol": {
+  "vo": {
     "three": [
       "vol"
     ],
@@ -7514,7 +7514,7 @@
       "Sorbisch (Andere)"
     ]
   },
-  "wln": {
+  "wa": {
     "three": [
       "wln"
     ],
@@ -7531,7 +7531,7 @@
       "Wallonisch"
     ]
   },
-  "wol": {
+  "wo": {
     "three": [
       "wol"
     ],
@@ -7565,7 +7565,7 @@
       "Kalmückisch"
     ]
   },
-  "xho": {
+  "xh": {
     "three": [
       "xho"
     ],
@@ -7612,7 +7612,7 @@
       "Yapesisch"
     ]
   },
-  "yid": {
+  "yi": {
     "three": [
       "yid"
     ],
@@ -7629,7 +7629,7 @@
       "Jiddisch"
     ]
   },
-  "yor": {
+  "yo": {
     "three": [
       "yor"
     ],
@@ -7722,7 +7722,7 @@
     ],
     "german": []
   },
-  "zha": {
+  "za": {
     "three": [
       "zha"
     ],
@@ -7756,7 +7756,7 @@
       "Zande-Sprachen"
     ]
   },
-  "zul": {
+  "zu": {
     "three": [
       "zul"
     ],
