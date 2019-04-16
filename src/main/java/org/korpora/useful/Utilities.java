@@ -41,6 +41,32 @@ import java.util.stream.StreamSupport;
 @SuppressWarnings("WeakerAccess")
 public class Utilities {
 
+    /**
+     * for use in third place of
+     * {@link java.util.stream.Collectors#toMap(java.util.function.Function, java.util.function.Function, BinaryOperator, java.util.function.Supplier)}.
+     * end merging if duplicate key found.
+     */
+    public static final BinaryOperator<String> strCollider = (u, v) -> {
+        throw new IllegalStateException(String.format("Duplicate key «%s»", u));
+    };
+    /**
+     * for use in third place of
+     * {@link java.util.stream.Collectors#toMap(java.util.function.Function, java.util.function.Function, BinaryOperator, java.util.function.Supplier)}.
+     * end merging if duplicate key found.
+     */
+    public static final BinaryOperator<Integer> intCollider = (u, v) -> {
+        throw new IllegalStateException(
+                String.format("Duplicate key «%s»", u.toString()));
+    };
+    /**
+     * for use in third place of
+     * {@link java.util.stream.Collectors#toMap(java.util.function.Function, java.util.function.Function, BinaryOperator, java.util.function.Supplier)}.
+     * end merging if duplicate key found.
+     */
+    public static final BinaryOperator<?> anyCollider = (u, v) -> {
+        throw new IllegalStateException(
+                String.format("Duplicate key «%s»", u.toString()));
+    };
     // Java is crazy: \p{Z} does not work as intended
     private static final Pattern SPACE = Pattern
             .compile("[\\p{javaWhitespace}]+", Pattern.MULTILINE);
@@ -48,12 +74,12 @@ public class Utilities {
             .compile("\\A" + SPACE + "+", Pattern.MULTILINE);
     private static final Pattern SPACE_END = Pattern.compile("" + SPACE + "\\Z",
             Pattern.MULTILINE);
-
     /**
      * count Unicode “graphemes”
      */
     // Regex from https://www.regular-expressions.info/unicode.html
     private static final Pattern GRAPHEME = Pattern.compile("\\P{M}\\p{M}*+");
+    private static final Pattern NON_EMPTY = Pattern.compile("\\P{Space}");
 
     public static int countGraphemes(String s) {
         int i = 0;
@@ -66,14 +92,14 @@ public class Utilities {
 
     /**
      * Strip space from String – Unicode-aware.
-     *
+     * <p>
      * since Java 11, use #{@link String}::strip. If sure Unicode does not
      * matter, use #{@link String#trim()}.
      *
-     * @deprecated use #{@link StringUtils#strip(String)}
      * @param s
-     *            an innocent String
+     *         an innocent String
      * @return the stripped s
+     * @deprecated use #{@link StringUtils#strip(String)}
      */
     @Deprecated
     public static String stripSpace(String s) {
@@ -90,7 +116,7 @@ public class Utilities {
      * Remove space from String – Unicode-aware.
      *
      * @param s
-     *            an innocent String
+     *         an innocent String
      * @return the stripped s
      */
     public static String removeSpace(String s) {
@@ -100,13 +126,11 @@ public class Utilities {
         return SPACE.matcher(s).replaceAll("");
     }
 
-    private static final Pattern NON_EMPTY = Pattern.compile("\\P{Space}");
-
     /**
      * Determine if String is non-empty, i.e., contains non-white-space content
      *
      * @param s
-     *            an innocent string
+     *         an innocent string
      * @return whether s is empty (contains only space)
      */
     public static boolean isEmpty(String s) {
@@ -119,12 +143,12 @@ public class Utilities {
     /**
      * Make Array from {@link NodeList}
      *
-     * @deprecated – often a {@link NodeListIterable.NodeListIterator} works
-     *             just as well
-     * @see #toIterator(NodeList)
      * @param list
-     *            a DOM NodeList
+     *         a DOM NodeList
      * @return a corresponding Array
+     * @see #toIterator(NodeList)
+     * @deprecated – often a {@link NodeListIterable.NodeListIterator} works
+     * just as well
      */
     @Deprecated
     public static Node[] toArray(NodeList list) {
@@ -143,10 +167,10 @@ public class Utilities {
     /**
      * Make {@link List} of {@link Node}s from {@link NodeList}
      *
-     * @see #toIterator(NodeList)
      * @param list
-     *            a DOM NodeList
+     *         a DOM NodeList
      * @return a corresponding List
+     * @see #toIterator(NodeList)
      */
     @Deprecated
     public static List<Node> toList(NodeList list) {
@@ -160,7 +184,7 @@ public class Utilities {
      * make Java 8+ {@link Stream} of a {@link NodeList}
      *
      * @param list
-     *            – the {@link NodeList}
+     *         – the {@link NodeList}
      * @return the {@link Stream}{@code <Node>}
      */
     public static Stream<Node> toStream(NodeList list) {
@@ -168,21 +192,21 @@ public class Utilities {
             throw new IllegalArgumentException();
         }
         return StreamSupport.stream(Spliterators
-                .spliteratorUnknownSize(new NodeListIterable(list).iterator(),
-                        Spliterator.DISTINCT
-                                // | Spliterator.IMMUTABLE
-                                // | Spliterator.ORDERED
-                                | Spliterator.NONNULL),
+                        .spliteratorUnknownSize(new NodeListIterable(list).iterator(),
+                                Spliterator.DISTINCT
+                                        // | Spliterator.IMMUTABLE
+                                        // | Spliterator.ORDERED
+                                        | Spliterator.NONNULL),
                 false);
     }
 
     /**
      * Make {@link Stream} of {@link Element}s from {@link NodeList}
      *
-     * @see #toIterator(NodeList)
      * @param list
-     *            a DOM NodeList
+     *         a DOM NodeList
      * @return a corresponding List of Elements
+     * @see #toIterator(NodeList)
      */
     public static Stream<Element> toElementStream(NodeList list) {
         return Utilities.toStream(list).map(w -> (Element) w);
@@ -191,10 +215,10 @@ public class Utilities {
     /**
      * Make {@link List} of {@link Element}s from {@link NodeList}
      *
-     * @see #toIterator(NodeList)
      * @param list
-     *            a DOM NodeList
+     *         a DOM NodeList
      * @return a corresponding List of Elements
+     * @see #toIterator(NodeList)
      */
     public static List<Element> toElementList(NodeList list) {
         return Utilities.toStream(list).map(w -> (Element) w)
@@ -205,7 +229,7 @@ public class Utilities {
      * make an {@link Iterator} of a {@link NodeList}
      *
      * @param list
-     *            – the {@link NodeList}
+     *         – the {@link NodeList}
      * @return the {@link Iterator}
      */
     public static Iterator<Node> toIterator(NodeList list) {
@@ -219,7 +243,7 @@ public class Utilities {
      * Make a {@link HashMap} with attributes from a DOM {@link Element} node
      *
      * @param el
-     *            a DOM {@link Element}
+     *         a DOM {@link Element}
      * @return a {@link HashMap} containing {@code el}'s attribute-value pairs
      */
     public static HashMap<String, String> attributeMap(Element el) {
@@ -239,7 +263,7 @@ public class Utilities {
      * make list of attribute Names
      *
      * @param el
-     *            – an DOM {@link Element} node
+     *         – an DOM {@link Element} node
      * @return list of attribute names
      */
     public static List<String> attributeList(Element el) {
@@ -259,9 +283,9 @@ public class Utilities {
      * insert a node as first child of an element
      *
      * @param el
-     *            the element
+     *         the element
      * @param n
-     *            the node
+     *         the node
      */
     public static void insertAtBeginningOf(Node n, Element el) {
         Node first = el.getFirstChild();
@@ -276,9 +300,9 @@ public class Utilities {
      * insert a node immediately before an Element
      *
      * @param n
-     *            the node
+     *         the node
      * @param el
-     *            the Element
+     *         the Element
      */
     public static void insertBeforeMe(Node n, Element el) {
         el.getParentNode().insertBefore(n, el);
@@ -288,9 +312,9 @@ public class Utilities {
      * insert a node immediately after an Element
      *
      * @param n
-     *            the node
+     *         the node
      * @param el
-     *            the Element
+     *         the Element
      */
     public static void insertAfterMe(Node n, Element el) {
         Element par = (Element) el.getParentNode();
@@ -303,46 +327,17 @@ public class Utilities {
     }
 
     /**
-     * for use in third place of
-     * {@link java.util.stream.Collectors#toMap(java.util.function.Function, java.util.function.Function, BinaryOperator, java.util.function.Supplier)}.
-     * end merging if duplicate key found.
-     */
-    public static final BinaryOperator<String> strCollider = (u, v) -> {
-        throw new IllegalStateException(String.format("Duplicate key «%s»", u));
-    };
-
-    /**
-     * for use in third place of
-     * {@link java.util.stream.Collectors#toMap(java.util.function.Function, java.util.function.Function, BinaryOperator, java.util.function.Supplier)}.
-     * end merging if duplicate key found.
-     */
-    public static final BinaryOperator<Integer> intCollider = (u, v) -> {
-        throw new IllegalStateException(
-                String.format("Duplicate key «%s»", u.toString()));
-    };
-
-    /**
-     * for use in third place of
-     * {@link java.util.stream.Collectors#toMap(java.util.function.Function, java.util.function.Function, BinaryOperator, java.util.function.Supplier)}.
-     * end merging if duplicate key found.
-     */
-    public static final BinaryOperator<?> anyCollider = (u, v) -> {
-        throw new IllegalStateException(
-                String.format("Duplicate key «%s»", u.toString()));
-    };
-
-    /**
      * output an XML document
      *
      * @param outStream
-     *            an OutputStream
+     *         an OutputStream
      * @param doc
-     *            a XML DOM document
+     *         a XML DOM document
      * @param indent
-     *            whether to indent the file
+     *         whether to indent the file
      */
     public static void outputXML(OutputStream outStream, Document doc,
-            boolean indent) {
+                                 boolean indent) {
         outputXML(outStream, doc.getDocumentElement(), indent);
     }
 
@@ -350,14 +345,14 @@ public class Utilities {
      * output an XML document
      *
      * @param outStream
-     *            an OutputStream
+     *         an OutputStream
      * @param el
-     *            a XML DOM element
+     *         a XML DOM element
      * @param indent
-     *            whether to indent the file
+     *         whether to indent the file
      */
     public static void outputXML(OutputStream outStream, Element el,
-            boolean indent) {
+                                 boolean indent) {
         TransformerFactory stf = TransformerFactory.newInstance();
         Transformer transformer;
         try {
@@ -377,9 +372,9 @@ public class Utilities {
      * declaration.
      *
      * @param doc
-     *            the XML document
+     *         the XML document
      * @param indent
-     *            whether to indent
+     *         whether to indent
      * @return string representation
      */
     public static String documentToString(Document doc, boolean indent) {
@@ -390,15 +385,15 @@ public class Utilities {
      * convert XML DOM document to String representation
      *
      * @param doc
-     *            the XML document
+     *         the XML document
      * @param indent
-     *            whether to indent
+     *         whether to indent
      * @param declaration
-     *            whether to output an XML declaration
+     *         whether to output an XML declaration
      * @return string representation
      */
     public static String documentToString(Document doc, boolean indent,
-            boolean declaration) {
+                                          boolean declaration) {
         return elementToString(doc.getDocumentElement(), indent, declaration);
     }
 
@@ -406,15 +401,15 @@ public class Utilities {
      * convert XML DOM element to String representation
      *
      * @param el
-     *            the XML element
+     *         the XML element
      * @param indent
-     *            whether to indent
+     *         whether to indent
      * @param declaration
-     *            whether to output an XML declaration
+     *         whether to output an XML declaration
      * @return string representation
      */
     public static String elementToString(Element el, boolean indent,
-            boolean declaration) {
+                                         boolean declaration) {
         TransformerFactory stf = TransformerFactory.newInstance();
         Transformer transformer;
         try {
@@ -437,9 +432,9 @@ public class Utilities {
      * convert XML DOM element to String representation without XML declaration
      *
      * @param el
-     *            the XML element
+     *         the XML element
      * @param indent
-     *            whether to indent
+     *         whether to indent
      * @return string representation
      */
     public static String elementToString(Element el, boolean indent) {
@@ -450,11 +445,12 @@ public class Utilities {
      * two convenience methods from
      * https://gist.github.com/sachin-handiekar/1346229
      */
+
     /**
      * convert DOM document to JDOM document
      *
      * @param input
-     *            DOM document
+     *         DOM document
      * @return JDOM document
      */
     public static org.jdom2.Document convertDOMtoJDOM(
@@ -467,10 +463,10 @@ public class Utilities {
      * convert JDOM document to DOM document
      *
      * @param jdomDoc
-     *            JDOM document
+     *         JDOM document
      * @return DOM document
      * @throws JDOMException
-     *             on occasion
+     *         on occasion
      */
     public static org.w3c.dom.Document convertJDOMToDOM(
             org.jdom2.Document jdomDoc) throws JDOMException {
@@ -483,14 +479,14 @@ public class Utilities {
      * parse XML document from {@link InputStream} to a DOM Document
      *
      * @param input
-     *            contains a document
+     *         contains a document
      * @return a DOM document
      * @throws ParserConfigurationException
-     *             on occasion
+     *         on occasion
      * @throws SAXException
-     *             on occasion
+     *         on occasion
      * @throws IOException
-     *             on occasion
+     *         on occasion
      */
     public static Document parseXML(InputSource input)
             throws ParserConfigurationException, SAXException, IOException {
@@ -515,16 +511,17 @@ public class Utilities {
      * parse XML document from {@link InputSource} to JDOM document
      *
      * @param input
-     *            contains a document
+     *         contains a document
      * @return a JDOM document on occasion
      * @throws JDOMException
-     *             on occasion
+     *         on occasion
      * @throws IOException
-     *             on occasion
+     *         on occasion
      */
     public static org.jdom2.Document parseXMLviaJDOM(InputSource input)
             throws JDOMException, IOException {
-        org.jdom2.input.SAXBuilder saxBuilder = new org.jdom2.input.SAXBuilder();
+        org.jdom2.input.SAXBuilder saxBuilder =
+                new org.jdom2.input.SAXBuilder();
         return saxBuilder.build(input);
     }
 
@@ -537,16 +534,17 @@ public class Utilities {
      * parse XML document from {@link String} to JDOM document
      *
      * @param docString
-     *            the document content
+     *         the document content
      * @return JDOM document on occasion
      * @throws JDOMException
-     *             on occasion
+     *         on occasion
      * @throws IOException
-     *             on occasion
+     *         on occasion
      */
     public static org.jdom2.Document readJDOMFromString(String docString)
             throws JDOMException, IOException {
-        org.jdom2.input.SAXBuilder saxBuilder = new org.jdom2.input.SAXBuilder();
+        org.jdom2.input.SAXBuilder saxBuilder =
+                new org.jdom2.input.SAXBuilder();
         java.io.StringReader sr = new java.io.StringReader(docString);
         return saxBuilder.build(sr);
     }
@@ -555,7 +553,7 @@ public class Utilities {
      * make a string representation for an element (JDOM version)
      *
      * @param element
-     *            the element
+     *         the element
      * @return the string representation
      */
     public static String elementToString(org.jdom2.Element element) {
@@ -566,14 +564,15 @@ public class Utilities {
      * make a string representation for an element (JDOM version)
      *
      * @param element
-     *            the element
+     *         the element
      * @param prettyPrint
-     *            whether to pretty-print
+     *         whether to pretty-print
      * @return the string representation
      */
     public static String elementToString(org.jdom2.Element element,
-            boolean prettyPrint) {
-        org.jdom2.output.XMLOutputter xmlOutputter = new org.jdom2.output.XMLOutputter();
+                                         boolean prettyPrint) {
+        org.jdom2.output.XMLOutputter xmlOutputter =
+                new org.jdom2.output.XMLOutputter();
         if (prettyPrint) {
             xmlOutputter.setFormat(org.jdom2.output.Format.getPrettyFormat());
         }
@@ -584,11 +583,11 @@ public class Utilities {
      * increase a counter in a Map
      *
      * @param <T>
-     *            the type of the counted thing
+     *         the type of the counted thing
      * @param map
-     *            the map
+     *         the map
      * @param key
-     *            the counted thing
+     *         the counted thing
      */
     public static <T> void incCounter(Map<? super T, Integer> map, T key) {
         if (map.containsKey(key)) {
@@ -602,7 +601,7 @@ public class Utilities {
      * make a Content list from XML text
      *
      * @param tx
-     *            the text
+     *         the text
      * @return the list of XML Content
      */
     public static List<org.jdom2.Content> makeContentList(String tx) {
@@ -621,12 +620,12 @@ public class Utilities {
      * from a parse of some text
      *
      * @param el
-     *            the element
+     *         the element
      * @param tx
-     *            the XML text
+     *         the XML text
      */
     public static void replaceContentWithParse(org.jdom2.Element el,
-            String tx) {
+                                               String tx) {
         el.removeContent();
         el.setContent(makeContentList(tx));
     }
@@ -635,15 +634,15 @@ public class Utilities {
      * deeply search for Element in given DOM Document
      *
      * @param doc
-     *            the parent
+     *         the parent
      * @param name
-     *            the sought tag name
+     *         the sought tag name
      * @param nameSpace
-     *            the namespace
+     *         the namespace
      * @return the first matching element or null
      */
     public static Element getElementByTagNameNS(Document doc, String nameSpace,
-            String name) {
+                                                String name) {
         return getElementByTagNameNS(doc.getDocumentElement(), nameSpace, name);
     }
 
@@ -651,15 +650,15 @@ public class Utilities {
      * deeply search for Element in given DOM Element
      *
      * @param el
-     *            the parent
+     *         the parent
      * @param name
-     *            the sought tag name
+     *         the sought tag name
      * @param nameSpace
-     *            the namespace
+     *         the namespace
      * @return the first matching element or null
      */
     public static Element getElementByTagNameNS(Element el, String nameSpace,
-            String name) {
+                                                String name) {
         Element element = null;
         NodeList elements = el.getElementsByTagNameNS(nameSpace, name);
         if (elements.getLength() > 0) {
@@ -701,9 +700,9 @@ public class Utilities {
      * deeply search for Element in given DOM Document
      *
      * @param doc
-     *            the parent
+     *         the parent
      * @param name
-     *            the sought tag name
+     *         the sought tag name
      * @return the first matching element or null
      */
     public static Element getElementByTagName(Document doc, String name) {
@@ -714,9 +713,9 @@ public class Utilities {
      * deeply search for Element in given DOM Element
      *
      * @param el
-     *            the parent
+     *         the parent
      * @param name
-     *            the sought tag name
+     *         the sought tag name
      * @return the first matching element or null
      */
     public static Element getElementByTagName(Element el, String name) {
@@ -739,15 +738,16 @@ public class Utilities {
      * deeply search for Element in given JDOM2 Element
      *
      * @param el
-     *            the parent
+     *         the parent
      * @param name
-     *            the sought tag name
+     *         the sought tag name
      * @param ns
-     *            the namespace (or null)
+     *         the namespace (or null)
      * @return the first matching element or null
      */
     public static org.jdom2.Element getElementByTagName(org.jdom2.Element el,
-            String name, Namespace ns) {
+                                                        String name,
+                                                        Namespace ns) {
         org.jdom2.Element element = null;
         IteratorIterable<org.jdom2.Element> elements = el
                 .getDescendants(new ElementFilter(name, ns));
@@ -761,13 +761,13 @@ public class Utilities {
      * deeply search for Element in given JDOM2 Element
      *
      * @param el
-     *            the parent
+     *         the parent
      * @param name
-     *            the sought tag name
+     *         the sought tag name
      * @return the first matching Element or null
      */
     public static org.jdom2.Element getElementByTagName(org.jdom2.Element el,
-            String name) {
+                                                        String name) {
         return getElementByTagName(el, name, null);
     }
 
