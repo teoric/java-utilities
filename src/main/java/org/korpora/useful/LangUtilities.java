@@ -37,7 +37,7 @@ public class LangUtilities {
      */
     private static final Map<String, String> languageMap;
 
-    private static final Map<String, String> threeToTwo;
+    private static final Map<String, String> twoToThree;
 
     /*
      * prepare variables
@@ -54,7 +54,7 @@ public class LangUtilities {
         }
         try (InputStream str = LangUtilities.class.getClassLoader()
                 .getResourceAsStream(LANGCODES_2_3_PATH)) {
-            threeToTwo = mapper.readValue(str,
+            twoToThree = mapper.readValue(str,
                     new TypeReference<Map<String, String>>() {
                     });
         } catch (IOException e) {
@@ -163,7 +163,7 @@ public class LangUtilities {
      * @return three letter code, or original string
      */
     public static String toThree(String lang) {
-        return threeToTwo.getOrDefault(lang, lang);
+        return twoToThree.getOrDefault(lang, lang);
     }
 
     /**
@@ -182,7 +182,7 @@ public class LangUtilities {
         Optional<String> language = Optional
                 .ofNullable(languageMap.get(lang[0].toLowerCase()));
         if (forceThree && language.isPresent() && language.get().length() == 2){
-               language.map(threeToTwo::get);
+               language = Optional.of(twoToThree.get(language.get()));
         }
         if (lang.length > 1) {
             language = language.map(s -> s + "-" + String.join("-",
