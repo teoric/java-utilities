@@ -1,9 +1,8 @@
 package org.korpora.useful;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.servlet.http.HttpServletRequest;
 
 @SuppressWarnings("WeakerAccess")
 public class Anonymize {
@@ -22,7 +21,8 @@ public class Anonymize {
      * Hinweise für Hersteller und Provider im Privatkundengeschäft",
      * keeping first two octets of IPv4 and first four hextets for IPv6.</p>
      *
-     * @param ip – an IP address
+     * @param ip
+     *         an IP address
      * @return the anonymized IP address
      */
     public static String getRemoteAddress(String ip) {
@@ -45,8 +45,11 @@ public class Anonymize {
     }
 
     /**
-     * anonymize IPv4 and IPv6 addresses, delegate to {@link #getRemoteAddress(String)}
-     * @param request – a Servlet Request
+     * anonymize IPv4 and IPv6 addresses, delegate to
+     * {@link #getRemoteAddress(String)}
+     *
+     * @param request
+     *         a Servlet Request
      * @return the anonymized IP address
      */
     public static String anonymizeAddress(HttpServletRequest request) {
