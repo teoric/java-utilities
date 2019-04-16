@@ -118,26 +118,39 @@ public class LangUtilities {
     }
 
     /**
-     * Get the (terminological) three letter ISO-639-1 code for language
+     * Get the ISO-639 two- or three-letter code for a language
      *
      * @param langu
      *            the language name / two or three letter code
-     * @return the three letter code as an Optional
+     * @return the shortest letter code as an Optional
      */
     public static Optional<String> getLanguage(String langu) {
         String lang = splitLang(langu);
         return Optional.ofNullable(languageMap.get(lang.toLowerCase()));
     }
 
+
     /**
-     * Get the (terminological) three letter ISO-639-1 code for language
+     * Get the ISO-639 two- or three-letter code for a language
+     *
+     * @param langu
+     *            the language name / two or three letter code
+     * @return the shortest letter code as string Optional
+     */
+    public static String getLanguageString(String langu) {
+        String lang = splitLang(langu);
+        return languageMap.get(lang.toLowerCase());
+    }
+
+    /**
+     * Get the ISO-639 two- or three-letter code for a language
      *
      * @param lang
      *            the language name / two or three letter code
      * @param defaultL
      *            the default code to return if {@code lang} is no discernible
      *            language
-     * @return the three letter code, or the default
+     * @return the letter code, or the default
      */
     public static String getLanguage(String lang, String defaultL) {
         return languageMap.getOrDefault(lang.toLowerCase(), defaultL);
