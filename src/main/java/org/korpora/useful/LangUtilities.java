@@ -180,6 +180,8 @@ public class LangUtilities {
      *         the language name / two or three letter code
      * @param maxComponents
      *         the maximal number of language + locale components
+     * @param forceThree
+     *         whether to force three-letter language codes
      * @return the three letter code as an Optional
      */
     public static Optional<String> getLanguageLocale(String language,
@@ -205,6 +207,8 @@ public class LangUtilities {
      *
      * @param language
      *         the language name / two or three letter code
+     * @param forceThree
+     *         whether to force three-letter language codes
      * @return the three letter code as an Optional
      */
     public static Optional<String> getLanguageLocale(String language,
@@ -223,6 +227,8 @@ public class LangUtilities {
      *         language
      * @param maxComponents
      *         the maximal number of language + locale components
+     * @param forceThree
+     *         whether to force three-letter language codes
      * @return the three letter code, or the default
      */
     public static String getLanguageLocale(
@@ -242,6 +248,8 @@ public class LangUtilities {
      * @param defaultL
      *         the default code to return if {@code language} is no discernible
      *         language
+     * @param forceThree
+     *         whether to force three-letter language codes
      * @return the three letter code, or the default
      */
     public static String getLanguageLocale(String language, String defaultL,
