@@ -30,14 +30,13 @@ public class Anonymize {
             return null;
         }
 
-        Matcher ip_mat;
-        ip_mat = IP4_PAT.matcher(ip);
-        if (ip_mat.find()) {
-            return ip_mat.group(0) + "xxx.xxx";
+        Matcher ipMatcher = IP4_PAT.matcher(ip);
+        if (ipMatcher.find()) {
+            return ipMatcher.group(0) + "xxx.xxx";
         } else {
-            ip_mat = IP6_PAT.matcher(ip);
-            if (ip_mat.find()) {
-                return ip_mat.group(0) + ":::";
+            ipMatcher = IP6_PAT.matcher(ip);
+            if (ipMatcher.find()) {
+                return ipMatcher.group(0) + ":::";
             } else {
                 return null;
             }
