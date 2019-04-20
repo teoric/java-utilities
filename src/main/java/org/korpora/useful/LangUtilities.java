@@ -187,16 +187,16 @@ public class LangUtilities {
                                                      boolean forceThree) {
         String[] lang = LOCALE_SEPARATOR.split(language);
         int components = Math.min(maxComponents, lang.length);
-        Optional<String> language = Optional
+        Optional<String> languageO = Optional
                 .ofNullable(languageMap.get(lang[0].toLowerCase()));
-        if (forceThree && language.isPresent() && language.get().length() == 2) {
-            language = Optional.of(twoToThree.get(language.get()));
+        if (forceThree && languageO.isPresent() && languageO.get().length() == 2) {
+            languageO = Optional.of(twoToThree.get(languageO.get()));
         }
         if (lang.length > 1) {
-            language = language.map(s -> s + "-" + String.join("-",
+            languageO = languageO.map(s -> s + "-" + String.join("-",
                     Arrays.copyOfRange(lang, 1, components)));
         }
-        return language;
+        return languageO;
     }
 
     /**
@@ -246,8 +246,7 @@ public class LangUtilities {
      */
     public static String getLanguageLocale(String language, String defaultL,
                                            boolean forceThree) {
-        return getLanguageLocale(language, defaultL, Integer.MAX_VALUE,
-                forceThree);
+        return getLanguageLocale(language, defaultL, Integer.MAX_VALUE, forceThree);
     }
 
     /**
