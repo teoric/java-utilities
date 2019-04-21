@@ -7,10 +7,10 @@ import java.util.regex.Pattern;
 @SuppressWarnings("WeakerAccess")
 public class Anonymize {
 
-    private static final Pattern IP4_PAT = Pattern.compile(
+    private static final Pattern IP4_PATTERN = Pattern.compile(
             "^(\\d+\\.){2}",
             Pattern.CASE_INSENSITIVE);
-    private static final Pattern IP6_PAT = Pattern.compile(
+    private static final Pattern IP6_PATTERN = Pattern.compile(
             "^(?:[0-9a-f]*:){4}",
             Pattern.CASE_INSENSITIVE);
 
@@ -30,16 +30,13 @@ public class Anonymize {
             return null;
         }
 
-        Matcher ipMatcher = IP4_PAT.matcher(ip);
+        Matcher ipMatcher = IP4_PATTERN.matcher(ip);
         if (ipMatcher.find()) {
             return ipMatcher.group(0) + "xxx.xxx";
         } else {
-            ip_mat = IP6_PAT.matcher(ip);
-            if (ip_mat.find()) {
-                return ip_mat.group(0) + "::";
-            ipMatcher = IP6_PAT.matcher(ip);
+            ipMatcher = IP6_PATTERN.matcher(ip);
             if (ipMatcher.find()) {
-                return ipMatcher.group(0) + ":::";
+                return ipMatcher.group(0) + "::";
             } else {
                 return null;
             }
