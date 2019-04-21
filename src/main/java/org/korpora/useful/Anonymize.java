@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class Anonymize {
 
     private static final Pattern IP4_PAT = Pattern.compile(
-            "^(\\d+\\.){3}",
+            "^(\\d+\\.){2}",
             Pattern.CASE_INSENSITIVE);
     private static final Pattern IP6_PAT = Pattern.compile(
             "^(?:[0-9a-f]*:){4}",
@@ -34,6 +34,9 @@ public class Anonymize {
         if (ipMatcher.find()) {
             return ipMatcher.group(0) + "xxx.xxx";
         } else {
+            ip_mat = IP6_PAT.matcher(ip);
+            if (ip_mat.find()) {
+                return ip_mat.group(0) + "::";
             ipMatcher = IP6_PAT.matcher(ip);
             if (ipMatcher.find()) {
                 return ipMatcher.group(0) + ":::";
