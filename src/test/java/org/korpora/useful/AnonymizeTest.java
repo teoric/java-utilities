@@ -8,11 +8,11 @@ class AnonymizeTest {
 
         @Test
         void testAnonymization() {
-            assertNull(Anonymize.getRemoteAddress("x"));
-            assertNull(Anonymize.getRemoteAddress("blah.blah.blah.blah"));
+            assertNull(Anonymize.anonymizeAddress("x"));
+            assertNull(Anonymize.anonymizeAddress("blah.blah.blah.blah"));
             assertEquals("127.0.xxx.xxx",
-                    Anonymize.getRemoteAddress("127.0.0.1"));
+                    Anonymize.anonymizeAddress("127.0.0.1"));
             assertEquals("2001:0db8:85a3:08d3:::",
-                    Anonymize.getRemoteAddress("2001:0db8:85a3:08d3::0370:7344"));
+                    Anonymize.anonymizeAddress("2001:0db8:85a3:08d3::0370:7344"));
         }
 }
