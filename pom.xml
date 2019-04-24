@@ -16,8 +16,40 @@
     <kotlin.version>1.3.0</kotlin.version>
     <jackson.version>[2.9.8,)</jackson.version>
     <dependency.locations.enabled>false</dependency.locations.enabled>
+    <junit.version>5.4.2</junit.version>
+    <junit.aux.version>1.4.2</junit.aux.version>
   </properties>
   <dependencies>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-launcher</artifactId>
+      <version>${junit.aux.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-runner</artifactId>
+      <version>${junit.aux.version}</version>
+      <scope>test</scope>
+    </dependency>
     <!-- https://mvnrepository.com/artifact/org.jdom/jdom2 -->
     <dependency>
       <groupId>org.jdom</groupId>
@@ -38,12 +70,6 @@
       <scope>provided</scope>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.annolab.tt4j/org.annolab.tt4j -->
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
-      <version>5.4.2</version>
-      <scope>compile</scope>
-    </dependency>
     <!-- https://mvnrepository.com/artifact/org.jooq/jool -->
     <dependency>
       <groupId>org.jooq</groupId>
