@@ -108,7 +108,6 @@ public class Utilities {
         }
         String ret = SPACE_START.matcher(s).replaceAll("");
         ret = SPACE_END.matcher(ret).replaceAll("");
-        System.err.println("[" + s + " -> " + ret + "]");
         return ret;
     }
 
