@@ -1,5 +1,6 @@
 package org.korpora.useful;
 
+import org.apache.commons.io.input.BOMInputStream;
 import org.apache.commons.lang3.StringUtils;
 import org.jdom2.JDOMException;
 import org.jdom2.Namespace;
@@ -25,6 +26,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import java.io.*;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.function.BinaryOperator;
 import java.util.regex.Matcher;
@@ -505,6 +507,17 @@ public class Utilities {
         return parseXML(new InputSource(input));
     }
 
+    public static Document parseXML(File input)
+            throws ParserConfigurationException, SAXException, IOException {
+        return parseXML(new InputSource(
+                new BOMInputStream(
+                    new FileInputStream(input))));
+    }
+    public static Document parseXML(Path input)
+            throws ParserConfigurationException, SAXException, IOException {
+        return parseXML(input.toFile());
+    }
+
     public static Document parseXML(String input)
             throws ParserConfigurationException, SAXException, IOException {
         return parseXML(new InputSource(new StringReader(input)));
@@ -531,6 +544,17 @@ public class Utilities {
     public static org.jdom2.Document parseXMLviaJDOM(InputStream input)
             throws JDOMException, IOException {
         return parseXMLviaJDOM(new InputSource(input));
+    }
+
+    public static org.jdom2.Document parseXMLviaJDOM(File input)
+            throws JDOMException, IOException {
+        return parseXMLviaJDOM(new InputSource(
+                new BOMInputStream(
+                        new FileInputStream(input))));
+    }
+    public static org.jdom2.Document parseXMLviaJDOM(Path input)
+            throws JDOMException, IOException {
+        return parseXMLviaJDOM(input.toFile());
     }
 
     /**
