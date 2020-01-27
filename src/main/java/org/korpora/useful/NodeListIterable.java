@@ -1,9 +1,9 @@
 package org.korpora.useful;
 
+import java.util.Iterator;
+
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import java.util.Iterator;
 
 /**
  * Make Iterable for NodeList
@@ -14,6 +14,9 @@ public class NodeListIterable implements Iterable<Node> {
 
     private NodeList list;
 
+    /**
+     * Make Iterable for NodeList
+     */
     public NodeListIterable(NodeList nodes) {
         if (nodes == null) {
             throw new IllegalArgumentException();
@@ -21,10 +24,21 @@ public class NodeListIterable implements Iterable<Node> {
         list = nodes;
     }
 
+    /**
+     * get size of underlying NodeList
+     *
+     * @return
+     */
     public int size() {
         return list.getLength();
     }
 
+    /**
+     * get i^th element of underlying NodeList
+     *
+     * @param i
+     * @return i^th element
+     */
     public Node get(int i) {
         return (i < list.getLength()) ? list.item(i) : null;
     }
@@ -34,7 +48,7 @@ public class NodeListIterable implements Iterable<Node> {
         return new NodeListIterator();
     }
 
-    class NodeListIterator implements Iterator<Node> {
+    public class NodeListIterator implements Iterator<Node> {
 
         int pos = -1;
 
