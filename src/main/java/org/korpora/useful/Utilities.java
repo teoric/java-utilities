@@ -116,8 +116,8 @@ public class Utilities {
     /**
      * Strip space from String – Unicode-aware.
      * <p>
-     * since Java 11, use #{@link String}::strip. If sure Unicode does not
-     * matter, use #{@link String#trim()}.
+     * since Java 11, use #{@link String}::strip. When sure that Unicode does
+     * not matter, use #{@link String#trim()}.
      *
      * @param s
      *     an innocent String
@@ -225,7 +225,7 @@ public class Utilities {
      *
      * @param list
      *     – the {@link NodeList}
-     * @return the {@link Stream}{@code <Node>}
+     * @return the {@link Stream}{@code <}{@link Node}{@code >}
      */
     public static Stream<Node> toStream(NodeList list) {
         if (list == null) {
@@ -746,15 +746,15 @@ public class Utilities {
      *
      * @param doc
      *     the parent
-     * @param name
+     * @param tagName
      *     the sought tag name
      * @param nameSpace
      *     the namespace
      * @return the first matching element or null
      */
     public static Element getElementByTagNameNS(Document doc, String nameSpace,
-            String name) {
-        return getElementByTagNameNS(doc.getDocumentElement(), nameSpace, name);
+            String tagName) {
+        return getElementByTagNameNS(doc.getDocumentElement(), nameSpace, tagName);
     }
 
     /**
@@ -762,16 +762,16 @@ public class Utilities {
      *
      * @param el
      *     the parent
-     * @param name
+     * @param tagName
      *     the sought tag name
      * @param nameSpace
      *     the namespace
      * @return the first matching element or null
      */
     public static Element getElementByTagNameNS(Element el, String nameSpace,
-            String name) {
+            String tagName) {
         Element element = null;
-        NodeList elements = el.getElementsByTagNameNS(nameSpace, name);
+        NodeList elements = el.getElementsByTagNameNS(nameSpace, tagName);
         if (elements.getLength() > 0) {
             // System.err.println("FOUND: " + name);
             element = (Element) elements.item(0);
@@ -822,12 +822,12 @@ public class Utilities {
      *
      * @param doc
      *     the parent XML DOM {@link Document}
-     * @param name
+     * @param tagName
      *     the sought-after tag name
      * @return the first matching {@link Element} or null
      */
-    public static Element getElementByTagName(Document doc, String name) {
-        return getElementByTagName(doc.getDocumentElement(), name);
+    public static Element getElementByTagName(Document doc, String tagName) {
+        return getElementByTagName(doc.getDocumentElement(), tagName);
     }
 
     /**
@@ -835,13 +835,13 @@ public class Utilities {
      *
      * @param el
      *     the parent XML DOM {@link Document}
-     * @param name
+     * @param tagName
      *     the sought-after tag name
      * @return the first matching {@link Element} or null
      */
-    public static Element getElementByTagName(Element el, String name) {
+    public static Element getElementByTagName(Element el, String tagName) {
         Element element = null;
-        NodeList elements = el.getElementsByTagName(name);
+        NodeList elements = el.getElementsByTagName(tagName);
         if (elements.getLength() > 0) {
             element = (Element) elements.item(0);
         }
@@ -863,22 +863,22 @@ public class Utilities {
     }
 
     /**
-     * deeply search for {@lonk org.jdom2.Element} in given JDOM2
+     * deeply search for {@link org.jdom2.Element} in given JDOM2
      * {@link org.jdom2.Element}
      *
      * @param el
      *     the parent {@link org.jdom2.Element}
-     * @param name
+     * @param tagName
      *     the sought tag name
      * @param ns
      *     the namespace (or null)
      * @return the first matching {@link org.jdom2.Element} or null
      */
     public static org.jdom2.Element getElementByTagName(org.jdom2.Element el,
-            String name, Namespace ns) {
+            String tagName, Namespace ns) {
         org.jdom2.Element element = null;
         IteratorIterable<org.jdom2.Element> elements = el
-                .getDescendants(new ElementFilter(name, ns));
+                .getDescendants(new ElementFilter(tagName, ns));
         if (elements.hasNext()) {
             element = elements.next();
         }
@@ -886,18 +886,18 @@ public class Utilities {
     }
 
     /**
-     * deeply search for {@lonk org.jdom2.Element} in given JDOM2
+     * deeply search for {@link org.jdom2.Element} in given JDOM2
      * {@link org.jdom2.Element}
      *
      * @param el
      *     the parent {@link org.jdom2.Element}
-     * @param name
+     * @param tagName
      *     the sought tag name
      * @return the first matching {@link org.jdom2.Element} or null
      */
     public static org.jdom2.Element getElementByTagName(org.jdom2.Element el,
-            String name) {
-        return getElementByTagName(el, name, null);
+            String tagName) {
+        return getElementByTagName(el, tagName, null);
     }
 
 }
