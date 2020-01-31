@@ -746,15 +746,15 @@ public class Utilities {
      *
      * @param doc
      *     the parent
-     * @param tagName
+     * @param name
      *     the sought tag name
      * @param nameSpace
      *     the namespace
      * @return the first matching element or null
      */
     public static Element getElementByTagNameNS(Document doc, String nameSpace,
-            String tagName) {
-        return getElementByTagNameNS(doc.getDocumentElement(), nameSpace, tagName);
+            String name) {
+        return getElementByTagNameNS(doc.getDocumentElement(), nameSpace, name);
     }
 
     /**
