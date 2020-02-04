@@ -27,7 +27,7 @@ public class NodeListIterable implements Iterable<Node> {
     /**
      * get size of underlying NodeList
      *
-     * @return
+     * @return size
      */
     public int size() {
         return list.getLength();

@@ -16,7 +16,7 @@
     <jackson.version>[2.10.2,)</jackson.version>
     <dependency.locations.enabled>false</dependency.locations.enabled>
     <junit.version>5.6.0</junit.version>
-    <junit.aux.version>1.4.2</junit.aux.version>
+    <junit.aux.version>1.6.0</junit.aux.version>
   </properties>
   <dependencies>
     <dependency>
@@ -180,6 +180,7 @@
           <source>${maven.compiler.source}</source>
           <stylesheetfile>${basedir}/src/main/javadoc/stylesheet.css</stylesheetfile>
           <show>public</show>
+          <failOnError>false</failOnError>
         </configuration>
         <reportSets>
           <reportSet>
@@ -192,4 +193,8 @@
       </plugin>
     </plugins>
   </reporting>
+  <organization>
+    <name>Korpora.org</name>
+    <url>http://www.korpora.org</url>
+  </organization>
 </project>
