@@ -1,5 +1,6 @@
 package org.korpora.useful;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -16,12 +17,29 @@ class LangUtilitiesTest {
 
     @Test
     void testGetLanguageLocale() {
-        assertEquals("deu-DE", LangUtilities.getLanguageLocale("de-DE", true).get());
-        assertEquals("de-DE", LangUtilities.getLanguageLocale("de_DE", false).get());
+        assertEquals("deu-DE",
+                LangUtilities.getLanguageLocale("de-DE", true).get());
+        assertEquals("de-DE",
+                LangUtilities.getLanguageLocale("de_DE", false).get());
         assertEquals("deu-DE-1",
                 LangUtilities.getLanguageLocale("de_DE-1", true).get());
         assertFalse(LangUtilities.getLanguageLocale("xxx", true).isPresent());
         assertFalse(LangUtilities.getLanguageLocale("xxx", false).isPresent());
+    }
+
+    @Test
+    void testToTupleTriple() {
+        assertEquals("deu", LangUtilities.toThree("de"));
+        assertFalse(LangUtilities.isLanguageTriple("deu"));
+        assertTrue(LangUtilities.isLanguageTuple("de"));
+        assertTrue(LangUtilities.isLanguageTriple("deu"));
+        assertFalse(LangUtilities.isLanguageTuple("de"));
+        assertEquals("ndl", LangUtilities.toThree("nl"));
+        assertFalse(LangUtilities.isLanguageTriple("ndl"));
+        assertTrue(LangUtilities.isLanguageTuple("nl"));
+        assertTrue(LangUtilities.isLanguageTriple("ndl"));
+        assertFalse(LangUtilities.isLanguageTriple("nld"));
+        assertFalse(LangUtilities.isLanguageTuple("nl"));
     }
 
 }
