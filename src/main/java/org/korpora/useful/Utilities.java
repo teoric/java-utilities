@@ -88,7 +88,7 @@ public class Utilities {
     };
     // Java is crazy: \p{Z} does not work as intended
     private static final Pattern SPACE = Pattern
-            .compile("[\\p{javaWhitespace}]+", Pattern.MULTILINE);
+            .compile("[\\p{javaWhitespace}\\p{Z}]+", Pattern.MULTILINE);
     private static final Pattern SPACE_START = Pattern
             .compile("\\A" + SPACE + "+", Pattern.MULTILINE);
     private static final Pattern SPACE_END = Pattern.compile("" + SPACE + "\\Z",
