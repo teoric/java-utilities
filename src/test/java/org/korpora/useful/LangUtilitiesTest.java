@@ -30,16 +30,15 @@ class LangUtilitiesTest {
     @Test
     void testToTupleTriple() {
         assertEquals("deu", LangUtilities.toThree("de"));
-        assertFalse(LangUtilities.isLanguageTriple("deu"));
+        assertFalse(LangUtilities.isLanguageTuple("deu"));
         assertTrue(LangUtilities.isLanguageTuple("de"));
         assertTrue(LangUtilities.isLanguageTriple("deu"));
-        assertFalse(LangUtilities.isLanguageTuple("de"));
-        assertEquals("ndl", LangUtilities.toThree("nl"));
-        assertFalse(LangUtilities.isLanguageTriple("ndl"));
+        assertFalse(LangUtilities.isLanguageTriple("de"));
+        assertEquals("nld", LangUtilities.toThree("nl"));
         assertTrue(LangUtilities.isLanguageTuple("nl"));
-        assertTrue(LangUtilities.isLanguageTriple("ndl"));
-        assertFalse(LangUtilities.isLanguageTriple("nld"));
-        assertFalse(LangUtilities.isLanguageTuple("nl"));
+        assertTrue(LangUtilities.isLanguageTriple("nld"));
+        assertFalse(LangUtilities.isLanguageTriple("ndl"));
+        assertFalse(LangUtilities.isLanguageTriple("nl"));
     }
 
 }
