@@ -161,6 +161,9 @@
         <configuration>
           <archive>
             <index>true</index>
+            <manifestEntries>
+              <Automatic-Module-Name>org.korpora.useful</Automatic-Module-Name>
+            </manifestEntries>
             <manifest>
               <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
               <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>

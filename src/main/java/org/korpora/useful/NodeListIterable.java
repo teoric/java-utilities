@@ -16,6 +16,9 @@ public class NodeListIterable implements Iterable<Node> {
 
     /**
      * Make Iterable for NodeList
+     *
+     * @param nodes NodeList
+     * @throws IllegalArgumentException in case of null NodeList
      */
     public NodeListIterable(NodeList nodes) {
         if (nodes == null) {
@@ -36,7 +39,7 @@ public class NodeListIterable implements Iterable<Node> {
     /**
      * get i^th element of underlying NodeList
      *
-     * @param i
+     * @param i 0-based index
      * @return i^th element
      */
     public Node get(int i) {
