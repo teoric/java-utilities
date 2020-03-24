@@ -1,14 +1,16 @@
 package org.korpora.useful;
 
 import org.apache.commons.lang3.StringUtils;
-import org.w3c.dom.*;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.function.BinaryOperator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 /**
  * Some collected utilities
@@ -20,6 +22,7 @@ public class Utilities {
 
     /**
      * whether we are on Windows
+     *
      * @return whether
      */
     public static boolean onWindOs() {
@@ -185,16 +188,32 @@ public class Utilities {
      *         in case of problems
      */
     public static void linesToFile(List<String> lines, File file) throws IOException {
-        try (FileWriter fw = new FileWriter(file)) {
+        try (OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8)) {
             PrintWriter pw = new PrintWriter(fw);
             lines.forEach(pw::println);
         }
 
     }
 
-    
+    /**
+     * get a stream from an iterator
+     *
+     * @param iterator
+     *         the iterator
+     * @param <T>
+     *         type of the elements
+     * @return the stream
+     */
+    public static <T> Stream<T>
+    getStream(Iterator<T> iterator) {
 
-    
+        Spliterator<T>
+                spliterator = Spliterators
+                .spliteratorUnknownSize(iterator, Spliterator.ORDERED);
+
+        return StreamSupport.stream(spliterator, false);
+    }
+
 
     /*
      * two convenience methods from
