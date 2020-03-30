@@ -1,16 +1,25 @@
 package org.korpora.useful;
 
-import org.apache.commons.lang3.StringUtils;
-
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Spliterator;
+import java.util.Spliterators;
 import java.util.function.BinaryOperator;
+import java.util.function.IntBinaryOperator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
+
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Some collected utilities
@@ -18,7 +27,16 @@ import java.util.stream.StreamSupport;
  * @author Bernhard Fisseni (bernhard.fisseni@uni-due.de)
  */
 @SuppressWarnings("WeakerAccess")
+
+/**
+ * some utility functions
+ *
+ * @author bfi
+ *
+ */
 public class Utilities {
+    private Utilities() {
+    }
 
     /**
      * whether we are on Windows
@@ -42,9 +60,9 @@ public class Utilities {
      * {@link java.util.stream.Collectors#toMap(java.util.function.Function, java.util.function.Function, BinaryOperator, java.util.function.Supplier)}.
      * end merging if duplicate key found.
      */
-    public static final BinaryOperator<Integer> intCollider = (u, v) -> {
+    public static final IntBinaryOperator intCollider = (u, v) -> {
         throw new IllegalStateException(
-                String.format("Duplicate key «%s»", u.toString()));
+                String.format("Duplicate key «%s»", Integer.toString(u)));
     };
     /**
      * for use in third place of
@@ -70,7 +88,7 @@ public class Utilities {
      * count Unicode “graphemes” in String
      *
      * @param s
-     *         the string
+     *     the string
      * @return the count of graphemes
      */
     public static int countGraphemes(String s) {
@@ -89,7 +107,7 @@ public class Utilities {
      * not matter, use #{@link String#trim()}.
      *
      * @param s
-     *         an innocent String
+     *     an innocent String
      * @return the stripped s
      * @deprecated use #{@link StringUtils#strip(String)}
      */
@@ -107,7 +125,7 @@ public class Utilities {
      * Remove space from String – Unicode-aware.
      *
      * @param s
-     *         an innocent String
+     *     an innocent String
      * @return the stripped s
      */
     public static String removeSpace(String s) {
@@ -121,7 +139,7 @@ public class Utilities {
      * Determine if String is non-empty, i.e., contains non-white-space content
      *
      * @param s
-     *         an innocent string
+     *     an innocent string
      * @return whether s is empty (contains only space)
      */
     public static boolean isEmpty(String s) {
@@ -135,11 +153,11 @@ public class Utilities {
      * increase a counter in a Map
      *
      * @param <T>
-     *         the type of the counted thing
+     *     the type of the counted thing
      * @param map
-     *         the map
+     *     the map
      * @param key
-     *         the counted thing
+     *     the counted thing
      */
     public static <T> void incCounter(Map<? super T, Integer> map, T key) {
         if (map.containsKey(key)) {
@@ -153,13 +171,14 @@ public class Utilities {
      * print lines to file
      *
      * @param lines
-     *         a list of lines
+     *     a list of lines
      * @param fileName
-     *         a file name
+     *     a file name
      * @throws IOException
-     *         in case of problems
+     *     in case of problems
      */
-    public static void linesToFile(List<String> lines, String fileName) throws IOException {
+    public static void linesToFile(List<String> lines, String fileName)
+            throws IOException {
         linesToFile(lines, new File(fileName));
     }
 
@@ -167,13 +186,14 @@ public class Utilities {
      * print lines to file
      *
      * @param lines
-     *         a list of lines
+     *     a list of lines
      * @param path
-     *         a path
+     *     a path
      * @throws IOException
-     *         in case of problems
+     *     in case of problems
      */
-    public static void linesToFile(List<String> lines, Path path) throws IOException {
+    public static void linesToFile(List<String> lines, Path path)
+            throws IOException {
         linesToFile(lines, path.toFile());
     }
 
@@ -181,14 +201,16 @@ public class Utilities {
      * print lines to file
      *
      * @param lines
-     *         a list of lines
+     *     a list of lines
      * @param file
-     *         a file
+     *     a file
      * @throws IOException
-     *         in case of problems
+     *     in case of problems
      */
-    public static void linesToFile(List<String> lines, File file) throws IOException {
-        try (OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8)) {
+    public static void linesToFile(List<String> lines, File file)
+            throws IOException {
+        try (OutputStreamWriter fw = new OutputStreamWriter(
+                new FileOutputStream(file), StandardCharsets.UTF_8)) {
             PrintWriter pw = new PrintWriter(fw);
             lines.forEach(pw::println);
         }
@@ -199,21 +221,18 @@ public class Utilities {
      * get a stream from an iterator
      *
      * @param iterator
-     *         the iterator
+     *     the iterator
      * @param <T>
-     *         type of the elements
+     *     type of the elements
      * @return the stream
      */
-    public static <T> Stream<T>
-    getStream(Iterator<T> iterator) {
+    public static <T> Stream<T> getStream(Iterator<T> iterator) {
 
-        Spliterator<T>
-                spliterator = Spliterators
+        Spliterator<T> spliterator = Spliterators
                 .spliteratorUnknownSize(iterator, Spliterator.ORDERED);
 
         return StreamSupport.stream(spliterator, false);
     }
-
 
     /*
      * two convenience methods from

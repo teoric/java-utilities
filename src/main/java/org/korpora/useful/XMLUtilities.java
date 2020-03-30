@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Spliterator;
 import java.util.Spliterators;
 import java.util.stream.Collectors;
@@ -33,15 +34,11 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.apache.commons.io.input.BOMInputStream;
-import org.jdom2.Content;
 import org.jdom2.JDOMException;
 import org.jdom2.Namespace;
 import org.jdom2.filter.ElementFilter;
 import org.jdom2.input.DOMBuilder;
-import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.DOMOutputter;
-import org.jdom2.output.Format;
-import org.jdom2.output.XMLOutputter;
 import org.jdom2.util.IteratorIterable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -51,53 +48,61 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+/**
+ * utility class for handling XML documents with (j)DOM
+ *
+ * @author bfi
+ *
+ */
 public class XMLUtilities {
+    private XMLUtilities() {
+    }
 
     /**
      * Make a {@link HashMap} with attributes from a DOM {@link Element} node
      *
      * @param el
-     *         a DOM {@link Element}
+     *     a DOM {@link Element}
      * @return a {@link HashMap} containing {@code el}'s attribute-value pairs
      */
-    public static HashMap<String, String> attributeMap(Element el) {
+    public static Map<String, String> attributeMap(Element el) {
         if (el == null) {
             throw new IllegalArgumentException();
         }
-        NamedNodeMap amap = el.getAttributes();
-        HashMap<String, String> attr = new HashMap<>();
-        for (int i = 0; i < amap.getLength(); i++) {
-            Node n = amap.item(i);
-            attr.put(n.getNodeName(), n.getNodeValue());
+        NamedNodeMap attributeMap = el.getAttributes();
+        HashMap<String, String> attributes = new HashMap<>();
+        for (int i = 0; i < attributeMap.getLength(); i++) {
+            Node n = attributeMap.item(i);
+            attributes.put(n.getNodeName(), n.getNodeValue());
         }
-        return attr;
+        return attributes;
     }
 
     /**
      * make list of attribute Names
      *
      * @param el
-     *         – an DOM {@link Element} {@link Node}
+     *     – an DOM {@link Element} {@link Node}
      * @return list of attribute names
      */
     public static List<String> attributeList(Element el) {
         if (el == null) {
             throw new IllegalArgumentException();
         }
-        NamedNodeMap amap = el.getAttributes();
-        List<String> attr = new ArrayList<>();
-        for (int i = 0; i < amap.getLength(); i++) {
-            Node n = amap.item(i);
-            attr.add(n.getNodeName());
+        NamedNodeMap attributeMap = el.getAttributes();
+        List<String> attributes = new ArrayList<>();
+        for (int i = 0; i < attributeMap.getLength(); i++) {
+            Node n = attributeMap.item(i);
+            attributes.add(n.getNodeName());
         }
-        return attr;
+        return attributes;
     }
 
     /**
      * convert DOM {@link Document} to JDOM {@link org.jdom2.Document}
      *
      * @param input
-     *         DOM document
+     *     DOM document
      * @return JDOM document
      */
     public static org.jdom2.Document convertDOMtoJDOM(
@@ -110,23 +115,23 @@ public class XMLUtilities {
      * convert JDOM document to DOM {@link Document}
      *
      * @param jdomDoc
-     *         JDOM document
+     *     JDOM document
      * @return DOM document
      * @throws JDOMException
-     *         on occasion
+     *     on occasion
      */
     public static org.w3c.dom.Document convertJDOMToDOM(
             org.jdom2.Document jdomDoc) throws JDOMException {
-    
-        DOMOutputter outputter = new DOMOutputter();
-        return outputter.output(jdomDoc);
+
+        DOMOutputter outPutter = new DOMOutputter();
+        return outPutter.output(jdomDoc);
     }
 
     /**
      * remove all children of XML DOM {@link Element}
      *
      * @param el
-     *         XML DOM {@link Element}
+     *     XML DOM {@link Element}
      * @return cleaned XML DOM {@link Element}
      */
     public static Element cleanElement(Element el) {
@@ -141,9 +146,9 @@ public class XMLUtilities {
      * including an XML declaration.
      *
      * @param doc
-     *         the XML document
+     *     the XML document
      * @param indent
-     *         whether to indent
+     *     whether to indent
      * @return string representation
      */
     public static String documentToString(Document doc, boolean indent) {
@@ -154,15 +159,15 @@ public class XMLUtilities {
      * convert XML DOM {@link Document} to {@link String} representation
      *
      * @param doc
-     *         the XML document
+     *     the XML document
      * @param indent
-     *         whether to indent
+     *     whether to indent
      * @param declaration
-     *         whether to output an XML declaration
+     *     whether to output an XML declaration
      * @return string representation
      */
     public static String documentToString(Document doc, boolean indent,
-                                          boolean declaration) {
+            boolean declaration) {
         return elementToString(doc.getDocumentElement(), indent, declaration);
     }
 
@@ -170,15 +175,15 @@ public class XMLUtilities {
      * convert XML DOM {@link Element} to {@link String} representation
      *
      * @param el
-     *         the XML element
+     *     the XML element
      * @param indent
-     *         whether to indent
+     *     whether to indent
      * @param declaration
-     *         whether to output an XML declaration
+     *     whether to output an XML declaration
      * @return string representation
      */
     public static String elementToString(Element el, boolean indent,
-                                         boolean declaration) {
+            boolean declaration) {
         TransformerFactory stf = TransformerFactory.newInstance();
         Transformer transformer;
         try {
@@ -202,9 +207,9 @@ public class XMLUtilities {
      * XML declaration
      *
      * @param el
-     *         the XML element
+     *     the XML element
      * @param indent
-     *         whether to indent
+     *     whether to indent
      * @return string representation
      */
     public static String elementToString(Element el, boolean indent) {
@@ -216,7 +221,7 @@ public class XMLUtilities {
      * XML declaration and indentation
      *
      * @param el
-     *         the XML element
+     *     the XML element
      * @return string representation
      */
     public static String elementToString(Element el) {
@@ -227,7 +232,7 @@ public class XMLUtilities {
      * make a string representation for an XML element (JDOM version)
      *
      * @param element
-     *         the {@link org.jdom2.Element}
+     *     the {@link org.jdom2.Element}
      * @return the {@link String} representation
      */
     public static String elementToString(org.jdom2.Element element) {
@@ -238,15 +243,14 @@ public class XMLUtilities {
      * make a string representation for an XML element (JDOM version)
      *
      * @param element
-     *         the {@link org.jdom2.Element}
+     *     the {@link org.jdom2.Element}
      * @param prettyPrint
-     *         whether to pretty-print
+     *     whether to pretty-print
      * @return the {@link String} representation
      */
     public static String elementToString(org.jdom2.Element element,
-                                         boolean prettyPrint) {
-        org.jdom2.output.XMLOutputter xmlOutputter =
-                new org.jdom2.output.XMLOutputter();
+            boolean prettyPrint) {
+        org.jdom2.output.XMLOutputter xmlOutputter = new org.jdom2.output.XMLOutputter();
         if (prettyPrint) {
             xmlOutputter.setFormat(org.jdom2.output.Format.getPrettyFormat());
         }
@@ -257,15 +261,15 @@ public class XMLUtilities {
      * deeply search for Element in given DOM Document
      *
      * @param doc
-     *         the parent
+     *     the parent
      * @param name
-     *         the sought tag name
+     *     the sought tag name
      * @param nameSpace
-     *         the namespace
+     *     the namespace
      * @return the first matching element or null
      */
     public static Element getElementByTagNameNS(Document doc, String nameSpace,
-                                                String name) {
+            String name) {
         return getElementByTagNameNS(doc.getDocumentElement(), nameSpace, name);
     }
 
@@ -273,19 +277,18 @@ public class XMLUtilities {
      * deeply search for Element in given DOM Element
      *
      * @param el
-     *         the parent
+     *     the parent
      * @param tagName
-     *         the sought tag name
+     *     the sought tag name
      * @param nameSpace
-     *         the namespace
+     *     the namespace
      * @return the first matching element or null
      */
     public static Element getElementByTagNameNS(Element el, String nameSpace,
-                                                String tagName) {
+            String tagName) {
         Element element = null;
         NodeList elements = el.getElementsByTagNameNS(nameSpace, tagName);
         if (elements.getLength() > 0) {
-            // System.err.println("FOUND: " + name);
             element = (Element) elements.item(0);
         }
         return element;
@@ -296,9 +299,9 @@ public class XMLUtilities {
      * "id"
      *
      * @param doc
-     *         XML DOM {@link Document}
+     *     XML DOM {@link Document}
      * @param id
-     *         the ID
+     *     the ID
      * @return the Element
      */
     public static Element getElementByID(Document doc, String id) {
@@ -326,16 +329,16 @@ public class XMLUtilities {
         } catch (XPathExpressionException e) {
             throw new RuntimeException("XPATH ERROR");
         }
-    
+
     }
 
     /**
      * deeply search for XML DOM {@link Element} in given DOM {@link Element}
      *
      * @param doc
-     *         the parent XML DOM {@link Document}
+     *     the parent XML DOM {@link Document}
      * @param tagName
-     *         the sought-after tag name
+     *     the sought-after tag name
      * @return the first matching {@link Element} or null
      */
     public static Element getElementByTagName(Document doc, String tagName) {
@@ -346,9 +349,9 @@ public class XMLUtilities {
      * deeply search for XML DOM {@link Element} in given DOM {@link Element}
      *
      * @param el
-     *         the parent XML DOM {@link Document}
+     *     the parent XML DOM {@link Document}
      * @param tagName
-     *         the sought-after tag name
+     *     the sought-after tag name
      * @return the first matching {@link Element} or null
      */
     public static Element getElementByTagName(Element el, String tagName) {
@@ -365,16 +368,15 @@ public class XMLUtilities {
      * {@link org.jdom2.Element}
      *
      * @param el
-     *         the parent {@link org.jdom2.Element}
+     *     the parent {@link org.jdom2.Element}
      * @param tagName
-     *         the sought tag name
+     *     the sought tag name
      * @param ns
-     *         the namespace (or null)
+     *     the namespace (or null)
      * @return the first matching {@link org.jdom2.Element} or null
      */
     public static org.jdom2.Element getElementByTagName(org.jdom2.Element el,
-                                                        String tagName,
-                                                        Namespace ns) {
+            String tagName, Namespace ns) {
         org.jdom2.Element element = null;
         IteratorIterable<org.jdom2.Element> elements = el
                 .getDescendants(new ElementFilter(tagName, ns));
@@ -389,13 +391,13 @@ public class XMLUtilities {
      * {@link org.jdom2.Element}
      *
      * @param el
-     *         the parent {@link org.jdom2.Element}
+     *     the parent {@link org.jdom2.Element}
      * @param tagName
-     *         the sought tag name
+     *     the sought tag name
      * @return the first matching {@link org.jdom2.Element} or null
      */
     public static org.jdom2.Element getElementByTagName(org.jdom2.Element el,
-                                                        String tagName) {
+            String tagName) {
         return getElementByTagName(el, tagName, null);
     }
 
@@ -403,7 +405,7 @@ public class XMLUtilities {
      * Make Array from {@link NodeList}
      *
      * @param list
-     *         a DOM NodeList
+     *     a DOM NodeList
      * @return a corresponding Array
      * @see #toIterator(NodeList)
      * @deprecated – often a {@link NodeListIterable.NodeListIterator} works
@@ -427,7 +429,7 @@ public class XMLUtilities {
      * Make {@link List} of {@link Node}s from {@link NodeList}
      *
      * @param list
-     *         a DOM NodeList
+     *     a DOM NodeList
      * @return a corresponding List
      * @see #toIterator(NodeList)
      */
@@ -443,7 +445,7 @@ public class XMLUtilities {
      * make Java 8+ {@link Stream} of a {@link NodeList}
      *
      * @param list
-     *         – the {@link NodeList}
+     *     – the {@link NodeList}
      * @return the {@link Stream}{@code <}{@link Node}{@code >}
      */
     public static Stream<Node> toStream(NodeList list) {
@@ -451,11 +453,11 @@ public class XMLUtilities {
             throw new IllegalArgumentException();
         }
         return StreamSupport.stream(Spliterators
-                        .spliteratorUnknownSize(new NodeListIterable(list).iterator(),
-                                Spliterator.DISTINCT
-                                        // | Spliterator.IMMUTABLE
-                                        // | Spliterator.ORDERED
-                                        | Spliterator.NONNULL),
+                .spliteratorUnknownSize(new NodeListIterable(list).iterator(),
+                        Spliterator.DISTINCT
+                                // | Spliterator.IMMUTABLE
+                                // | Spliterator.ORDERED
+                                | Spliterator.NONNULL),
                 false);
     }
 
@@ -463,7 +465,7 @@ public class XMLUtilities {
      * Make {@link Stream} of {@link Element}s from {@link NodeList}
      *
      * @param list
-     *         a DOM NodeList
+     *     a DOM NodeList
      * @return a corresponding List of Elements
      * @see #toIterator(NodeList)
      */
@@ -475,7 +477,7 @@ public class XMLUtilities {
      * Make {@link List} of {@link Element}s from {@link NodeList}
      *
      * @param list
-     *         a DOM NodeList
+     *     a DOM NodeList
      * @return a corresponding List of Elements
      * @see #toIterator(NodeList)
      */
@@ -488,7 +490,7 @@ public class XMLUtilities {
      * make an {@link Iterator} of a {@link NodeList}
      *
      * @param list
-     *         – the {@link NodeList}
+     *     – the {@link NodeList}
      * @return the {@link Iterator}
      */
     public static Iterator<Node> toIterator(NodeList list) {
@@ -502,9 +504,9 @@ public class XMLUtilities {
      * insert a {@link Node} as first child of an {@link Element}
      *
      * @param el
-     *         the element
+     *     the element
      * @param n
-     *         the node
+     *     the node
      */
     public static void insertAtBeginningOf(Node n, Element el) {
         Node first = el.getFirstChild();
@@ -519,9 +521,9 @@ public class XMLUtilities {
      * insert a {@link Node} immediately before an {@link Element}
      *
      * @param n
-     *         the node
+     *     the node
      * @param el
-     *         the Element
+     *     the Element
      */
     public static void insertBeforeMe(Node n, Element el) {
         el.getParentNode().insertBefore(n, el);
@@ -531,9 +533,9 @@ public class XMLUtilities {
      * insert a {@link Node} immediately after an {@link Element}
      *
      * @param n
-     *         the node
+     *     the node
      * @param el
-     *         the Element
+     *     the Element
      */
     public static void insertAfterMe(Node n, Element el) {
         Element par = (Element) el.getParentNode();
@@ -549,14 +551,14 @@ public class XMLUtilities {
      * output an XML DOM {@link Document}
      *
      * @param outStream
-     *         an OutputStream
+     *     an OutputStream
      * @param doc
-     *         a XML DOM document
+     *     a XML DOM document
      * @param indent
-     *         whether to indent the file
+     *     whether to indent the file
      */
     public static void outputXML(OutputStream outStream, Document doc,
-                                 boolean indent) {
+            boolean indent) {
         outputXML(outStream, doc.getDocumentElement(), indent);
     }
 
@@ -564,14 +566,14 @@ public class XMLUtilities {
      * output an XML DOM {@link Element}
      *
      * @param outStream
-     *         an {@link OutputStream}
+     *     an {@link OutputStream}
      * @param el
-     *         a XML DOM {@link Element}
+     *     a XML DOM {@link Element}
      * @param indent
-     *         whether to indent the output
+     *     whether to indent the output
      */
     public static void outputXML(OutputStream outStream, Element el,
-                                 boolean indent) {
+            boolean indent) {
         TransformerFactory stf = TransformerFactory.newInstance();
         Transformer transformer;
         try {
@@ -590,14 +592,14 @@ public class XMLUtilities {
      * parse XML document from {@link InputSource} to a DOM Document
      *
      * @param input
-     *         contains a document
+     *     contains a document
      * @return a DOM document
      * @throws ParserConfigurationException
-     *         on occasion
+     *     on occasion
      * @throws SAXException
-     *         on occasion
+     *     on occasion
      * @throws IOException
-     *         on occasion
+     *     on occasion
      */
     public static Document parseXML(InputSource input)
             throws ParserConfigurationException, SAXException, IOException {
@@ -612,14 +614,14 @@ public class XMLUtilities {
      * parse XML to DOM from {@link InputStream}
      *
      * @param input
-     *         some XML {@link InputStream}
+     *     some XML {@link InputStream}
      * @return DOM document
      * @throws ParserConfigurationException
-     *         in case of problems
+     *     in case of problems
      * @throws SAXException
-     *         in case of problems
+     *     in case of problems
      * @throws IOException
-     *         in case of problems
+     *     in case of problems
      */
     public static Document parseXML(InputStream input)
             throws ParserConfigurationException, SAXException, IOException {
@@ -630,14 +632,14 @@ public class XMLUtilities {
      * * parse XML to DOM from {@link File}
      *
      * @param input
-     *         XML {@link File}
+     *     XML {@link File}
      * @return DOM document
      * @throws ParserConfigurationException
-     *         in case of problems
+     *     in case of problems
      * @throws SAXException
-     *         in case of problems
+     *     in case of problems
      * @throws IOException
-     *         in case of problems
+     *     in case of problems
      */
     public static Document parseXML(File input)
             throws ParserConfigurationException, SAXException, IOException {
@@ -649,14 +651,14 @@ public class XMLUtilities {
      * * * parse XML to DOM from {@link Path}
      *
      * @param input
-     *         {@link Path} to XML file
+     *     {@link Path} to XML file
      * @return DOM document
      * @throws ParserConfigurationException
-     *         in case of problems
+     *     in case of problems
      * @throws SAXException
-     *         in case of problems
+     *     in case of problems
      * @throws IOException
-     *         in case of problems
+     *     in case of problems
      */
     public static Document parseXML(Path input)
             throws ParserConfigurationException, SAXException, IOException {
@@ -667,14 +669,14 @@ public class XMLUtilities {
      * * parse XML to DOM from {@link String}
      *
      * @param input
-     *         {@link String} containing XML
+     *     {@link String} containing XML
      * @return DOM {@link Document}
      * @throws ParserConfigurationException
-     *         in case of problems
+     *     in case of problems
      * @throws SAXException
-     *         in case of problems
+     *     in case of problems
      * @throws IOException
-     *         in case of problems
+     *     in case of problems
      */
     public static Document parseXML(String input)
             throws ParserConfigurationException, SAXException, IOException {
@@ -686,17 +688,16 @@ public class XMLUtilities {
      * {@link org.jdom2.Document}
      *
      * @param input
-     *         {@link InputSource} containing a document
+     *     {@link InputSource} containing a document
      * @return a JDOM {@link org.jdom2.Document}
      * @throws JDOMException
-     *         on occasion
+     *     on occasion
      * @throws IOException
-     *         on occasion
+     *     on occasion
      */
     public static org.jdom2.Document parseXMLviaJDOM(InputSource input)
             throws JDOMException, IOException {
-        org.jdom2.input.SAXBuilder saxBuilder =
-                new org.jdom2.input.SAXBuilder();
+        org.jdom2.input.SAXBuilder saxBuilder = new org.jdom2.input.SAXBuilder();
         return saxBuilder.build(input);
     }
 
@@ -704,12 +705,12 @@ public class XMLUtilities {
      * parse XML document from {@link InputStream} to {@link org.jdom2.Document}
      *
      * @param input
-     *         {@link InputStream} containing XML
+     *     {@link InputStream} containing XML
      * @return JDOM {@link org.jdom2.Document}
      * @throws JDOMException
-     *         in case of problems
+     *     in case of problems
      * @throws IOException
-     *         in case of problems
+     *     in case of problems
      */
     public static org.jdom2.Document parseXMLviaJDOM(InputStream input)
             throws JDOMException, IOException {
@@ -720,12 +721,12 @@ public class XMLUtilities {
      * parse XML document from {@link String} to JDOM {@link org.jdom2.Document}
      *
      * @param input
-     *         {@link File} containing XML
+     *     {@link File} containing XML
      * @return JDOM {@link org.jdom2.Document}
      * @throws JDOMException
-     *         in case of problems
+     *     in case of problems
      * @throws IOException
-     *         in case of problems
+     *     in case of problems
      */
     public static org.jdom2.Document parseXMLviaJDOM(File input)
             throws JDOMException, IOException {
@@ -737,12 +738,12 @@ public class XMLUtilities {
      * parse XML document from {@link Path} to JDOM {@link org.jdom2.Document}
      *
      * @param input
-     *         {@link Path} to XML document
+     *     {@link Path} to XML document
      * @return JDOM {@link org.jdom2.Document}
      * @throws JDOMException
-     *         in case of problems
+     *     in case of problems
      * @throws IOException
-     *         in case of problems
+     *     in case of problems
      */
     public static org.jdom2.Document parseXMLviaJDOM(Path input)
             throws JDOMException, IOException {
@@ -753,17 +754,16 @@ public class XMLUtilities {
      * parse XML document from {@link String} to JDOM {@link org.jdom2.Document}
      *
      * @param doc
-     *         {@link String} containing XML
+     *     {@link String} containing XML
      * @return JDOM {@link org.jdom2.Document}
      * @throws JDOMException
-     *         on occasion
+     *     on occasion
      * @throws IOException
-     *         on occasion
+     *     on occasion
      */
     public static org.jdom2.Document readJDOMFromString(String doc)
             throws JDOMException, IOException {
-        org.jdom2.input.SAXBuilder saxBuilder =
-                new org.jdom2.input.SAXBuilder();
+        org.jdom2.input.SAXBuilder saxBuilder = new org.jdom2.input.SAXBuilder();
         java.io.StringReader sr = new java.io.StringReader(doc);
         return saxBuilder.build(sr);
     }
@@ -772,7 +772,7 @@ public class XMLUtilities {
      * make a {@link org.jdom2.Content} list from XML text
      *
      * @param tx
-     *         the text
+     *     the text
      * @return the list of JDOM2 XML {@link org.jdom2.Content}
      */
     public static List<org.jdom2.Content> makeContentList(String tx) {
@@ -791,12 +791,12 @@ public class XMLUtilities {
      * Content list resulting from a parse of some text
      *
      * @param el
-     *         the XML DOM {@link org.jdom2.Element}
+     *     the XML DOM {@link org.jdom2.Element}
      * @param tx
-     *         the XML text to replace the content of el
+     *     the XML text to replace the content of el
      */
     public static void replaceContentWithParse(org.jdom2.Element el,
-                                               String tx) {
+            String tx) {
         el.removeContent();
         el.setContent(makeContentList(tx));
     }

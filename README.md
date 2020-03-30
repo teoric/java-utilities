@@ -10,7 +10,7 @@ Tools](https://github.com/Exmaralda-Org/teispeechtools)
 - [Anonymization for IPv4 and
   IPv6](src/main/java/org/korpora/useful/Anonymize.java)
 - [Processing language names and mapping to ‘canonical’ ISO 639
-  teminological letter
+  terminological letter
   triples](src/main/java/org/korpora/useful/LangUtilities.java)
   and [corresponding resources](src/main/resources), i.e. lists and
   mappings of language names.

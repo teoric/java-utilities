@@ -1,12 +1,13 @@
 package org.korpora.useful;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- * Make Iterable for NodeList
+ * An Iterable for NodeList
  */
 
 @SuppressWarnings("WeakerAccess")
@@ -15,10 +16,12 @@ public class NodeListIterable implements Iterable<Node> {
     private NodeList list;
 
     /**
-     * Make Iterable for NodeList
+     * Make an {@link Iterable} for NodeList
      *
-     * @param nodes NodeList
-     * @throws IllegalArgumentException in case of null NodeList
+     * @param nodes
+     *     NodeList
+     * @throws IllegalArgumentException
+     *     in case of null NodeList
      */
     public NodeListIterable(NodeList nodes) {
         if (nodes == null) {
@@ -39,7 +42,8 @@ public class NodeListIterable implements Iterable<Node> {
     /**
      * get i^th element of underlying NodeList
      *
-     * @param i 0-based index
+     * @param i
+     *     0-based index
      * @return i^th element
      */
     public Node get(int i) {
@@ -51,18 +55,27 @@ public class NodeListIterable implements Iterable<Node> {
         return new NodeListIterator();
     }
 
+    /**
+     * an iterator for NodeLists
+     *
+     * @author bfi
+     *
+     */
     public class NodeListIterator implements Iterator<Node> {
 
-        int pos = -1;
+        int position = -1;
 
         @Override
         public boolean hasNext() {
-            return (pos + 1 < list.getLength());
+            return (position + 1 < list.getLength());
         }
 
         @Override
         public Node next() {
-            return (pos++ < list.getLength()) ? list.item(pos) : null;
+            if (position++ < list.getLength())
+                return list.item(position);
+            else
+                throw new NoSuchElementException();
         }
 
     }

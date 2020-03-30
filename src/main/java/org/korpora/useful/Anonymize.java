@@ -3,16 +3,25 @@ package org.korpora.useful;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.Servlet;
 import javax.servlet.http.HttpServletRequest;
 
 /**
  * Anonymize IP v4 and v6 addresses
- * 
+ *
  * @author bfi
  *
  */
 @SuppressWarnings("WeakerAccess")
+/**
+ * utility functions for anonymizing IP addresses, v4 and v6
+ *
+ * @author bfi
+ *
+ */
 public class Anonymize {
+    private Anonymize() {
+    }
 
     private static final Pattern IP4_PATTERN = Pattern.compile("^(\\d+\\.){2}",
             Pattern.CASE_INSENSITIVE);
@@ -55,7 +64,7 @@ public class Anonymize {
      * {@link #anonymizeAddress(String)}
      *
      * @param request
-     *     a Servlet Request
+     *     a {@link Servlet} Request
      * @return the anonymized IP address
      */
     public static String anonymizeAddress(HttpServletRequest request) {
