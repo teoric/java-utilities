@@ -1,12 +1,6 @@
 package org.korpora.useful;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.StringReader;
-import java.io.StringWriter;
+import java.io.*;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -553,7 +547,7 @@ public class XMLUtilities {
      * @param outStream
      *     an OutputStream
      * @param doc
-     *     a XML DOM document
+     *     an XML DOM document
      * @param indent
      *     whether to indent the file
      */
@@ -563,12 +557,42 @@ public class XMLUtilities {
     }
 
     /**
+     * output an XML DOM {@link Document}
+     *
+     * @param path
+     *     path to write to
+     * @param doc
+     *     an XML DOM document
+     * @param indent
+     *     whether to indent the file
+     */
+    public static void outputXML(Path path, Document doc,
+                                 boolean indent) throws FileNotFoundException {
+        outputXML(path.toFile(), doc, indent);
+    }
+
+    /**
+     * output an XML DOM {@link Document}
+     *
+     * @param file
+     *     file to write to
+     * @param doc
+     *     an XML DOM document
+     * @param indent
+     *     whether to indent the file
+     */
+    public static void outputXML(File file, Document doc,
+                                 boolean indent) throws FileNotFoundException {
+        outputXML(new FileOutputStream(file), doc.getDocumentElement(), indent);
+    }
+
+    /**
      * output an XML DOM {@link Element}
      *
      * @param outStream
      *     an {@link OutputStream}
      * @param el
-     *     a XML DOM {@link Element}
+     *     an XML DOM {@link Element}
      * @param indent
      *     whether to indent the output
      */
@@ -608,6 +632,36 @@ public class XMLUtilities {
         DocumentBuilder builder;
         builder = factory.newDocumentBuilder();
         return builder.parse(input);
+    }
+
+    /**
+     * output an XML DOM {@link Element}
+     *
+     * @param path
+     *     path to write to
+     * @param element
+     *     an XML DOM element
+     * @param indent
+     *     whether to indent the file
+     */
+    public static void outputXML(Path path, Element element,
+                                 boolean indent) throws FileNotFoundException {
+        outputXML(path.toFile(), element, indent);
+    }
+
+    /**
+     * output an XML DOM {@link Element}
+     *
+     * @param file
+     *     file to write to
+     * @param element
+     *     an XML DOM element
+     * @param indent
+     *     whether to indent the file
+     */
+    public static void outputXML(File file, Element element,
+                                 boolean indent) throws FileNotFoundException {
+        outputXML(new FileOutputStream(file), element, indent);
     }
 
     /**
