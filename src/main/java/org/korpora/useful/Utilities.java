@@ -9,6 +9,13 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.time.chrono.ChronoLocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import java.util.*;
 import java.util.function.BinaryOperator;
 import java.util.function.IntBinaryOperator;
@@ -225,13 +232,9 @@ public class Utilities {
      * @return the time stamp
      */
     public static String getIsoTimeStamp() {
-        /*
-         * from  https://stackoverflow.com/questions/3914404
-         */
-        TimeZone timeZone = TimeZone.getTimeZone("UTC");
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-        dateFormat.setTimeZone(timeZone);
-        return dateFormat.format(new Date());
+        ZonedDateTime date = ZonedDateTime.now().truncatedTo(ChronoUnit.SECONDS);
+        return date.format(DateTimeFormatter.ISO_INSTANT);
     }
+
 
 }
