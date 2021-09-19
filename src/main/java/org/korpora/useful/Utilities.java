@@ -7,11 +7,9 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Spliterator;
-import java.util.Spliterators;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.function.BinaryOperator;
 import java.util.function.IntBinaryOperator;
 import java.util.regex.Matcher;
@@ -87,8 +85,7 @@ public class Utilities {
     /**
      * count Unicode “graphemes” in String
      *
-     * @param s
-     *     the string
+     * @param s the string
      * @return the count of graphemes
      */
     public static int countGraphemes(String s) {
@@ -106,8 +103,7 @@ public class Utilities {
      * since Java 11, use #{@link String}::strip. When sure that Unicode does
      * not matter, use #{@link String#trim()}.
      *
-     * @param s
-     *     an innocent String
+     * @param s an innocent String
      * @return the stripped s
      * @deprecated use #{@link StringUtils#strip(String)}
      */
@@ -124,8 +120,7 @@ public class Utilities {
     /**
      * Remove space from String – Unicode-aware.
      *
-     * @param s
-     *     an innocent String
+     * @param s an innocent String
      * @return the stripped s
      */
     public static String removeSpace(String s) {
@@ -138,8 +133,7 @@ public class Utilities {
     /**
      * Determine if String is non-empty, i.e., contains non-white-space content
      *
-     * @param s
-     *     an innocent string
+     * @param s an innocent string
      * @return whether s is empty (contains only space)
      */
     public static boolean isEmpty(String s) {
@@ -152,12 +146,9 @@ public class Utilities {
     /**
      * increase a counter in a Map
      *
-     * @param <T>
-     *     the type of the counted thing
-     * @param map
-     *     the map
-     * @param key
-     *     the counted thing
+     * @param <T> the type of the counted thing
+     * @param map the map
+     * @param key the counted thing
      */
     public static <T> void incCounter(Map<? super T, Integer> map, T key) {
         if (map.containsKey(key)) {
@@ -170,12 +161,9 @@ public class Utilities {
     /**
      * print lines to file
      *
-     * @param lines
-     *     a list of lines
-     * @param fileName
-     *     a file name
-     * @throws IOException
-     *     in case of problems
+     * @param lines    a list of lines
+     * @param fileName a file name
+     * @throws IOException in case of problems
      */
     public static void linesToFile(List<String> lines, String fileName)
             throws IOException {
@@ -185,12 +173,9 @@ public class Utilities {
     /**
      * print lines to file
      *
-     * @param lines
-     *     a list of lines
-     * @param path
-     *     a path
-     * @throws IOException
-     *     in case of problems
+     * @param lines a list of lines
+     * @param path  a path
+     * @throws IOException in case of problems
      */
     public static void linesToFile(List<String> lines, Path path)
             throws IOException {
@@ -200,19 +185,16 @@ public class Utilities {
     /**
      * print lines to file
      *
-     * @param lines
-     *     a list of lines
-     * @param file
-     *     a file
-     * @throws IOException
-     *     in case of problems
+     * @param lines a list of lines
+     * @param file  a file
+     * @throws IOException in case of problems
      */
     public static void linesToFile(List<String> lines, File file)
             throws IOException {
-        try (OutputStreamWriter fw = new OutputStreamWriter(
+        try (OutputStreamWriter outputStreamWriter = new OutputStreamWriter(
                 new FileOutputStream(file), StandardCharsets.UTF_8)) {
-            PrintWriter pw = new PrintWriter(fw);
-            lines.forEach(pw::println);
+            PrintWriter printWriter = new PrintWriter(outputStreamWriter);
+            lines.forEach(printWriter::println);
         }
 
     }
@@ -220,10 +202,8 @@ public class Utilities {
     /**
      * get a stream from an iterator
      *
-     * @param iterator
-     *     the iterator
-     * @param <T>
-     *     type of the elements
+     * @param iterator the iterator
+     * @param <T>      type of the elements
      * @return the stream
      */
     public static <T> Stream<T> getStream(Iterator<T> iterator) {
@@ -238,5 +218,20 @@ public class Utilities {
      * two convenience methods from
      * https://gist.github.com/sachin-handiekar/1346229
      */
+
+    /**
+     * get an ISO time stamp
+     *
+     * @return the time stamp
+     */
+    public static String getIsoTimeStamp() {
+        /*
+         * from  https://stackoverflow.com/questions/3914404
+         */
+        TimeZone timeZone = TimeZone.getTimeZone("UTC");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        dateFormat.setTimeZone(timeZone);
+        return dateFormat.format(new Date());
+    }
 
 }
