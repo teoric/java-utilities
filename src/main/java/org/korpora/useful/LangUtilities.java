@@ -44,12 +44,12 @@ public class LangUtilities {
 
     private static final Map<String, String> twoToThree;
     /**
-     * valid terminological ISO-639-2 three letter codes, including
+     * valid terminological ISO-639-2 three-letter codes, including
      * bibliographic variants
      */
     private static final Set<String> languageCodesThree = new HashSet<>();
     /**
-     * valid terminological ISO-639-1 two letter codes
+     * valid terminological ISO-639-1 two-letter codes
      */
     private static final Set<String> languageCodesTwo = new HashSet<>();
 
@@ -116,7 +116,7 @@ public class LangUtilities {
      * Can we map {@code lang} to a standardised ISO 639-1 triple?
      *
      * @param language
-     *     the language name / two or three letter code
+     *     the language name / two- or three-letter code
      * @return whether
      */
     public static boolean isLanguage(String language) {
@@ -128,7 +128,7 @@ public class LangUtilities {
      * Get the ISO-639 two- or three-letter code for a language
      *
      * @param language
-     *     the language name / two or three letter code
+     *     the language name / two- or three-letter code
      * @return the shortest letter code as an Optional
      */
     public static Optional<String> getLanguage(String language) {
@@ -140,7 +140,7 @@ public class LangUtilities {
      * Get the ISO-639 two- or three-letter code for a language
      *
      * @param language
-     *     the language name / two or three letter code
+     *     the language name / two- or three-letter code
      * @return the shortest letter code as string Optional
      */
     public static String getLanguageString(String language) {
@@ -152,7 +152,7 @@ public class LangUtilities {
      * Get the ISO-639 two- or three-letter code for a language
      *
      * @param lang
-     *     the language name / two or three letter code
+     *     the language name / two- or three-letter code
      * @param defaultL
      *     the default code to return if {@code lang} is no discernible language
      * @return the letter code, or the default
@@ -162,27 +162,27 @@ public class LangUtilities {
     }
 
     /**
-     * return three letter code if two letter code, else keep as is
+     * return three-letter code if {@code language} is two-letter code, else keep as is
      *
      * @param language
      *     a potential letter code
-     * @return three letter code, or original string
+     * @return three-letter code, or original string
      */
     public static String toThree(String language) {
         return twoToThree.getOrDefault(language, language);
     }
 
     /**
-     * Get the (terminological) three letter ISO-639-1 code for language,
+     * Get the (terminological) three-letter ISO-639-1 code for language,
      * potentially with locale rest
      *
      * @param language
-     *     the language name / two or three letter code
+     *     the language name / two or three-letter code
      * @param maxComponents
      *     the maximal number of language + locale components
      * @param forceThree
      *     whether to force three-letter language codes
-     * @return the three letter code as an Optional
+     * @return the three-letter code as an Optional
      */
     public static Optional<String> getLanguageLocale(String language,
             int maxComponents, boolean forceThree) {
@@ -202,14 +202,14 @@ public class LangUtilities {
     }
 
     /**
-     * Get the (terminological) three letter ISO-639-1 code for language,
+     * Get the (terminological) three-letter ISO-639-1 code for language,
      * potentially with locale rest
      *
      * @param language
-     *     the language name / two or three letter code
+     *     the language name / two- or three-letter code
      * @param forceThree
      *     whether to force three-letter language codes
-     * @return the three letter code as an Optional
+     * @return the three-letter code as an Optional
      */
     public static Optional<String> getLanguageLocale(String language,
             boolean forceThree) {
@@ -217,11 +217,11 @@ public class LangUtilities {
     }
 
     /**
-     * Get the (terminological) three letter ISO-639-1 code for language,
+     * Get the (terminological) three-letter ISO-639-1 code for language,
      * potentially with locale
      *
      * @param language
-     *     the language name / two or three letter code
+     *     the language name / two- or three-letter code
      * @param defaultL
      *     the default code to return if {@code language} is no discernible
      *     language
@@ -229,7 +229,7 @@ public class LangUtilities {
      *     the maximal number of language + locale components
      * @param forceThree
      *     whether to force three-letter language codes
-     * @return the three letter code, or the default
+     * @return the three-letter code, or the default
      */
     public static String getLanguageLocale(String language, String defaultL,
             int maxComponents, boolean forceThree) {
@@ -239,17 +239,17 @@ public class LangUtilities {
     }
 
     /**
-     * Get the (terminological) three letter ISO-639-1 code for language,
+     * Get the (terminological) three-letter ISO-639-1 code for language,
      * potentially with locale
      *
      * @param language
-     *     the language name / two or three letter code
+     *     the language name / two- or three-letter code
      * @param defaultL
      *     the default code to return if {@code language} is no discernible
      *     language
      * @param forceThree
      *     whether to force three-letter language codes
-     * @return the three letter code, or the default
+     * @return the three-letter code, or the default
      */
     public static String getLanguageLocale(String language, String defaultL,
             boolean forceThree) {
@@ -258,7 +258,7 @@ public class LangUtilities {
     }
 
     /**
-     * Is this an ISO 639-2 three letter code?
+     * Is this an ISO 639-2 three-letter code?
      *
      * @param language
      *     the language code
@@ -269,7 +269,7 @@ public class LangUtilities {
     }
 
     /**
-     * Is this a terminological ISO 639-2 three letter code (i.e. a key in
+     * Is this a terminological ISO 639-2 three-letter code (i.e. a key in
      * languageMap)?
      *
      * @param language
@@ -281,7 +281,7 @@ public class LangUtilities {
     }
 
     /**
-     * Is this an ISO 639-1 two letter code?
+     * Is this an ISO 639-1 two-letter code?
      *
      * @param language
      *     the language code

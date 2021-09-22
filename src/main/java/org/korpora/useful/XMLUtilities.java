@@ -565,6 +565,7 @@ public class XMLUtilities {
      *     an XML DOM document
      * @param indent
      *     whether to indent the file
+     * @throws FileNotFoundException if file cannot be used
      */
     public static void outputXML(Path path, Document doc,
                                  boolean indent) throws FileNotFoundException {
@@ -580,6 +581,7 @@ public class XMLUtilities {
      *     an XML DOM document
      * @param indent
      *     whether to indent the file
+     * @throws FileNotFoundException if file cannot be used
      */
     public static void outputXML(File file, Document doc,
                                  boolean indent) throws FileNotFoundException {
@@ -643,6 +645,7 @@ public class XMLUtilities {
      *     an XML DOM element
      * @param indent
      *     whether to indent the file
+     * @throws FileNotFoundException if file cannot be used
      */
     public static void outputXML(Path path, Element element,
                                  boolean indent) throws FileNotFoundException {
@@ -658,6 +661,7 @@ public class XMLUtilities {
      *     an XML DOM element
      * @param indent
      *     whether to indent the file
+     * @throws FileNotFoundException if file cannot be used
      */
     public static void outputXML(File file, Element element,
                                  boolean indent) throws FileNotFoundException {

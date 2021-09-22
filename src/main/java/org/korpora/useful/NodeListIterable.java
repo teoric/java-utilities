@@ -13,7 +13,7 @@ import org.w3c.dom.NodeList;
 @SuppressWarnings("WeakerAccess")
 public class NodeListIterable implements Iterable<Node> {
 
-    private NodeList list;
+    private final NodeList list;
 
     /**
      * Make an {@link Iterable} for NodeList
