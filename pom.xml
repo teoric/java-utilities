@@ -140,7 +140,6 @@
             <configuration>
               <failOnError>false</failOnError>
             </configuration>
-
           </execution>
         </executions>
         <configuration>
