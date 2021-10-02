@@ -138,6 +138,40 @@ public class Utilities {
     }
 
     /**
+     * replace white space by one bar – Unicode-aware.
+     *
+     * @param s an innocent String
+     * @param  bar the replacement for white space
+     * @return the processed s
+     */
+    public static String spaceBar(String s, String bar) {
+        if (s == null) {
+            throw new IllegalArgumentException();
+        }
+        return SPACE.matcher(s).replaceAll(bar);
+    }
+
+    /**
+     * replace white space by one "-" – Unicode-aware.
+     *
+     * @param s an innocent String
+     * @return the processed s
+     */
+    public static String spaceBar(String s) {
+        return spaceBar(s, "-");
+    }
+
+    /**
+     * replace white space by one "_" Unicode-aware.
+     *
+     * @param s an innocent String
+     * @return the processed s
+     */
+    public static String spaceScore(String s) {
+        return spaceBar(s, "_");
+    }
+
+    /**
      * Determine if String is non-empty, i.e., contains non-white-space content
      *
      * @param s an innocent string

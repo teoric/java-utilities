@@ -12,7 +12,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- plug-in settings -->
     <maven.compiler.source>8</maven.compiler.source>
-    <maven.compiler.target>8</maven.compiler.target>
+    <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
     <jackson.version>2.12.5</jackson.version>
     <dependency.locations.enabled>false</dependency.locations.enabled>
     <junit.subversion>8.0</junit.subversion>
@@ -140,8 +140,12 @@
             <configuration>
               <failOnError>false</failOnError>
             </configuration>
+
           </execution>
         </executions>
+        <configuration>
+          <source>${maven.compiler.source}</source>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
