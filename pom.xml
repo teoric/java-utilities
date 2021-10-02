@@ -11,11 +11,11 @@
     <!-- project settings -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- plug-in settings -->
-    <maven.compiler.source>8</maven.compiler.source>
+    <maven.compiler.source>16</maven.compiler.source>
     <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
     <jackson.version>2.12.5</jackson.version>
     <dependency.locations.enabled>false</dependency.locations.enabled>
-    <junit.subversion>8.0</junit.subversion>
+    <junit.subversion>8.1</junit.subversion>
     <junit.version>5.${junit.subversion}</junit.version>
     <junit.aux.version>1.${junit.subversion}</junit.aux.version>
   </properties>
@@ -123,6 +123,7 @@
           <!-- or whatever version you use -->
           <source>${maven.compiler.source}</source>
           <target>${maven.compiler.target}</target>
+          <release>${maven.compiler.target}</release>
           <showDeprecation>true</showDeprecation>
         </configuration>
       </plugin>
