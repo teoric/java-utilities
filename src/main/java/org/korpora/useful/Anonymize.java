@@ -3,8 +3,8 @@ package org.korpora.useful;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.servlet.Servlet;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.Servlet;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * Anonymize IP v4 and v6 addresses
