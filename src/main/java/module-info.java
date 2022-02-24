@@ -1,3 +1,6 @@
+/**
+ * this module contains utility functions, so make it open
+ */
 open module org.korpora.useful {
     requires java.xml;
     requires org.jdom2;
