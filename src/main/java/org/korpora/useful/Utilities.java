@@ -1,21 +1,13 @@
 package org.korpora.useful;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+import org.apache.commons.lang3.StringUtils;
+
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
-import java.time.chrono.ChronoLocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.*;
 import java.util.function.BinaryOperator;
 import java.util.function.IntBinaryOperator;
@@ -23,8 +15,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
-
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * Some collected utilities
