@@ -13,7 +13,7 @@
     <!-- plug-in settings -->
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
-    <jackson.version>2.13.3</jackson.version>
+    <jackson.version>2.13.4</jackson.version>
     <dependency.locations.enabled>false</dependency.locations.enabled>
     <junit.subversion>9.0</junit.subversion>
     <junit.version>5.${junit.subversion}</junit.version>
