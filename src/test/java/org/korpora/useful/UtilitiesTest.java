@@ -17,6 +17,7 @@ class UtilitiesTest {
                 () -> Utilities.stripSpace(null));
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     void testSpace() {
         assertEquals("_kaffee_", Utilities.spaceScore("  kaffee  "));
