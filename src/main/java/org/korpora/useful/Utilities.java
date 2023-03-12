@@ -260,5 +260,16 @@ public class Utilities {
         return date.format(DateTimeFormatter.ISO_INSTANT);
     }
 
+    /**
+     * @param command as for {@link ProcessBuilder()}
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public static void justRun(String ... command) throws IOException, InterruptedException {
+        int exitCode = new ProcessBuilder(command).start().waitFor();
+        if (exitCode != 0)
+            throw new InterruptedException(String.format("exit code %d", exitCode));
+
+    }
 
 }
