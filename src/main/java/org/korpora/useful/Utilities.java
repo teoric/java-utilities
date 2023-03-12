@@ -261,7 +261,8 @@ public class Utilities {
     }
 
     /**
-     * @param command as for {@link ProcessBuilder()}
+     * just run a command
+     * @param command as for {@link ProcessBuilder}
      * @throws IOException
      * @throws InterruptedException
      */
