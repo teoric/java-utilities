@@ -1,2 +1,6 @@
 /target/
-.idea
+/.idea
+/.classpath
+/.project
+/.settings/
+utilities.iml
