@@ -273,4 +273,19 @@ public class Utilities {
 
     }
 
+    /**
+     * run a command with output
+     * @param command as for {@link ProcessBuilder()}
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public static String runWithOutput(String ... command) throws IOException, InterruptedException {
+        Process process = new ProcessBuilder(command).start();
+        int exitCode = process.waitFor();
+        if (exitCode != 0)
+            throw new InterruptedException(String.format("exit code %d", exitCode));
+        byte[] outputBytes = process.getInputStream().readAllBytes();
+        return new String(outputBytes, StandardCharsets.UTF_8);
+    }
+
 }
