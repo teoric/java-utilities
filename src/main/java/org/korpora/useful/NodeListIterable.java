@@ -47,6 +47,10 @@ public class NodeListIterable implements Iterable<Node> {
         return (i < list.getLength()) ? list.item(i) : null;
     }
 
+    /**
+     * make a new node iterator
+     * @return the iterator
+     */
     @Override
     public Iterator<Node> iterator() {
         return new NodeListIterator();

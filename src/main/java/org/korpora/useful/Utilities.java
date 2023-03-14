@@ -22,13 +22,6 @@ import java.util.stream.StreamSupport;
  * @author Bernhard Fisseni (bernhard.fisseni@uni-due.de)
  */
 @SuppressWarnings("WeakerAccess")
-
-/**
- * some utility functions
- *
- * @author bfi
- *
- */
 public class Utilities {
     private Utilities() {
     }
@@ -57,7 +50,7 @@ public class Utilities {
      */
     public static final IntBinaryOperator intCollider = (u, v) -> {
         throw new IllegalStateException(
-                String.format("Duplicate key «%s»", Integer.toString(u)));
+                String.format("Duplicate key «%s»", u));
     };
     /**
      * for use in third place of
@@ -263,8 +256,8 @@ public class Utilities {
     /**
      * just run a command
      * @param command as for {@link ProcessBuilder}
-     * @throws IOException
-     * @throws InterruptedException
+     * @throws IOException in case of error
+     * @throws InterruptedException in case of error
      */
     public static void justRun(String ... command) throws IOException, InterruptedException {
         int exitCode = new ProcessBuilder(command).start().waitFor();
@@ -275,9 +268,10 @@ public class Utilities {
 
     /**
      * run a command with output
-     * @param command as for {@link ProcessBuilder()}
-     * @throws IOException
-     * @throws InterruptedException
+     * @param command as for {@link ProcessBuilder}
+     * @throws IOException in case of error
+     * @throws InterruptedException in case of error
+     * @return output of command
      */
     public static String runWithOutput(String ... command) throws IOException, InterruptedException {
         Process process = new ProcessBuilder(command).start();
