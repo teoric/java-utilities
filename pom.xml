@@ -13,7 +13,7 @@
     <!-- plug-in settings -->
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
-    <jackson.version>2.14.2</jackson.version>
+    <jackson.version>2.15.0</jackson.version>
     <dependency.locations.enabled>false</dependency.locations.enabled>
     <junit.subversion>9.2</junit.subversion>
     <junit.version>5.${junit.subversion}</junit.version>
@@ -72,7 +72,7 @@
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
-      <version>1.4.6</version>
+      <version>1.4.7</version>
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
