@@ -166,6 +166,37 @@ public class XMLUtilities {
     }
 
     /**
+     * convert XML DOM {@link Node} to {@link String} representation
+     *
+     * @param el
+     *     the XML element
+     * @param indent
+     *     whether to indent
+     * @param declaration
+     *     whether to output an XML declaration
+     * @return string representation
+     */
+    public static String nodeToString(Node el, boolean indent,
+                                      boolean declaration) {
+        TransformerFactory stf = TransformerFactory.newInstance();
+        Transformer transformer;
+        try {
+            transformer = stf.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT,
+                    indent ? "yes" : "no");
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION,
+                    declaration ? "no" : "yes");
+            DOMSource source = new DOMSource(el);
+            StringWriter outStream = new StringWriter();
+            StreamResult out = new StreamResult(outStream);
+            transformer.transform(source, out);
+            return outStream.toString();
+        } catch (TransformerException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
      * convert XML DOM {@link Element} to {@link String} representation
      *
      * @param el
@@ -177,25 +208,9 @@ public class XMLUtilities {
      * @return string representation
      */
     public static String elementToString(Element el, boolean indent,
-            boolean declaration) {
-        TransformerFactory stf = TransformerFactory.newInstance();
-        Transformer transformer;
-        try {
-            transformer = stf.newTransformer();
-            transformer.setOutputProperty(OutputKeys.INDENT,
-                    indent ? "yes" : "no");
-            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION,
-                    declaration ? "yes" : "no");
-            DOMSource source = new DOMSource(el);
-            StringWriter outStream = new StringWriter();
-            StreamResult out = new StreamResult(outStream);
-            transformer.transform(source, out);
-            return outStream.toString();
-        } catch (TransformerException e) {
-            throw new RuntimeException(e);
-        }
+                                         boolean declaration) {
+        return nodeToString(el, indent, declaration);
     }
-
     /**
      * convert XML DOM {@link Element} to {@link String} representation without
      * XML declaration
@@ -220,6 +235,31 @@ public class XMLUtilities {
      */
     public static String elementToString(Element el) {
         return elementToString(el, false, false);
+    }
+    /**
+     * convert XML DOM {@link Node} to {@link String} representation without
+     * XML declaration
+     *
+     * @param el
+     *     the XML element
+     * @param indent
+     *     whether to indent
+     * @return string representation
+     */
+    public static String nodeToString(Node el, boolean indent) {
+        return nodeToString(el, indent, false);
+    }
+
+    /**
+     * convert XML DOM {@link Node} to {@link String} representation without
+     * XML declaration and indentation
+     *
+     * @param el
+     *     the XML element
+     * @return string representation
+     */
+    public static String nodeToString(Node el) {
+        return nodeToString(el, false, false);
     }
 
     /**
