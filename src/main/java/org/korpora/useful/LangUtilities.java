@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -29,6 +30,7 @@ public class LangUtilities {
     private static final String LANGCODES_3_PATH = "language-codes-three-letters.txt";
     private static final String LANGCODES_2_PATH = "language-codes-two-letters.txt";
     private static final String LANGCODES_2_3_PATH = "language-list-639-1-to-639-2.json";
+    private static final String LANGCODES_NAMES_PATH = "language-list-639-1-to-639-2.json";
 
     /**
      * what separates language and country codes etc., "de-DE" (German in
@@ -52,6 +54,10 @@ public class LangUtilities {
      * valid terminological ISO-639-1 two-letter codes
      */
     private static final Set<String> languageCodesTwo = new HashSet<>();
+    /**
+     * map shortest code to language names
+     */
+    private static Map<String, Map<String, String>> languageCodesNames;
 
     /*
      * prepare variables
@@ -100,6 +106,20 @@ public class LangUtilities {
         }
     }
 
+    public static void setupNames (){
+        if (languageCodesNames != null)
+            return;
+        ObjectMapper mapper = new ObjectMapper();
+        try (InputStream str = LangUtilities.class.getClassLoader()
+                .getResourceAsStream(LANGCODES_NAMES_PATH)) {
+            assert str != null;
+            languageCodesNames = mapper.readValue(str,
+                    new TypeReference<Map<String, Map<String, String>>>() {
+                    });
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
     /**
      * split a potential language locale, keeping only the first part
      *
@@ -289,6 +309,12 @@ public class LangUtilities {
      */
     public static boolean isLanguageTuple(String language) {
         return languageCodesTwo.contains(language.toLowerCase());
+    }
+
+    public static String getName(String code, String inLanguage) {
+        setupNames();
+        String normalizedCode = getLanguage(code, "de");
+        return languageCodesNames.get(normalizedCode).get(inLanguage);
     }
 
 }
