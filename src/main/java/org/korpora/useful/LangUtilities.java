@@ -4,11 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
@@ -30,7 +26,7 @@ public class LangUtilities {
     private static final String LANGCODES_3_PATH = "language-codes-three-letters.txt";
     private static final String LANGCODES_2_PATH = "language-codes-two-letters.txt";
     private static final String LANGCODES_2_3_PATH = "language-list-639-1-to-639-2.json";
-    private static final String LANGCODES_NAMES_PATH = "language-list-639-1-to-639-2.json";
+    private static final String LANGCODES_NAMES_PATH = "language-list-639-1-and-639-2.json";
 
     /**
      * what separates language and country codes etc., "de-DE" (German in
@@ -57,7 +53,7 @@ public class LangUtilities {
     /**
      * map shortest code to language names
      */
-    private static Map<String, Map<String, String>> languageCodesNames;
+    private static Map<String, Map<String, String[]>> languageCodesNames;
 
     /*
      * prepare variables
@@ -114,7 +110,7 @@ public class LangUtilities {
                 .getResourceAsStream(LANGCODES_NAMES_PATH)) {
             assert str != null;
             languageCodesNames = mapper.readValue(str,
-                    new TypeReference<Map<String, Map<String, String>>>() {
+                    new TypeReference<Map<String, Map<String, String[]>>>() {
                     });
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
@@ -314,7 +310,7 @@ public class LangUtilities {
     public static String getName(String code, String inLanguage) {
         setupNames();
         String normalizedCode = getLanguage(code, "de");
-        return languageCodesNames.get(normalizedCode).get(inLanguage);
+        return languageCodesNames.get(normalizedCode).get(inLanguage)[0];
     }
 
 }
