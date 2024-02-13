@@ -15,7 +15,7 @@
     <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
     <jackson.version>2.16.1</jackson.version>
     <dependency.locations.enabled>false</dependency.locations.enabled>
-    <junit.subversion>10.1</junit.subversion>
+    <junit.subversion>10.2</junit.subversion>
     <junit.version>5.${junit.subversion}</junit.version>
     <junit.aux.version>1.${junit.subversion}</junit.aux.version>
   </properties>
