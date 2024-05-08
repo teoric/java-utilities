@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.korpora.useful</groupId>
   <artifactId>utilities</artifactId>
-  <version>0.9.0</version>
+  <version>0.9.1</version>
   <name>Utilities</name>
   <description>Utilities for Korpora.org-Projects</description>
   <properties>
@@ -13,7 +13,7 @@
     <!-- plug-in settings -->
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
-    <jackson.version>2.16.1</jackson.version>
+    <jackson.version>2.17.1</jackson.version>
     <dependency.locations.enabled>false</dependency.locations.enabled>
     <junit.subversion>10.2</junit.subversion>
     <junit.version>5.${junit.subversion}</junit.version>
@@ -72,7 +72,7 @@
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
-      <version>1.4.14</version>
+      <version>1.5.6</version>
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
